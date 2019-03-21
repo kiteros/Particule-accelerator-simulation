@@ -16,7 +16,7 @@ int main(){
                 10.2, 2);
 
     cout << "premier element : " << ligne << endl;
-    cout << "deuxieme element : " << elem << endl;
+    cout << "deuxieme element test: " << elem << endl;
 
 
     return 0;
