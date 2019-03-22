@@ -16,7 +16,7 @@ class Accelerateur
     public:
 
         Accelerateur();
-        Accelerateur(vector<Element>, vector<Particle>);
+        Accelerateur(vector<Element*>, vector<Particle*>);
   
         Accelerateur(Accelerateur const &) = delete ;
         Accelerateur operator=(Accelerateur const &) = delete;
@@ -24,10 +24,10 @@ class Accelerateur
         ~Accelerateur();
 
 
-        void add_element(Element);
+        void add_element(Element*);
         void remove_all_element();
 
-        void add_particles(Particle);
+        void add_particles(Particle*);
         void remove_all_particle();
 
         void evolue();
