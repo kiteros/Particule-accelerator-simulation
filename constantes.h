@@ -11,6 +11,7 @@ class constantes
         static const Vecteur3D e3;
         static const Vecteur3D e1;
         static const Vecteur3D e2;
+        static int current_index;
 
 };
 

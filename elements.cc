@@ -1,5 +1,7 @@
 #include "elements.h"
 #include "vecteur3D.h"
+#include <math.h>
+#include "constantes.h"
 
 //First constructor
 Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon)
@@ -9,12 +11,25 @@ Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon)
     this->out_pos = out_pos;
     this->rayon = rayon;
 
+    //Attribuer un index +1 que le precedent
+
+    this->index = constantes.current_index + 1;
+    constantes.current_index += 1;
+
 }
 
 Element_courbe::Element_courbe(Vecteur3D in_pos,
                                Vecteur3D out_pos, double rayon,
                                double rayon_courbure):Element(in_pos, out_pos, rayon){
     this->rayon_courbure = rayon_courbure;
+}
+
+Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
+               double rayon_courbure,
+               double champ_magnetique):Element_courbe(in_pos, out_pos, rayon, rayon_courbure){
+
+    this->champ_magnetique = champ_magnetique;
+
 }
 
 Element_droit::Element_droit(Vecteur3D in_pos, Vecteur3D out_pos,

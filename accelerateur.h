@@ -1,19 +1,28 @@
 #ifndef ACCELERATEUR_H
 #define ACCELERATEUR_H
-#include "particle.h"
+
 #include "elements.h"
+#include "particle.h"
 #include <vector>
+
 
 class Accelerateur
 {
-private:
-    vector<Particle> particles;
-    //vector<Elements> elements;
-public:
-    Accelerateur(){
-        particles = vector<Particle>();
-        //elements = vector<Elements>();
-    }
+    private:
+        //On met un array dynamique pour tout les elements
+        vector<Element> elements;
+        vector<Particle> particules;
+
+    public:
+
+        Accelerateur();
+        Accelerateur(vector<Element>, vector<Particle>);
+
+        void add_element(Element);
+        void remove_element(Element);
+
+        void add_particles(Particle);
+        void remove_particle(Particle);
 
 };
 

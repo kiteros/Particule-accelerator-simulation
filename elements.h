@@ -11,6 +11,7 @@ class Element
         Vecteur3D in_pos;
         Vecteur3D out_pos;
         double rayon;
+        int index;
 
     public:
         Element(Vecteur3D, Vecteur3D, double);
@@ -39,6 +40,13 @@ class Element_courbe : public Element
         double get_courbure();
 };
 
+class Dipole : public Element_courbe
+{
+    protected:
+        double champ_magnetique;
+    public:
+        Dipole(Vecteur3D, Vecteur3D, double, double, double);
+};
 
 ostream& operator<<(ostream&, Element_droit);
 ostream& operator<<(ostream&, Element_courbe);
