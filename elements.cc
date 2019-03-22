@@ -82,6 +82,3 @@ double Element_courbe::get_courbure(){
     return rayon_courbure;
 }
 
-int Element::get_index(){
-    return this->index;
-}
