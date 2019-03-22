@@ -50,6 +50,14 @@ ostream& operator<<(ostream& os, Element_courbe el)
     return os;
 }
 
+//surcharge << afficher dipole
+ostream& operator<<(ostream& os, Dipole el)
+{
+    os << (Element_courbe)el;
+    os << "champ magnetique :" << el.get_courbure();
+    return os;
+}
+
 bool Element_droit::touch_border(Particle p){
     //Check si la particule touche the bord
     Vecteur3D big_X = p.getPosition() - in_pos;

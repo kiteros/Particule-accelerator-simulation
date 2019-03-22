@@ -18,7 +18,6 @@ class Element
         Vecteur3D get_out();
         double get_size();
         int get_index();
-
 };
 
 class Element_droit : public Element
@@ -46,9 +45,10 @@ class Dipole : public Element_courbe
         double champ_magnetique;
     public:
         Dipole(Vecteur3D, Vecteur3D, double, double, double);
+        double get_courbure(){return champ_magnetique;}
 };
 
 ostream& operator<<(ostream&, Element_droit);
 ostream& operator<<(ostream&, Element_courbe);
-
+ostream& operator<<(ostream&, Dipole);
 #endif // ELEMENTS_H
