@@ -10,19 +10,22 @@ class Accelerateur
 {
     private:
         //On met un array dynamique pour tout les elements
-        vector<Element> elements;
-        vector<Particle> particules;
+        vector<Element*> elements;
+        vector<Particle*> particules;
 
     public:
 
         Accelerateur();
         Accelerateur(vector<Element>, vector<Particle>);
+        ~Accelerateur();
 
         void add_element(Element);
-        void remove_element(Element);
+        void remove_all_element();
 
         void add_particles(Particle);
-        void remove_particle(Particle);
+        void remove_all_particle();
+
+        void evolue();
 
 };
 

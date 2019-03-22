@@ -11,13 +11,13 @@ class Element
         Vecteur3D in_pos;
         Vecteur3D out_pos;
         double rayon;
-        int index;
 
     public:
         Element(Vecteur3D, Vecteur3D, double);
         Vecteur3D get_in();
         Vecteur3D get_out();
         double get_size();
+        int get_index();
 
 };
 
