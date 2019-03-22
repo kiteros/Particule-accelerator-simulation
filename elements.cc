@@ -11,11 +11,6 @@ Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon)
     this->out_pos = out_pos;
     this->rayon = rayon;
 
-    //Attribuer un index +1 que le precedent
-
-    this->index = constantes.current_index + 1;
-    constantes.current_index += 1;
-
 }
 
 Element_courbe::Element_courbe(Vecteur3D in_pos,
@@ -85,4 +80,8 @@ double Element::get_size(){
 
 double Element_courbe::get_courbure(){
     return rayon_courbure;
+}
+
+int Element::get_index(){
+    return this->index;
 }

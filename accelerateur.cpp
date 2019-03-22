@@ -9,6 +9,11 @@ Accelerateur::Accelerateur()
 
 }
 
+Accelerateur::~Accelerateur(){
+    remove_all_element();
+    remove_all_particle();
+}
+
 Accelerateur::Accelerateur(vector<Element> el, vector<Particle> par){
     this->elements = el;
     this->particules = par;
@@ -18,7 +23,26 @@ Accelerateur::add_element(Element el){
     this->elements.push_back(el);
 }
 
-Accelerateur::remove_element(Element el){
+Accelerateur::remove_all_element(){
     //Parcourir avec le element
-    //for(int i = 0; i < this->elements.size())
+    for(auto ele: elements){
+        delete ele;
+    }
+    elements.clear();
+}
+
+Accelerateur::add_particles(Particle p){
+    this->particules.push_back(p);
+}
+
+Accelerateur::remove_all_particle(){
+    //Parcourir avec le element
+    for(auto p: particules){
+        delete p;
+    }
+    particules.clear();
+}
+
+void Accelerateur::evolue(){
+
 }
