@@ -2,7 +2,8 @@ HEADERS += \
     vecteur3D.h \
     particle.h \
     constantes.h \
-    elements.h
+    elements.h \
+    accelerateur.h
 
 SOURCES += \
     testVecteur3D.cc \
@@ -11,7 +12,8 @@ SOURCES += \
     testParticle.cc \
     constantes.cc \
     elements.cc \
-    testElements.cc
+    testElements.cc \
+    accelerateur.cpp
 
 DISTFILES += \
     Makefile
