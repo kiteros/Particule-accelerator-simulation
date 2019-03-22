@@ -2,6 +2,7 @@
 #include "particle.h"
 #include "elements.h"
 #include <vector>
+#include <iostream>
 
 Accelerateur::Accelerateur()
 {
@@ -45,4 +46,17 @@ void Accelerateur::remove_all_particle(){
 
 void Accelerateur::evolue(){
 
+}
+
+std::ostream& operator<<(ostream& os, Accelerateur a)
+{
+    os << "L'accélérateur est constitué des éléments suivant :";
+      for(auto ele:a.getElements()){
+        os << &ele;
+      }
+    os << "L'accélérateur contient les particules suivantes :";
+      for(auto ele:a.getPartcules()){
+        os << &ele;
+      }
+    return os;
 }

@@ -13,7 +13,8 @@ SOURCES += \
     constantes.cc \
     elements.cc \
     testElements.cc \
-    accelerateur.cpp
+    accelerateur.cpp \
+    testAccelerateur.cc
 
 DISTFILES += \
     Makefile

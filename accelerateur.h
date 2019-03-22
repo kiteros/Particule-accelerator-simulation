@@ -4,7 +4,8 @@
 #include "elements.h"
 #include "particle.h"
 #include <vector>
-
+#include <iostream>
+using namespace std;
 
 class Accelerateur
 {
@@ -14,11 +15,12 @@ class Accelerateur
         vector<Particle*> particules;
 
     public:
-
+        vector<Element*> getElements() {return elements;}
+        vector<Particle*> getPartcules() {return particules;}
         Accelerateur();
         Accelerateur(vector<Element*>, vector<Particle*>);
   
-        Accelerateur(Accelerateur const &) = delete ;
+        //Accelerateur(Accelerateur const &) = delete ;
         Accelerateur operator=(Accelerateur const &) = delete;
 
         ~Accelerateur();
@@ -34,4 +36,5 @@ class Accelerateur
 
 };
 
+ostream& operator<<(ostream& os, Accelerateur a);
 #endif // ACCELERATEUR_H
