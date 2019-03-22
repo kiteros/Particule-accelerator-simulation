@@ -6,15 +6,15 @@ HEADERS += \
     accelerateur.h
 
 SOURCES += \
-    testVecteur3D.cc \
     vecteur3D.cc \
     particle.cc \
-    testParticle.cc \
     constantes.cc \
     elements.cc \
-    testElements.cc \
     accelerateur.cpp \
-    testAccelerateur.cc
+    testAccelerateur.cc \
+    accelerateur.cc \
+    testElements.cc \
+    testVecteur3D.cc
 
 DISTFILES += \
     Makefile

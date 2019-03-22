@@ -1,4 +1,5 @@
 #include "particle.h"
+#include "vecteur3D.h"
 #include <iostream>
 using namespace std;
 

@@ -6,7 +6,6 @@
 //First constructor
 Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon)
 {
-
     this->in_pos = in_pos;
     this->out_pos = out_pos;
     this->rayon = rayon;
@@ -17,6 +16,7 @@ Element_courbe::Element_courbe(Vecteur3D in_pos,
                                Vecteur3D out_pos, double rayon,
                                double rayon_courbure):Element(in_pos, out_pos, rayon){
     this->rayon_courbure = rayon_courbure;
+    type = courbe;
 }
 
 Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
@@ -24,12 +24,19 @@ Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
                double champ_magnetique):Element_courbe(in_pos, out_pos, rayon, rayon_courbure){
 
     this->champ_magnetique = champ_magnetique;
-
+    type = dipole;
 }
 
 Element_droit::Element_droit(Vecteur3D in_pos, Vecteur3D out_pos,
                              double rayon):Element(in_pos, out_pos, rayon)
-{}
+{ type = droit; }
+
+ostream& operator<<(ostream& os, Element el){
+    os << "debut : " << el.get_in()
+       << " fin : " << el.get_out()
+       << " size : " << el.get_size() << endl;
+    return os;
+}
 
 //surcharge << afficher l'element
 ostream& operator<<(ostream& os, Element_droit el)
@@ -53,8 +60,11 @@ ostream& operator<<(ostream& os, Element_courbe el)
 //surcharge << afficher dipole
 ostream& operator<<(ostream& os, Dipole el)
 {
-    os << (Element_courbe)el;
-    os << "champ magnetique :" << el.get_courbure();
+    os << "debut : " << el.get_in()
+       << " fin : " << el.get_out()
+       << " size : " << el.get_size()
+       << "courbure : " << el.get_courbure() << endl;
+    os << "champ magnetique :" << el.get_champ_magnetique();
     return os;
 }
 

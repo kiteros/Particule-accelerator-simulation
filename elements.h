@@ -5,12 +5,15 @@
 #include "vecteur3D.h"
 #include <iostream>
 
+enum TypeElement { droit, courbe, dipole };
+
 class Element
 {
     protected:
         Vecteur3D in_pos;
         Vecteur3D out_pos;
         double rayon;
+        TypeElement type;
 
     public:
         Element(Vecteur3D, Vecteur3D, double);
@@ -18,6 +21,7 @@ class Element
         Vecteur3D get_out();
         double get_size();
         int get_index();
+        TypeElement get_type() {return type;}
 };
 
 class Element_droit : public Element
@@ -45,9 +49,9 @@ class Dipole : public Element_courbe
         double champ_magnetique;
     public:
         Dipole(Vecteur3D, Vecteur3D, double, double, double);
-        double get_courbure(){return champ_magnetique;}
+        double get_champ_magnetique(){return champ_magnetique;}
 };
-
+ostream& operator<<(ostream&, Element);
 ostream& operator<<(ostream&, Element_droit);
 ostream& operator<<(ostream&, Element_courbe);
 ostream& operator<<(ostream&, Dipole);
