@@ -17,6 +17,8 @@ class Accelerateur
 
         Accelerateur();
         Accelerateur(vector<Element>, vector<Particle>);
+        Accelerateur(Accelerateur const &) = delete ;
+        Accelerateur operator=(Accelerateur const &) = delete;
 
         void add_element(Element);
         void remove_element(Element);
