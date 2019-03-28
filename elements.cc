@@ -4,29 +4,30 @@
 #include "constantes.h"
 
 //First constructor
-Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon)
+Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,Element* s)
 {
     this->in_pos = in_pos;
     this->out_pos = out_pos;
     this->rayon = rayon;
+    this->element_suivant = s;
 
 }
 
 Element_courbe::Element_courbe(Vecteur3D in_pos,
                                Vecteur3D out_pos, double rayon,
-                               double rayon_courbure):Element(in_pos, out_pos, rayon){
+                               double rayon_courbure,Element* s):Element(in_pos, out_pos, rayon,s){
     this->rayon_courbure = rayon_courbure;
 }
 
 Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
                double rayon_courbure,
-               double champ_magnetique):Element_courbe(in_pos, out_pos, rayon, rayon_courbure){
+               double champ_magnetique,Element* s):Element_courbe(in_pos, out_pos, rayon, rayon_courbure,s){
 
     this->champ_magnetique = champ_magnetique;
 }
 
 Element_droit::Element_droit(Vecteur3D in_pos, Vecteur3D out_pos,
-                             double rayon):Element(in_pos, out_pos, rayon)
+                             double rayon,Element* s):Element(in_pos, out_pos, rayon,s)
 {}
 
 
