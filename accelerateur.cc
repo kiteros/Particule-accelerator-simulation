@@ -1,21 +1,24 @@
 #include "accelerateur.h"
 #include "particle.h"
 #include "elements.h"
+#include "textViewer.h"
 #include <vector>
 #include <iostream>
 
-Accelerateur::Accelerateur()
+/*Accelerateur::Accelerateur():Dessinable (nullptr)
 {
     elements = vector<Element*>();
     particules = vector<Particle*>();
-}
+}*/
+
+Accelerateur::Accelerateur(SupportADessin* support):Dessinable (support) {}
 
 Accelerateur::~Accelerateur(){
     remove_all_element();
     remove_all_particle();
 }
 
-Accelerateur::Accelerateur(vector<Element*> el, vector<Particle*> par){
+Accelerateur::Accelerateur(vector<Element*> el, vector<Particle*> par,SupportADessin* support):Dessinable (support){
     this->elements = el;
     this->particules = par;
 }
@@ -47,18 +50,23 @@ void Accelerateur::remove_all_particle(){
 void Accelerateur::evolue(){
 
 }
-
-std::ostream& operator<<(ostream& os, Accelerateur a)
-{
+void Accelerateur::affiche(ostream & os) const{
     os << "L'accélérateur est constitué des éléments suivant :"<<endl;
-    for(auto ele:a.getElements()){
+    for(auto ele:elements){
        os<<"***********************"<<endl;
-       os << *(ele)<<endl;
+       ele->dessine();
+       //os << *(ele)<<endl;
     }
     os << "L'accélérateur contient les particules suivantes :"<<endl;
-      for(auto ele:a.getPartcules()){
+      for(auto ele:particules){
         os<<"***********************"<<endl;
         os << *ele<<endl;
       }
+    return ;
+}
+
+std::ostream& operator<<(ostream& os, Accelerateur const & a)
+{
+    a.affiche(os);
     return os;
 }

@@ -4,7 +4,7 @@
 #include "constantes.h"
 
 //First constructor
-Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,Element* s)
+Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,SupportADessin* support,Element* s):Dessinable (support)
 {
     this->in_pos = in_pos;
     this->out_pos = out_pos;
@@ -15,19 +15,19 @@ Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,Element* s)
 
 Element_courbe::Element_courbe(Vecteur3D in_pos,
                                Vecteur3D out_pos, double rayon,
-                               double rayon_courbure,Element* s):Element(in_pos, out_pos, rayon,s){
+                               double rayon_courbure,SupportADessin* support,Element* s):Element(in_pos, out_pos, rayon,support,s){
     this->rayon_courbure = rayon_courbure;
 }
 
 Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
                double rayon_courbure,
-               double champ_magnetique,Element* s):Element_courbe(in_pos, out_pos, rayon, rayon_courbure,s){
+               double champ_magnetique,SupportADessin* support,Element* s):Element_courbe(in_pos, out_pos, rayon, rayon_courbure,support,s){
 
     this->champ_magnetique = champ_magnetique;
 }
 
 Element_droit::Element_droit(Vecteur3D in_pos, Vecteur3D out_pos,
-                             double rayon,Element* s):Element(in_pos, out_pos, rayon,s)
+                             double rayon,SupportADessin* support,Element* s):Element(in_pos, out_pos, rayon,support,s)
 {}
 
 
@@ -77,27 +77,27 @@ double Element_courbe::get_courbure(){
 
 //virtual functions affiche
 
-void Element::affiche(ostream& f){
+void Element::affiche(ostream& f)const{
         f<<"in position: "<<in_pos<<endl
         <<"out position: "<<out_pos<<endl
         <<"rayon: "<<rayon<<endl;
         return;
 }
 
-void Element_droit::affiche(ostream & f){
+void Element_droit::affiche(ostream & f)const{
     Element::affiche(f);
     return;
 }
 
-void Element_courbe::affiche(ostream & f){
+void Element_courbe::affiche(ostream & f)const{
     Element::affiche(f);
-    f<<"rayon_courbure: "<<rayon_courbure;
+    f<<"rayon_courbure: "<<rayon_courbure<<endl;
     return;
 }
 
-void Dipole::affiche(ostream &f){
+void Dipole::affiche(ostream &f)const{
     Element_courbe::affiche(f);
-    f<<"champ_magnetique: "<<champ_magnetique;
+    f<<"champ_magnetique: "<<champ_magnetique<<endl;
     return;
 }
 

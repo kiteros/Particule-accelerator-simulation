@@ -1,13 +1,13 @@
 #ifndef ACCELERATEUR_H
 #define ACCELERATEUR_H
-
+#include "dessinable.h"
 #include "elements.h"
 #include "particle.h"
 #include <vector>
 #include <iostream>
 using namespace std;
 
-class Accelerateur
+class Accelerateur: Dessinable
 {
     private:
         //On met un array dynamique pour tout les elements
@@ -15,10 +15,11 @@ class Accelerateur
         vector<Particle*> particules;
 
     public:
-        vector<Element*> getElements() {return elements;}
-        vector<Particle*> getPartcules() {return particules;}
-        Accelerateur();
-        Accelerateur(vector<Element*>, vector<Particle*>);
+        vector<Element*> getElements()const {return elements;}
+        vector<Particle*> getPartcules()const {return particules;}
+        //Accelerateur(); //A supprimer? doit avoir au mois un supportadessin pour initialiser
+        Accelerateur(SupportADessin*);
+        Accelerateur(vector<Element*>, vector<Particle*>,SupportADessin*);
   
         //Accelerateur(Accelerateur const &) = delete ;
         Accelerateur operator=(Accelerateur const &) = delete;
@@ -33,8 +34,11 @@ class Accelerateur
         void remove_all_particle();
 
         void evolue();
+        virtual void affiche(ostream&) const;
+        virtual void dessine() override
+        { support->dessine(*this); }
 
 };
 
-ostream& operator<<(ostream& os, Accelerateur a);
+ostream& operator<<(ostream& os, Accelerateur const &a);
 #endif // ACCELERATEUR_H
