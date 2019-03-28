@@ -7,7 +7,8 @@
 
 
 
-class Element: public Dessinable
+class Element : public Dessinable
+
 {
     protected:
         Vecteur3D in_pos;

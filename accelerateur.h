@@ -3,6 +3,7 @@
 #include "dessinable.h"
 #include "elements.h"
 #include "particle.h"
+#include "dessinable.h"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -15,6 +16,7 @@ class Accelerateur: Dessinable
         vector<Particle*> particules;
 
     public:
+
         vector<Element*> getElements()const {return elements;}
         vector<Particle*> getPartcules()const {return particules;}
         //Accelerateur(); //A supprimer? doit avoir au mois un supportadessin pour initialiser

@@ -1,5 +1,6 @@
 #ifndef DESSINABLE_H
 #define DESSINABLE_H
+
 #include "supportadessin.h"
 
 class Dessinable

@@ -17,11 +17,11 @@ SOURCES += \
     testAccelerateur.cc \
     accelerateur.cc \
     testElements.cc \
+    ex9.cc
     dessinable.cc \
     testParticle.cc \
     supportadessin.cc \
     textViewer.cc \
-    testVecteur3D.cc
 
 DISTFILES += \
     Makefile

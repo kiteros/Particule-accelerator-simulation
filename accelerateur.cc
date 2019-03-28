@@ -50,7 +50,9 @@ void Accelerateur::remove_all_particle(){
 void Accelerateur::evolue(){
 
 }
+
 void Accelerateur::affiche(ostream & os) const{
+
     os << "L'accélérateur est constitué des éléments suivant :"<<endl;
     for(auto ele:elements){
        os<<"***********************"<<endl;
@@ -58,6 +60,7 @@ void Accelerateur::affiche(ostream & os) const{
        //os << *(ele)<<endl;
     }
     os << "L'accélérateur contient les particules suivantes :"<<endl;
+
       for(auto ele:particules){
         os<<"***********************"<<endl;
         os << *ele<<endl;
