@@ -4,20 +4,24 @@ HEADERS += \
     constantes.h \
     elements.h \
     accelerateur.h \
-    dessinable.h
+    dessinable.h \
+    supportadessin.h \
+    textViewer.h
 
 SOURCES += \
     vecteur3D.cc \
     particle.cc \
     constantes.cc \
     elements.cc \
-    accelerateur.cpp \
+    accelerateur.cc \
     testAccelerateur.cc \
     accelerateur.cc \
     testElements.cc \
-    testVecteur3D.cc \
-    dessinable.cc \
     ex9.cc
+    dessinable.cc \
+    testParticle.cc \
+    supportadessin.cc \
+    textViewer.cc \
 
 DISTFILES += \
     Makefile
