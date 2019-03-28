@@ -3,11 +3,12 @@
 
 #include "elements.h"
 #include "particle.h"
+#include "dessinable.h"
 #include <vector>
 #include <iostream>
 using namespace std;
 
-class Accelerateur
+class Accelerateur : public Dessinable
 {
     private:
         //On met un array dynamique pour tout les elements
@@ -16,7 +17,7 @@ class Accelerateur
 
     public:
         vector<Element*> getElements() {return elements;}
-        vector<Particle*> getPartcules() {return particules;}
+        vector<Particle*> getParticules() {return particules;}
         Accelerateur();
         Accelerateur(vector<Element*>, vector<Particle*>);
   

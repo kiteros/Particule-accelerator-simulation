@@ -1,10 +1,15 @@
 #ifndef DESSINABLE_H
 #define DESSINABLE_H
 #include "accelerateur.h"
+
 class SupportADessin
 {
  public:
-  virtual void dessine(Accelerateur const&) = 0;
+    virtual void dessine(Accelerateur const&) = 0;
+    virtual void dessine(Element const&) = 0;
+    virtual void dessine(Accelerateur const&) = 0;
+    virtual void dessine(Accelerateur const&) = 0;
+    virtual void dessine(Accelerateur const&) = 0;
   // ... toute autre chose que vous voudriez dessiner...
 
   /* (AVANCÉ) A ajouter si l'UN de vos SupportADessin

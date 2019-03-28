@@ -48,6 +48,18 @@ void Accelerateur::evolue(){
 
 }
 
+void Accelerateur::dessine(){
+    //Draw all the elements inside the accelerator
+    for(auto ele:this->getElements()){
+        *ele->dessine();
+    }
+
+    //Draw all particles inside
+    for(auto ele:this->getParticules()){
+        *ele->dessine();
+    }
+}
+
 std::ostream& operator<<(ostream& os, Accelerateur a)
 {
     os << "L'accélérateur est constitué des éléments suivant :"<<endl;
@@ -56,7 +68,7 @@ std::ostream& operator<<(ostream& os, Accelerateur a)
        os << *(ele)<<endl;
     }
     os << "L'accélérateur contient les particules suivantes :"<<endl;
-      for(auto ele:a.getPartcules()){
+      for(auto ele:a.getParticules()){
         os<<"***********************"<<endl;
         os << *ele<<endl;
       }

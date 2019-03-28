@@ -16,7 +16,8 @@ SOURCES += \
     accelerateur.cc \
     testElements.cc \
     testVecteur3D.cc \
-    dessinable.cc
+    dessinable.cc \
+    ex9.cc
 
 DISTFILES += \
     Makefile
