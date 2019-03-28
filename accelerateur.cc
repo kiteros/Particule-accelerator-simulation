@@ -50,24 +50,15 @@ void Accelerateur::evolue(){
 
 std::ostream& operator<<(ostream& os, Accelerateur a)
 {
-    os << "L'accélérateur est constitué des éléments suivant :";
+    os << "L'accélérateur est constitué des éléments suivant :"<<endl;
     for(auto ele:a.getElements()){
-        switch (ele->get_type()) {
-            case droit:
-                os << *(static_cast<Element_droit*>(ele));
-                break;
-            case courbe:
-                os << *(static_cast<Element_courbe*>(ele));
-                break;
-           case dipole:
-                os << *(static_cast<Dipole*>(ele));
-                break;
-        }
-        ;
+       os<<"***********************"<<endl;
+       os << *(ele)<<endl;
     }
-    os << "L'accélérateur contient les particules suivantes :";
+    os << "L'accélérateur contient les particules suivantes :"<<endl;
       for(auto ele:a.getPartcules()){
-        os << *ele;
+        os<<"***********************"<<endl;
+        os << *ele<<endl;
       }
     return os;
 }

@@ -23,7 +23,7 @@ class Particle
         Vecteur3D speed = Vecteur3D();
 
     public:
-        Vecteur3D getPosition();
+        Vecteur3D getPosition() const;
         Vecteur3D getSpeed();
         double getMass();
         double getElectricCharge();

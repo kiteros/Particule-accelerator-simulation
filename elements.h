@@ -5,7 +5,7 @@
 #include "vecteur3D.h"
 #include <iostream>
 
-enum TypeElement { droit, courbe, dipole };
+
 
 class Element
 {
@@ -13,7 +13,6 @@ class Element
         Vecteur3D in_pos;
         Vecteur3D out_pos;
         double rayon;
-        TypeElement type;
 
     public:
         Element(Vecteur3D, Vecteur3D, double);
@@ -21,15 +20,16 @@ class Element
         Vecteur3D get_out();
         double get_size();
         int get_index();
-        TypeElement get_type() {return type;}
+        virtual bool touch_border(Particle const&) = 0;
+        virtual void affiche(ostream&);
 };
 
 class Element_droit : public Element
 {
     public:
         Element_droit(Vecteur3D, Vecteur3D, double);
-        bool touch_border(Particle);
-
+        virtual bool touch_border(Particle const& p);
+        virtual void affiche(ostream&);
 };
 
 
@@ -39,8 +39,9 @@ class Element_courbe : public Element
         double rayon_courbure;
     public:
         Element_courbe(Vecteur3D, Vecteur3D, double, double);
-        bool touch_border(Particle);
+        virtual bool touch_border(Particle const&);
         double get_courbure();
+        virtual void affiche(ostream&);
 };
 
 class Dipole : public Element_courbe
@@ -50,9 +51,12 @@ class Dipole : public Element_courbe
     public:
         Dipole(Vecteur3D, Vecteur3D, double, double, double);
         double get_champ_magnetique(){return champ_magnetique;}
+        virtual void affiche(ostream&);
 };
-ostream& operator<<(ostream&, Element);
-ostream& operator<<(ostream&, Element_droit);
-ostream& operator<<(ostream&, Element_courbe);
-ostream& operator<<(ostream&, Dipole);
+
+
+ostream& operator<<(ostream&, Element&);
+ostream& operator<<(ostream&, Element_droit&);
+ostream& operator<<(ostream&, Element_courbe&);
+ostream& operator<<(ostream&, Dipole&);
 #endif // ELEMENTS_H

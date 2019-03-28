@@ -82,7 +82,7 @@ void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
     }
 }
 
-Vecteur3D Particle::getPosition(){
+Vecteur3D Particle::getPosition() const {
     return pos;
 }
 
