@@ -8,7 +8,7 @@
 #include <iostream>
 using namespace std;
 
-class Accelerateur: Dessinable
+class Accelerateur: public Dessinable
 {
     private:
         //On met un array dynamique pour tout les elements
