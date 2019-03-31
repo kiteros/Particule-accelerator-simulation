@@ -15,13 +15,16 @@ class Accelerateur: public Dessinable
         vector<Element*> elements;
         vector<Particle*> particules;
 
+        string name;
+
     public:
 
         vector<Element*> getElements()const {return elements;}
         vector<Particle*> getPartcules()const {return particules;}
-        //Accelerateur(); //A supprimer? doit avoir au mois un supportadessin pour initialiser
-        Accelerateur(SupportADessin*);
-        Accelerateur(vector<Element*>, vector<Particle*>,SupportADessin*);
+
+        Accelerateur(SupportADessin*, string name="unnamed accelerator");
+
+        Accelerateur(vector<Element*>, vector<Particle*>,SupportADessin*, string name="unnamed accelerator");
   
         //Accelerateur(Accelerateur const &) = delete ;
         Accelerateur operator=(Accelerateur const &) = delete;
@@ -36,6 +39,7 @@ class Accelerateur: public Dessinable
         void remove_all_particle();
 
         void evolue();
+        virtual void start(ostream&) const;
         virtual void affiche(ostream&) const;
         virtual void dessine() override
         { support->dessine(*this); }

@@ -1,7 +1,10 @@
 #include "elements.h"
 #include "vecteur3D.h"
+#include "particle.h"
 #include <math.h>
 #include "constantes.h"
+#include "supportadessin.h"
+#include "dessinable.h"
 
 //First constructor
 Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,SupportADessin* support,Element* s):Dessinable (support)
@@ -31,11 +34,19 @@ Element_droit::Element_droit(Vecteur3D in_pos, Vecteur3D out_pos,
 {}
 
 
+Quadrupoles::Quadrupoles(Vecteur3D in_pos,
+                         Vecteur3D out_pos,
+                         double rayon, double intensite,
+                         SupportADessin* support,
+                         Element* e):Element_droit(in_pos, out_pos, rayon, support, e)
+{
+     this->intensite = intensite;
+}
 
-
-
-
-
+bool Element::particle_out(Particle const& p){
+    //Check si la particule sort
+    return prod_mixte(constantes::e3, p.getPosition(), this->out_pos) > 0;
+}
 
 bool Element_droit::touch_border(Particle const& p){
     //Check si la particule touche the bord
@@ -98,6 +109,12 @@ void Element_courbe::affiche(ostream & f)const{
 void Dipole::affiche(ostream &f)const{
     Element_courbe::affiche(f);
     f<<"champ_magnetique: "<<champ_magnetique<<endl;
+    return;
+}
+
+void Quadrupoles::affiche(ostream &f)const{
+    Element_droit::affiche(f);
+    f<<"intensite: "<<intensite<<endl;
     return;
 }
 

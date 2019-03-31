@@ -2,32 +2,31 @@
 #define PARTICLE_H
 
 #include "vecteur3D.h"
+#include "elements.h"
 #include <iostream>
 
 class Particle
 {
     private:
-        //On définit la position comme un vecteur 3D depuis l'origine
+
         Vecteur3D pos = Vecteur3D();
-
-        //Masse en KG
         double mass;
-
-        //electric charge in coulomb (1A.s)
         double electric_charge;
-
-        //Speed direction
-
         double momentum;
         Vecteur3D force = Vecteur3D();
         Vecteur3D speed = Vecteur3D();
+        Element* element_inside;
 
     public:
+
         Vecteur3D getPosition() const;
         Vecteur3D getSpeed();
         double getMass();
         double getElectricCharge();
         Vecteur3D getForce();
+
+        void set_element_inside(Element* e);
+        Element* get_element_inside();
 
         //constructors
         Particle();
@@ -35,7 +34,6 @@ class Particle
         Particle(double, double, Vecteur3D, Vecteur3D);
         double energy();
         double gamma_factor();
-        //double speed();
         void move(double);
         void ajouteForceMagnetique(Vecteur3D, double);
 
