@@ -8,8 +8,6 @@
 Particle::Particle(){
     //Constructeur par défaut
     //mettre des valeurs de protons par exemple
-
-
 }
 
 Particle::Particle(double mass, double charge){
@@ -80,6 +78,14 @@ void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
         this->force = this->force.rotation(axeRotation, angle);
 
     }
+}
+
+void Particle::set_element_inside(Element* el){
+    this->element_inside = el;
+}
+
+Element* Particle::get_element_inside(){
+    return element_inside;
 }
 
 Vecteur3D Particle::getPosition() const {

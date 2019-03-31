@@ -22,6 +22,7 @@ class Element : public Dessinable
         Vecteur3D get_out();
         double get_size();
         int get_index();
+        virtual bool particle_out(Particle const&);
         virtual bool touch_border(Particle const&) = 0;
         virtual void affiche(ostream&) const;
         virtual void dessine() override
@@ -32,6 +33,7 @@ class Element_droit : public Element
 {
     public:
         Element_droit(Vecteur3D, Vecteur3D, double,SupportADessin*,Element* = nullptr);
+        virtual bool particle_out(Particle const&);
         virtual bool touch_border(Particle const& p);
         virtual void affiche(ostream&) const;
 };
@@ -43,6 +45,7 @@ class Element_courbe : public Element
         double rayon_courbure;
     public:
         Element_courbe(Vecteur3D, Vecteur3D, double, double,SupportADessin*,Element* e = nullptr);
+        virtual bool particle_out(Particle const&);
         virtual bool touch_border(Particle const&);
         double get_courbure();
         virtual void affiche(ostream&) const;
@@ -56,12 +59,20 @@ class Dipole : public Element_courbe
         Dipole(Vecteur3D, Vecteur3D, double, double, double,SupportADessin*,Element* e= nullptr);
         double get_champ_magnetique(){return champ_magnetique;}
         virtual void affiche(ostream&) const;
+        virtual bool particle_out(Particle const&);
+        virtual bool touch_border(Particle const&);
 };
 
 
 class Quadrupoles: public Element_droit
 {   protected:
-    double intensite;
+        double intensite;
+    public:
+        Quadrupoles(Vecteur3D, Vecteur3D, double, double, SupportADessin*, Element* e= nullptr);
+        double get_intensite(){return intensite;}
+        virtual void affiche(ostream&) const;
+        virtual bool particle_out(Particle const&);
+        virtual bool touch_border(Particle const&);
 
 };
 

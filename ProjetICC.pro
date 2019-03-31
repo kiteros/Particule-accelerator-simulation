@@ -15,13 +15,14 @@ SOURCES += \
     elements.cc \
     accelerateur.cc \
     testAccelerateur.cc \
+    testVecteur3D.cc \
     accelerateur.cc \
     testElements.cc \
-    ex9.cc
+    ex9.cc \
     dessinable.cc \
     testParticle.cc \
     supportadessin.cc \
-    textViewer.cc \
+    textViewer.cc
 
 DISTFILES += \
     Makefile
