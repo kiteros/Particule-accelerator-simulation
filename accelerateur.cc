@@ -79,7 +79,7 @@ void Accelerateur::start(ostream & os) const{
                 //p is in there
                 p->set_element_inside(el);
             }else if(i == elements.size()){
-                ~p;
+                //~p;
             }
 
 
