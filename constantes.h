@@ -13,6 +13,7 @@ class constantes
         static const Vecteur3D e2;
         static int current_index_element;
         static int current_index_particle;
+        static double time_step = 0.5;
 
 };
 

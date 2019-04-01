@@ -81,10 +81,11 @@ double Element_courbe::get_courbure(){
 }
 
 
+//Virtual function get type
 
-
-
-
+string Element::get_type(){
+    return "element";
+}
 
 //virtual functions affiche
 

@@ -33,7 +33,7 @@ class Accelerateur: public Dessinable
 
 
         void add_element(Element*);
-        void remove_element(Particle*);
+        void remove_particle(Particle*);
         void remove_all_element();
 
         void add_particles(Particle*);
