@@ -71,12 +71,18 @@ void Accelerateur::start(ostream & os) const{
     //Si pas d'element, détruire la particule
 
     for(auto p:particules){
+        int i = -1;
         for(auto el: elements){
+            i++;
             //Si la particule touche pas le bord et est pas sortie
-            if(!el->touch_border(p) && !el->particle_out(p)){
+            if(!el->touch_border(*p) && !el->particle_out(*p)){
                 //p is in there
-                p->set_element_inside(*el);
+                p->set_element_inside(el);
+            }else if(i == elements.size()){
+                ~p;
             }
+
+
         }
     }
 

@@ -10,6 +10,10 @@ Particle::Particle(){
     //mettre des valeurs de protons par exemple
 }
 
+Particle::~Particle(){
+
+}
+
 Particle::Particle(double mass, double charge){
     //Constructeur
     this->mass = mass;

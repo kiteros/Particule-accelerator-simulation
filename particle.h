@@ -2,8 +2,9 @@
 #define PARTICLE_H
 
 #include "vecteur3D.h"
-#include "elements.h"
 #include <iostream>
+
+class Element;
 
 class Particle
 {
@@ -30,6 +31,8 @@ class Particle
 
         //constructors
         Particle();
+        //Destructor
+        ~Particle();
         Particle(double, double);
         Particle(double, double, Vecteur3D, Vecteur3D);
         double energy();
