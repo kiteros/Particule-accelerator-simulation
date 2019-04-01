@@ -71,17 +71,17 @@ void Accelerateur::evolue(){
     //Onc commence par parcourir toutes les particules
     for(auto p:particules){
 
-        Element* this_element = p->get_element_inside();
-        if(this_element->get_type() == "dipole"){
 
-            Dipole* dip = this_element;
+        if(p->get_element_inside()->get_type() == "dipole"){
+
+            Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
             Vecteur3D champ_magnetique = dip->get_champ_magnetique() * constantes::e3;
             p->ajouteForceMagnetique(champ_magnetique, constantes::time_step);
 
-        }else if(this_element->get_type() == "quadrupole"){
+        }else if(p->get_element_inside()->get_type() == "quadrupole"){
 
 
-            Quadrupoles* quad = this_element;
+            Quadrupoles* quad = static_cast<Quadrupoles*>(p->get_element_inside());
             Vecteur3D champ_magnetique = quad->get_intensite()*constantes::e3 +
                quad->get_intensite() * (constantes::e3 ^ ~(quad->get_out() - quad->get_in()));
             p->ajouteForceMagnetique(champ_magnetique, constantes::time_step);
@@ -90,17 +90,17 @@ void Accelerateur::evolue(){
 
 
         //Update la position des particules
-        p->move();
+        p->move(constantes::time_step);
 
         //Check si elles touchent le bord et les supprimer en concécences
-        if(this_element->touch_border(*p)){
+        if(p->get_element_inside()->touch_border(*p)){
             this->remove_particle(p);
         }
 
     }
 }
 
-void Accelerateur::start(ostream & os) const{
+void Accelerateur::start(ostream & os){
 
     int number_elements = elements.size();
     int number_particles = particules.size();
