@@ -8,12 +8,12 @@ class constantes
         constantes();
     public:
         static const double light_speed;
-        static const Vecteur3D e3;
-        static const Vecteur3D e1;
-        static const Vecteur3D e2;
+        static Vecteur3D e3;
+        static Vecteur3D e1;
+        static Vecteur3D e2;
         static int current_index_element;
         static int current_index_particle;
-        static double time_step = 0.5;
+        static double time_step;
 
 };
 
