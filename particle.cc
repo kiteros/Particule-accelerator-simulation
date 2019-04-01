@@ -66,7 +66,7 @@ ostream& operator<<(ostream& os, Particle p)
 
 void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
 
-    if(dt != 0){
+    if(dt < 1e-8){
 
         Vecteur3D current_speed;
         current_speed = this->speed;

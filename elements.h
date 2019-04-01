@@ -22,6 +22,8 @@ class Element : public Dessinable
         Vecteur3D get_out();
         double get_size();
         int get_index();
+        Element* get_element_suivant() {return element_suivant;}
+        void set_element_suivant(Element* e) {element_suivant = e;}
         virtual bool particle_out(Particle const&);
         virtual bool touch_border(Particle const&) = 0;
         virtual void affiche(ostream&) const;

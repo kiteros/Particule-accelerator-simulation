@@ -14,6 +14,8 @@
 
 Accelerateur::Accelerateur(SupportADessin* support, string name):Dessinable (support)
 {
+    elements = vector<Element*>();
+    particules = vector<Particle*>();
     this->name = name;
 }
 
@@ -29,6 +31,13 @@ Accelerateur::Accelerateur(vector<Element*> el,
     this->elements = el;
     this->particules = par;
     this->name = name;
+}
+
+void Accelerateur::add_elements(vector<Element*> els)
+{
+    for(auto ele:els){
+        elements.push_back(ele);
+    }
 }
 
 void Accelerateur::add_element(Element* el){
@@ -69,16 +78,15 @@ void Accelerateur::evolue(){
     //On doit donc update toutes les particles (leurs forces)
 
     //Onc commence par parcourir toutes les particules
-    for(auto p:particules){
-
-
-        if(p->get_element_inside()->get_type() == "dipole"){
+    for(auto p:particules){  
+        Element* current_element = p ->get_element_inside();
+        if(current_element->get_type() == "dipole"){
 
             Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
             Vecteur3D champ_magnetique = dip->get_champ_magnetique() * constantes::e3;
             p->ajouteForceMagnetique(champ_magnetique, constantes::time_step);
 
-        }else if(p->get_element_inside()->get_type() == "quadrupole"){
+        }else if(current_element->get_type() == "quadrupole"){
 
 
             Quadrupoles* quad = static_cast<Quadrupoles*>(p->get_element_inside());
@@ -93,8 +101,11 @@ void Accelerateur::evolue(){
         p->move(constantes::time_step);
 
         //Check si elles touchent le bord et les supprimer en concécences
-        if(p->get_element_inside()->touch_border(*p)){
+        if(current_element->touch_border(*p)){
             this->remove_particle(p);
+        }
+        if(current_element->particle_out(*p)){
+            p->set_element_inside(current_element->get_element_suivant());
         }
 
     }
@@ -134,12 +145,12 @@ void Accelerateur::start(ostream & os){
 
 void Accelerateur::affiche(ostream & os) const{
 
-    os << "L'accélérateur est constitué des éléments suivant :"<<endl;
+   /* os << "L'accélérateur est constitué des éléments suivant :"<<endl;
     for(auto ele:elements){
        os<<"***********************"<<endl;
        ele->dessine();
        //os << *(ele)<<endl;
-    }
+    }*/
     os << "L'accélérateur contient les particules suivantes :"<<endl;
 
       for(auto ele:particules){
