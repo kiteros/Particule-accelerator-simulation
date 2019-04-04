@@ -100,14 +100,16 @@ void Accelerateur::evolue(){
         //Update la position des particules
         p->move(constantes::time_step);
 
+        while(current_element->particle_out(*p)){
+            p->set_element_inside(current_element->get_element_suivant());
+            current_element = p ->get_element_inside();
+        }
+
         //Check si elles touchent le bord et les supprimer en concécences
         if(current_element->touch_border(*p)){
             this->remove_particle(p);
+            continue;
         }
-        if(current_element->particle_out(*p)){
-            p->set_element_inside(current_element->get_element_suivant());
-        }
-
     }
 }
 
