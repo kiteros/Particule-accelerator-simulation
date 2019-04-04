@@ -40,8 +40,8 @@ class Accelerateur: public Dessinable
         void remove_all_particle();
 
         void evolue();
-        void start(ostream&);
-        virtual void affiche(ostream&) const;
+        void start(ofstream&);
+        virtual void affiche(ofstream&) const;
         virtual void dessine() override
         { support->dessine(*this); }
 

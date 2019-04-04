@@ -1,6 +1,7 @@
 #include <iostream>
 #include "vecteur3D.h"
 #include <math.h>
+#include <fstream>
 
 using namespace std;
 
@@ -134,6 +135,13 @@ bool Vecteur3D::operator==(Vecteur3D const& v){
 
 //surcharge << afficher vecteur
 ostream& operator<<(ostream& os, Vecteur3D v)
+{
+    os << v.get_x() << " " << v.get_y() << " " << v.get_z();
+    return os;
+}
+
+//surcharge << afficher vecteur
+ostream& operator<<(ofstream& os, Vecteur3D v)
 {
     os << v.get_x() << " " << v.get_y() << " " << v.get_z();
     return os;

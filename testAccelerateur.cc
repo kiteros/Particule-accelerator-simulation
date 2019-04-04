@@ -4,11 +4,16 @@
 #include "vecteur3D.h"
 #include "textViewer.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 int main(){
     cout << "test d'accelerateur" << endl;
-    TextViewer textViewer(cout);
+    ofstream result_file;
+    result_file.open("./Results/text_results.txt");
+
+    TextViewer textViewer(result_file);
+    result_file.close();
 
     Dipole di = Dipole(Vecteur3D(0,0,0),
                        Vecteur3D(10,10,10),
