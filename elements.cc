@@ -61,7 +61,7 @@ bool Element_courbe::touch_border(Particle const& p){
     Vecteur3D Cc = 0.5*(in_pos + out_pos) + ((1/k) * sqrt(1-pow (k,2.0)*((out_pos-in_pos).norme2())/4))*(~(out_pos-in_pos)^constantes::e3);
     Vecteur3D big_X = p.getPosition() - Cc;
     Vecteur3D u = ~(big_X - big_X.get_z()*constantes::e3);
-    return (big_X- 1/abs(k)*u).norme() > rayon;
+    return (big_X- (1/abs(k))*u).norme() > rayon;
 }
 
 Vecteur3D Element::get_in(){
