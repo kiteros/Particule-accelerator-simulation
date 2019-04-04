@@ -6,7 +6,8 @@ HEADERS += \
     accelerateur.h \
     dessinable.h \
     supportadessin.h \
-    textViewer.h
+    textViewer.h \
+    faisceaux.h
 
 SOURCES += \
     vecteur3D.cc \
@@ -22,7 +23,8 @@ SOURCES += \
     dessinable.cc \
     testParticle.cc \
     supportadessin.cc \
-    textViewer.cc
+    textViewer.cc \
+    faisceaux.cc
 
 DISTFILES += \
     Makefile
