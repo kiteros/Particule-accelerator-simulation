@@ -5,6 +5,7 @@
 #include "constantes.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 /*Accelerateur::Accelerateur():Dessinable (nullptr)
 {
@@ -111,15 +112,27 @@ void Accelerateur::evolue(){
     }
 }
 
-void Accelerateur::start(ostream & os){
+void Accelerateur::start(ofstream & os){
+
 
     int number_elements = elements.size();
     int number_particles = particules.size();
     os << "Accelerator : " << name << endl;
     os << "--Number of elements : " << number_elements << endl;
     os << "--Number of particule : " << number_particles << endl;
-    os << "Starting the accelerator " << name << " ..." << endl << endl;
-    os << "*****************" << endl << endl;
+
+
+    os << "L'accélérateur est constitué des éléments suivant :"<<endl;
+
+    for(auto ele:elements){
+
+        os<<"***********************"<<endl;
+        ele->dessine();
+
+     }
+
+     os << "Starting the accelerator " << name << " ..." << endl << endl;
+     os << "*****************" << endl << endl;
 
     //Extremely important :
     //Parcourir toutes les particules et déterminer dans quel element elle sont.
@@ -143,14 +156,9 @@ void Accelerateur::start(ostream & os){
 
 }
 
-void Accelerateur::affiche(ostream & os) const{
+void Accelerateur::affiche(ofstream & os) const{
 
-   /* os << "L'accélérateur est constitué des éléments suivant :"<<endl;
-    for(auto ele:elements){
-       os<<"***********************"<<endl;
-       ele->dessine();
-       //os << *(ele)<<endl;
-    }*/
+
     os << "L'accélérateur contient les particules suivantes :"<<endl;
 
       for(auto ele:particules){
@@ -160,7 +168,7 @@ void Accelerateur::affiche(ostream & os) const{
     return ;
 }
 
-std::ostream& operator<<(ostream& os, Accelerateur const & a)
+std::ostream& operator<<(ofstream& os, Accelerateur const & a)
 {
     a.affiche(os);
     return os;

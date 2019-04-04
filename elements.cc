@@ -5,6 +5,7 @@
 #include "constantes.h"
 #include "supportadessin.h"
 #include "dessinable.h"
+#include <fstream>
 
 //First constructor
 Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,SupportADessin* support,Element* s):Dessinable (support)
@@ -83,57 +84,60 @@ double Element_courbe::get_courbure(){
 
 //virtual functions affiche
 
-void Element::affiche(ostream& f)const{
-        f<<"in position: "<<in_pos<<endl
-        <<"out position: "<<out_pos<<endl
-        <<"rayon: "<<rayon<<endl;
-        return;
+void Element::affiche(ofstream& f) const{
+
+    f <<"in position: "<<in_pos<<endl
+    <<"out position: "<<out_pos<<endl
+    <<"rayon: "<<rayon<<endl;
+
+    return;
+
 }
 
-void Element_droit::affiche(ostream & f)const{
+void Element_droit::affiche(ofstream & f) const{
     Element::affiche(f);
     return;
 }
 
-void Element_courbe::affiche(ostream & f)const{
+void Element_courbe::affiche(ofstream & f) const{
     Element::affiche(f);
     f<<"rayon_courbure: "<<rayon_courbure<<endl;
     return;
 }
 
-void Dipole::affiche(ostream &f)const{
+void Dipole::affiche(ofstream &f)const{
     Element_courbe::affiche(f);
     f<<"champ_magnetique: "<<champ_magnetique<<endl;
     return;
 }
 
-void Quadrupoles::affiche(ostream &f)const{
+void Quadrupoles::affiche(ofstream &f) const{
     Element_droit::affiche(f);
     f<<"intensite: "<<intensite<<endl;
     return;
 }
 
-ostream& operator<<(ostream& os, Element& el){
+ostream& operator<<(ofstream& os, Element& el){
     el.affiche(os);
     return os;
 }
 
 //surcharge << afficher l'element
-ostream& operator<<(ostream& os, Element_droit& el)
+ostream& operator<<(ofstream& os, Element_droit& el)
 {
     el.affiche(os);
     return os;
 }
 
 //surcharge << afficher l'element
-ostream& operator<<(ostream& os, Element_courbe& el)
+ostream& operator<<(ofstream& os, Element_courbe& el)
 {
     el.affiche(os);
     return os;
 }
 
 //surcharge << afficher dipole
-ostream& operator<<(ostream& os, Dipole& el)
+ostream& operator<<(ofstream& os, Dipole& el)
 {
     el.affiche(os);
     return os;

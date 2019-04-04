@@ -22,7 +22,8 @@ SOURCES += \
     dessinable.cc \
     testParticle.cc \
     supportadessin.cc \
-    textViewer.cc
+    textViewer.cc \
+    ex10.cc
 
 DISTFILES += \
     Makefile

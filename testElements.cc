@@ -3,11 +3,17 @@
 #include "vecteur3D.h"
 #include "textViewer.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 int main(){
-    cout << "test d'éléments" << endl;
-    TextViewer textV(cout);
+
+    ofstream result_file;
+    result_file.open("./Results/text_results.txt");
+
+    result_file << "test d'éléments" << endl;
+    TextViewer textV(result_file);
+    result_file.close();
     Element_droit ligne = Element_droit(
                 Vecteur3D(0,0,0),
                 Vecteur3D(10,10,10),
