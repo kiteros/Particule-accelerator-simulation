@@ -122,21 +122,3 @@ charge : 1.60218e-19
 force : 0 0 0
 
 L'accélérateur contient les particules suivantes :
-***********************
-position : 3.01 -1.32377e+08 0
-speed : 0 -2.64754e+08 0
-gamma : 2.13156
-energy (GeV) : 1.7975e+17
-mass (GeV/c²) : 0.938272
-charge : 1.60218e-19
-force : 0 0 0
-
-***********************
-position : 2.99 -1.32377e+08 0
-speed : 0 -2.64754e+08 0
-gamma : 2.13156
-energy (GeV) : 1.7975e+17
-mass (GeV/c²) : 0.938272
-charge : 1.60218e-19
-force : 0 0 0
-

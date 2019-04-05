@@ -7,11 +7,6 @@
 #include <iostream>
 #include <fstream>
 
-/*Accelerateur::Accelerateur():Dessinable (nullptr)
-{
-    elements = vector<Element*>();
-    particules = vector<Particle*>();
-}*/
 
 Accelerateur::Accelerateur(SupportADessin* support, string name):Dessinable (support)
 {
