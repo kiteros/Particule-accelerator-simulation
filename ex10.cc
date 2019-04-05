@@ -15,7 +15,7 @@ int main(){
     //Test des fonctions dessinables
     //Ajouter tout a l'accélérateur
 
-    cout << "welcome to l'accelerateur de Jules et Weishung" << endl;
+    cout << "welcome to l'accelerateur de Jules et Weisheng" << endl;
 
     //But créer le support a dessin befor
     ofstream result_file;
