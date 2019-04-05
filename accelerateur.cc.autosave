@@ -190,4 +190,4 @@ double Accelerateur::getLongeur(){
         }
     }
     return longeur;
-}
+} 

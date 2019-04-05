@@ -31,6 +31,7 @@ class Accelerateur: public Dessinable
 
         ~Accelerateur();
 
+        double getLongeur();
         void add_elements(vector<Element*>);
         void add_element(Element*);
         void remove_particle(Particle*);
