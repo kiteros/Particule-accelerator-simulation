@@ -7,7 +7,8 @@ HEADERS += \
     dessinable.h \
     supportadessin.h \
     textViewer.h \
-    faisceaux.h
+    faisceaux.h \
+    ../Textview/textViewer.h
 
 SOURCES += \
     vecteur3D.cc \

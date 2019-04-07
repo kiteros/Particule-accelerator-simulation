@@ -175,14 +175,7 @@ std::ostream& operator<<(ofstream& os, Accelerateur const & a)
 double Accelerateur::getLongeur(){
     double longeur = 0;
     for(auto ele:elements){
-        if(ele->get_type() == "element_droit"){
-            longeur = longeur + (ele->get_out()-ele->get_out()).norme();
-        }
-        if(ele->get_type() == "element_courbe"){
-            double l = (ele->get_out()-ele->get_out()).norme();
-            double r = abs(1/(static_cast<Element_courbe*>(ele)->get_courbure()));
-            longeur = longeur + asin(l/(2*r))*2*r;
-        }
+        longeur = longeur + ele->getLongeur();
     }
     return longeur;
 }

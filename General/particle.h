@@ -34,7 +34,7 @@ class Particle
         //Destructor
         ~Particle();
         Particle(double, double);
-        Particle(double, double, Vecteur3D, Vecteur3D);
+        Particle(double mass, double charge, Vecteur3D speed, Vecteur3D position);
         double energy();
         double gamma_factor();
         void move(double);
