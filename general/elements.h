@@ -24,6 +24,8 @@ class Element : public Dessinable
         int get_index();
         Element* get_element_suivant() {return element_suivant;}
         void set_element_suivant(Element* e) {element_suivant = e;}
+        virtual double getLongeur() = 0;
+        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) = 0;
         virtual bool particle_out(Particle const&);
         virtual bool touch_border(Particle const&) = 0;
         virtual void affiche(ofstream&) const;
@@ -40,6 +42,8 @@ class Element_droit : public Element
         virtual bool touch_border(Particle const& p);
         virtual string get_type() override {return "element_droit";}
         virtual void affiche(ofstream&) const;
+        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) = 0;
+        double getLongeur();
 };
 
 
@@ -52,8 +56,10 @@ class Element_courbe : public Element
 
         virtual bool touch_border(Particle const&);
         virtual string get_type() override {return "element_courbe";}
+        double getLongeur();
         double get_courbure();
         virtual void affiche(ofstream&) const ;
+        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) ;
 };
 
 class Dipole : public Element_courbe

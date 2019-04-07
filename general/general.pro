@@ -10,7 +10,9 @@ HEADERS += \
     accelerateur.h \
     dessinable.h \
     supportadessin.h \
-    faisceaux.h
+    textViewer.h \
+    faisceaux.h \
+    ../Textview/textViewer.h
 
 SOURCES += \
     vecteur3D.cc \
