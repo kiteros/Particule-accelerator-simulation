@@ -42,7 +42,7 @@ class Element_droit : public Element
         virtual bool touch_border(Particle const& p);
         virtual string get_type() override {return "element_droit";}
         virtual void affiche(ofstream&) const;
-        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s);
+        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) = 0;
         double getLongeur();
 };
 

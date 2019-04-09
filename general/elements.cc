@@ -75,12 +75,12 @@ Vecteur3D Element_courbe::convertir_depuis_Abscisse_curviligne(double s) {
     double x = R.get_x()*cos(alpha) + R.get_y()*sin(alpha);
     double y = -R.get_x()*sin(alpha) + R.get_y()*cos(alpha);
     return Cc + Vecteur3D(x,y,0);
-};
+}
 
 Vecteur3D Element_droit::convertir_depuis_Abscisse_curviligne(double s) {
     Vecteur3D u = ~(this->get_out()-this->get_in());
     return in_pos + s *u;
-};
+}
 
 Vecteur3D Element::get_in(){
     return in_pos;
@@ -111,6 +111,8 @@ double Element_droit::getLongeur(){
     longeur = (this->get_out()-this->get_out()).norme();
     return longeur;
 }
+
+
 //virtual functions affiche
 
 void Element::affiche(ofstream& f) const{
