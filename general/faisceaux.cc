@@ -146,4 +146,4 @@ void Faisceaux::Update_somme_attributs(){
 
     energie_moyenne = somme_energie / nb;
 }
-*/
+

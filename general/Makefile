@@ -133,7 +133,9 @@ DIST          = Makefile_old \
 		accelerateur.h \
 		dessinable.h \
 		supportadessin.h \
-		faisceaux.h vecteur3D.cc \
+		textViewer.h \
+		faisceaux.h \
+		../Textview/textViewer.h vecteur3D.cc \
 		particle.cc \
 		constantes.cc \
 		elements.cc \
@@ -361,7 +363,8 @@ faisceaux.o: faisceaux.cc faisceaux.h \
 		dessinable.h \
 		supportadessin.h \
 		accelerateur.h \
-		elements.h
+		elements.h \
+		constantes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o faisceaux.o faisceaux.cc
 
 ####### Install

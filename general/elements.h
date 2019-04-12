@@ -71,6 +71,7 @@ class Dipole : public Element_courbe
         double get_champ_magnetique(){return champ_magnetique;}
         virtual string get_type() override {return "dipole";}
 
+
         virtual void affiche(ofstream&) const;
 };
 
@@ -82,6 +83,7 @@ class Quadrupoles: public Element_droit
         Quadrupoles(Vecteur3D, Vecteur3D, double, double, SupportADessin*, Element* e= nullptr);
         double get_intensite(){return intensite;}
         virtual string get_type() override {return "quadrupole";}
+
         virtual void affiche(ofstream&) const;
 
 };

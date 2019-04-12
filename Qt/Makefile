@@ -354,7 +354,8 @@ compiler_rcc_clean:
 qrc_resource.cpp: resource.qrc \
 		/usr/lib/qt5/bin/rcc \
 		fragment_shader.glsl \
-		vertex_shader.glsl
+		vertex_shader.glsl \
+		button.qml
 	/usr/lib/qt5/bin/rcc -name resource resource.qrc -o qrc_resource.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
