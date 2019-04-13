@@ -5,16 +5,17 @@
 #include "glwidget_menu.h"
 
 
+
 int main(int argc, char* argv[])
 {
 
 
     QApplication a(argc, argv);
 
-    GLWidgetMenu start_menu;
-    start_menu.show();
+    GLWidget gl;
 
-
+    gl.show();
+    gl.resize(1000, 500);
 
     /*QWidget choice_window;
     choice_window.resize(600, 400);

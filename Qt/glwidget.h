@@ -15,13 +15,16 @@ public:
   GLWidget(QWidget* parent = nullptr)
     : QOpenGLWidget(parent)
     , acc(&vue)
-  {}
+  {
+
+  }
   virtual ~GLWidget() {}
+  virtual void resizeGL(int width, int height) override;
 
 private:
   // Les 3 méthodes clés de la classe QOpenGLWidget à réimplémenter
   virtual void initializeGL()                  override;
-  virtual void resizeGL(int width, int height) override;
+
   virtual void paintGL()                       override;
 
   // Méthodes de gestion d'évènements
