@@ -14,7 +14,9 @@ INCLUDEPATH = ../general
 SOURCES += \
     main_qt_gl.cc \
     glwidget.cc \
-    vue_opengl.cc
+    vue_opengl.cc \
+    glwidget_menu.cc \
+    vue_opengl_menu.cc
     
 
 HEADERS += \
@@ -23,7 +25,10 @@ HEADERS += \
     vertex_shader.h \
     ../general/dessinable.h \
     ../general/supportadessin.h \
-    ../general/accelerateur.h
+    ../general/accelerateur.h \
+    glwidget_menu.h \
+    vue_opengl_menu.h \
+    vertex_shader_menu.h
     ../general/elements.h
 
 RESOURCES += \

@@ -2,6 +2,9 @@
     <qresource prefix="/">
         <file>fragment_shader.glsl</file>
         <file>vertex_shader.glsl</file>
+	<file>fragment_shader_menu.glsl</file>
+        <file>vertex_shader_menu.glsl</file>
         <file>button.qml</file>
+	<file>start.jpg</file>
     </qresource>
 </RCC>

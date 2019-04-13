@@ -52,10 +52,14 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main_qt_gl.cc \
 		glwidget.cc \
-		vue_opengl.cc qrc_resource.cpp
+		vue_opengl.cc \
+		glwidget_menu.cc \
+		vue_opengl_menu.cc qrc_resource.cpp
 OBJECTS       = main_qt_gl.o \
 		glwidget.o \
 		vue_opengl.o \
+		glwidget_menu.o \
+		vue_opengl_menu.o \
 		qrc_resource.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -135,9 +139,14 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		vertex_shader.h \
 		../general/dessinable.h \
 		../general/supportadessin.h \
-		../general/accelerateur.h main_qt_gl.cc \
+		../general/accelerateur.h \
+		glwidget_menu.h \
+		vue_opengl_menu.h \
+		vertex_shader_menu.h main_qt_gl.cc \
 		glwidget.cc \
-		vue_opengl.cc
+		vue_opengl.cc \
+		glwidget_menu.cc \
+		vue_opengl_menu.cc
 QMAKE_TARGET  = gl_sim
 DESTDIR       = 
 TARGET        = gl_sim
@@ -324,8 +333,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resource.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents glwidget.h vue_opengl.h vertex_shader.h ../general/dessinable.h ../general/supportadessin.h ../general/accelerateur.h $(DISTDIR)/
-	$(COPY_FILE) --parents main_qt_gl.cc glwidget.cc vue_opengl.cc $(DISTDIR)/
+	$(COPY_FILE) --parents glwidget.h vue_opengl.h vertex_shader.h ../general/dessinable.h ../general/supportadessin.h ../general/accelerateur.h glwidget_menu.h vue_opengl_menu.h vertex_shader_menu.h $(DISTDIR)/
+	$(COPY_FILE) --parents main_qt_gl.cc glwidget.cc vue_opengl.cc glwidget_menu.cc vue_opengl_menu.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -353,8 +362,11 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resource.cpp
 qrc_resource.cpp: resource.qrc \
 		/usr/lib/qt5/bin/rcc \
+		start.jpg \
 		fragment_shader.glsl \
+		fragment_shader_menu.glsl \
 		vertex_shader.glsl \
+		vertex_shader_menu.glsl \
 		button.qml
 	/usr/lib/qt5/bin/rcc -name resource resource.qrc -o qrc_resource.cpp
 
@@ -387,7 +399,9 @@ main_qt_gl.o: main_qt_gl.cc glwidget.h \
 		../general/dessinable.h \
 		../general/elements.h \
 		../general/particle.h \
-		../general/vecteur3D.h
+		../general/vecteur3D.h \
+		glwidget_menu.h \
+		vue_opengl_menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main_qt_gl.o main_qt_gl.cc
 
 glwidget.o: glwidget.cc glwidget.h \
@@ -409,6 +423,26 @@ vue_opengl.o: vue_opengl.cc vue_opengl.h \
 		../general/vecteur3D.h \
 		vertex_shader.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vue_opengl.o vue_opengl.cc
+
+glwidget_menu.o: glwidget_menu.cc glwidget_menu.h \
+		vue_opengl_menu.h \
+		../general/supportadessin.h \
+		../general/accelerateur.h \
+		../general/dessinable.h \
+		../general/elements.h \
+		../general/particle.h \
+		../general/vecteur3D.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o glwidget_menu.o glwidget_menu.cc
+
+vue_opengl_menu.o: vue_opengl_menu.cc vue_opengl_menu.h \
+		../general/supportadessin.h \
+		../general/accelerateur.h \
+		../general/dessinable.h \
+		../general/elements.h \
+		../general/particle.h \
+		../general/vecteur3D.h \
+		vertex_shader_menu.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vue_opengl_menu.o vue_opengl_menu.cc
 
 qrc_resource.o: qrc_resource.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resource.o qrc_resource.cpp

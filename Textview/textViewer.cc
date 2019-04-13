@@ -12,3 +12,8 @@ void TextViewer::dessine(Accelerateur const& a){
     a.affiche(flot); //la fonction ici doit etre une fonction virtuelle.
     return;
 }
+
+void TextViewer::dessine(){
+
+    return;
+}
