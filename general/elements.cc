@@ -8,19 +8,20 @@
 #include <fstream>
 
 //First constructor
-Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,SupportADessin* support,Element* s):Dessinable (support)
+Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon, SupportADessin* support,Element* s, double rayon_courbure):Dessinable (support)
 {
     this->in_pos = in_pos;
     this->out_pos = out_pos;
     this->rayon = rayon;
     this->element_suivant = s;
+    this->rayon_courbure = rayon_courbure;
 
 }
 
 Element_courbe::Element_courbe(Vecteur3D in_pos,
                                Vecteur3D out_pos, double rayon,
-                               double rayon_courbure,SupportADessin* support,Element* s):Element(in_pos, out_pos, rayon,support,s){
-    this->rayon_courbure = rayon_courbure;
+                               double rayon_courbure,SupportADessin* support,Element* s):Element(in_pos, out_pos, rayon, support,s, rayon_courbure){
+
 }
 
 Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
