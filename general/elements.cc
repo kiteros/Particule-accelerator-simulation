@@ -181,6 +181,7 @@ void Dipole::update_force(Particle * p, double dt)  {
     Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
     Vecteur3D champ_magnetique = dip->get_champ_magnetique() * constantes::e3;
     p->ajouteForceMagnetique(champ_magnetique, dt);
+    return;
 }
 
 void Quadrupoles::update_force(Particle *p, double dt) {
@@ -188,7 +189,17 @@ void Quadrupoles::update_force(Particle *p, double dt) {
     Vecteur3D champ_magnetique = quad->get_intensite()*constantes::e3 +
        quad->get_intensite() * (constantes::e3 ^ ~(quad->get_out() - quad->get_in()));
     p->ajouteForceMagnetique(champ_magnetique, dt);
+    return;
 }
+
+void Element_courbe::update_force(Particle *p, double dt) {
+    return;
+}
+
+void Element_droit::update_force(Particle *p, double dt) {
+    return;
+}
+
 
 //GET VECREUR r
 Vecteur3D Element_droit::get_vecteur_r(Vecteur3D v){
@@ -196,8 +207,21 @@ Vecteur3D Element_droit::get_vecteur_r(Vecteur3D v){
 }
 
 Vecteur3D Element_courbe::get_vecteur_r(Vecteur3D  position){
-    double k = static_cast<Element_courbe*>(this)->get_courbure();
+    double k = (this)->get_courbure();
     Vecteur3D Cc = 0.5*(this->get_in() + this->get_out()) + ((1/k) * sqrt(1-pow (k,2.0)*((this->get_out()-this->get_in()).norme2())/4))*(~(this->get_out()-this->get_in())^constantes::e3);
     Vecteur3D big_X = position - Cc;
     return  ~(big_X - big_X.get_z()*constantes::e3);
+}
+
+Vecteur3D Dipole::get_vecteur_r(Vecteur3D position){
+    double k = (this)->get_courbure();
+    Vecteur3D Cc = 0.5*(this->get_in() + this->get_out()) + ((1/k) * sqrt(1-pow (k,2.0)*((this->get_out()-this->get_in()).norme2())/4))*(~(this->get_out()-this->get_in())^constantes::e3);
+    Vecteur3D big_X = position - Cc;
+    return  ~(big_X - big_X.get_z()*constantes::e3);
+}
+
+Vecteur3D Quadrupoles::get_vecteur_r(Vecteur3D position)
+{
+    return constantes::e3 ^ ~(this->get_out()-this->get_in());
+
 }
