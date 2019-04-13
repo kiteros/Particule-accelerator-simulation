@@ -63,8 +63,7 @@ void GLWidgetMenu::mousePressEvent(QMouseEvent* event)
           && lastMousePosition.y() >= 195 && lastMousePosition.y() <= 286){
       std::cout << "in" << endl;
       //Lancer le nouveau GLWidget
-      GLWidget gl;
-      gl.show();
+
 
       std::cout << "it should start" << endl;
 
