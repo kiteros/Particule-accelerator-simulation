@@ -29,9 +29,10 @@ class Element : public Dessinable
         virtual bool particle_out(Particle const&);
         virtual bool touch_border(Particle const&) = 0;
         virtual void affiche(ofstream&) const;
-        virtual string get_type() {return "element";}
         virtual void dessine() override
         { support->dessine(*this); }
+        virtual void update_force(Particle* p,double dt) = 0 ;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) = 0;
 };
 
 class Element_droit : public Element
@@ -39,11 +40,12 @@ class Element_droit : public Element
     public:
         Element_droit(Vecteur3D, Vecteur3D, double,SupportADessin*,Element* = nullptr);
 
-        virtual bool touch_border(Particle const& p);
-        virtual string get_type() override {return "element_droit";}
-        virtual void affiche(ofstream&) const;
-        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) = 0;
-        double getLongeur();
+        virtual bool touch_border(Particle const& p) override;
+        virtual void affiche(ofstream&) const override;
+        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
+        double getLongeur() override;
+        void update_force(Particle* p,double dt) override;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
 };
 
 
@@ -54,12 +56,14 @@ class Element_courbe : public Element
     public:
         Element_courbe(Vecteur3D, Vecteur3D, double, double,SupportADessin*,Element* e = nullptr);
 
-        virtual bool touch_border(Particle const&);
-        virtual string get_type() override {return "element_courbe";}
-        double getLongeur();
+        virtual bool touch_border(Particle const&) override;
+        double getLongeur() override;
         double get_courbure();
-        virtual void affiche(ofstream&) const ;
-        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) ;
+        virtual void affiche(ofstream&) const override;
+        virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
+        void update_force(Particle* p ,double dt) override;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+
 };
 
 class Dipole : public Element_courbe
@@ -69,10 +73,9 @@ class Dipole : public Element_courbe
     public:
         Dipole(Vecteur3D, Vecteur3D, double, double, double,SupportADessin*,Element* e= nullptr);
         double get_champ_magnetique(){return champ_magnetique;}
-        virtual string get_type() override {return "dipole";}
-
-
-        virtual void affiche(ofstream&) const;
+        void update_force(Particle* p ,double dt) override;
+        virtual void affiche(ofstream&) const override;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
 };
 
 
@@ -82,10 +85,9 @@ class Quadrupoles: public Element_droit
     public:
         Quadrupoles(Vecteur3D, Vecteur3D, double, double, SupportADessin*, Element* e= nullptr);
         double get_intensite(){return intensite;}
-        virtual string get_type() override {return "quadrupole";}
-
-        virtual void affiche(ofstream&) const;
-
+        void update_force(Particle* p ,double dt) override;
+        virtual void affiche(ofstream&) const override;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
 };
 
 ostream& operator<<(ostream&, Element&);

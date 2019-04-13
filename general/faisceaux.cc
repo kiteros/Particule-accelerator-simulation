@@ -15,7 +15,7 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
     int i = 0;
     Element* ele = acc->getElements().front();
     while(i < N){
-        if(ele->get_type() == "element_droit"){
+
             double longeur = ele->getLongeur();
             double longeur_accu = pas - rest;
             while((longeur - longeur_accu) > 0){
@@ -26,20 +26,18 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
                 longeur_accu = longeur_accu + pas;
             }
             rest = abs(longeur - longeur_accu);
-        }
 
-        if(ele->get_type() == "element_courbe"){
-            double longeur = ele->getLongeur();
-            double longeur_accu = pas - rest;
-            while ((longeur - longeur_accu) > 0) {
-                Vecteur3D position = ele->convertir_depuis_Abscisse_curviligne(longeur_accu);
-                Particle* p = new Particle(lambda*mass,lambda*charge,vitesse,position);
-                p->set_element_inside(ele);
-                particules.push_back(p);
-                longeur_accu = longeur_accu + pas;
-            }
-            rest = abs(longeur - longeur_accu);
-        }
+
+//            double longeur = ele->getLongeur();
+//            double longeur_accu = pas - rest;
+//            while ((longeur - longeur_accu) > 0) {
+//                Vecteur3D position = ele->convertir_depuis_Abscisse_curviligne(longeur_accu);
+//                Particle* p = new Particle(lambda*mass,lambda*charge,vitesse,position);
+//                p->set_element_inside(ele);
+//                particules.push_back(p);
+//                longeur_accu = longeur_accu + pas;
+//            }
+//            rest = abs(longeur - longeur_accu);
 
         i++;
         ele = ele->get_element_suivant();
@@ -51,23 +49,7 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
 void Faisceaux::bouger(){
     for(auto p:particules){
         Element* current_element = p ->get_element_inside();
-        if(current_element->get_type() == "dipole"){
-
-            Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
-            Vecteur3D champ_magnetique = dip->get_champ_magnetique() * constantes::e3;
-            p->ajouteForceMagnetique(champ_magnetique, constantes::time_step);
-
-        }else if(current_element->get_type() == "quadrupole"){
-
-
-            Quadrupoles* quad = static_cast<Quadrupoles*>(p->get_element_inside());
-            Vecteur3D champ_magnetique = quad->get_intensite()*constantes::e3 +
-               quad->get_intensite() * (constantes::e3 ^ ~(quad->get_out() - quad->get_in()));
-            p->ajouteForceMagnetique(champ_magnetique, constantes::time_step);
-
-        }
-
-
+        current_element->update_force(p,constantes::time_step);
         //Update la position des particules
         p->move(constantes::time_step);
 
@@ -106,15 +88,7 @@ void Faisceaux::Update_somme_attributs(){
     for(auto par:particules){
         Vecteur3D u;
         Element* ele = par->get_element_inside();
-        if(ele->get_type()=="element_droit"){
-            u = constantes::e3 ^ ~(ele->get_out()-ele->get_in());
-        }
-        if(ele->get_type()=="element_courbe"){
-            double k = static_cast<Element_courbe*>(ele)->get_courbure();
-            Vecteur3D Cc = 0.5*(ele->get_in() + ele->get_out()) + ((1/k) * sqrt(1-pow (k,2.0)*((ele->get_out()-ele->get_in()).norme2())/4))*(~(ele->get_out()-ele->get_in())^constantes::e3);
-            Vecteur3D big_X = par->getPosition() - Cc;
-            u = ~(big_X - big_X.get_z()*constantes::e3);
-        }
+        u = ele->get_vecteur_r(par->getPosition());
         double r = par->getPosition()*u;
         double z = par->getPosition().get_z();
         double Vr = par->getSpeed()*u;
