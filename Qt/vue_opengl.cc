@@ -4,6 +4,11 @@
 #include "elements.h"
 #include <QOpenGLShaderProgram> // Classe qui regroupe les fonctions OpenGL liées aux shaders
 #include <QOpenGLFunctions>
+#include <QDebug>
+#include <QMouseEvent>
+#include <GL/glu.h>
+#include <GL/glu_mangle.h>
+
 
 // ======================================================================
 void VueOpenGL::dessine(Accelerateur const& a_dessiner)
@@ -11,25 +16,7 @@ void VueOpenGL::dessine(Accelerateur const& a_dessiner)
    // Dessine le 1er cube (à l'origine)
   dessineCube();
 
-  QMatrix4x4 matrice;
-  // Dessine le 2e cube
-  matrice.translate(0.0, 1.5, 0.0);
-  matrice.scale(0.25);
-  dessineCube(matrice);
 
-  // Dessine le 3e cube
-  matrice.setToIdentity();
-  matrice.translate(0.0, 0.0, 1.5);
-  matrice.scale(0.25);
-  matrice.rotate(45.0, 0.0, 1.0, 0.0);
-  dessineCube(matrice);
-
-  // Dessine le 4e cube
-  matrice.setToIdentity();
-  matrice.rotate(0.0, 1.0, 0.0, 0.0);
-  matrice.translate(0.0, 2.3, 0.0);
-  matrice.scale(0.2);
-  dessineCube(matrice);
 }
 
 void VueOpenGL::dessine()
@@ -40,27 +27,12 @@ void VueOpenGL::dessine()
 void VueOpenGL::dessine(Element const& a_dessiner)
 {
    // Dessine le 1er cube (à l'origine)
-  dessineCube();
+  //dessineCube();
 
-  QMatrix4x4 matrice;
-  // Dessine le 2e cube
-  matrice.translate(0.0, 1.5, 0.0);
-  matrice.scale(0.25);
-  dessineCube(matrice);
+    //Il faut dessiner un cylindre
 
-  // Dessine le 3e cube
-  matrice.setToIdentity();
-  matrice.translate(0.0, 0.0, 1.5);
-  matrice.scale(0.25);
-  matrice.rotate(45.0, 0.0, 1.0, 0.0);
-  dessineCube(matrice);
 
-  // Dessine le 4e cube
-  matrice.setToIdentity();
-  matrice.rotate(0.0, 1.0, 0.0, 0.0);
-  matrice.translate(0.0, 2.3, 0.0);
-  matrice.scale(0.2);
-  dessineCube(matrice);
+
 }
 
 // ======================================================================
@@ -198,6 +170,19 @@ void VueOpenGL::dessineCube (QMatrix4x4 const& point_de_vue)
   prog.setAttributeValue(SommetId, -1.0, +1.0, -1.0);
   prog.setAttributeValue(SommetId, +1.0, +1.0, -1.0);
   prog.setAttributeValue(SommetId, +1.0, -1.0, -1.0);
+
+  glEnd();
+}
+
+void VueOpenGL::dessineCylindre (QMatrix4x4 const& point_de_vue)
+{
+  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+
+  /*glColor3f(1,0,0);
+  glBegin(GL_POLYGON);
+  GLUquadricObj *obj = gluNewQuadric();
+
+  gluCylinder(obj, 1.0, 1, 3, 30, 30);*/
 
   glEnd();
 }

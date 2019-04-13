@@ -29,6 +29,7 @@ class VueOpenGL : public SupportADessin {
   
   // méthode utilitaire offerte pour simplifier
   void dessineCube(QMatrix4x4 const& point_de_vue = QMatrix4x4() );
+  void dessineCylindre(QMatrix4x4 const& point_de_vue = QMatrix4x4() );
 
  private:
   // Un shader OpenGL encapsulé dans une classe Qt
