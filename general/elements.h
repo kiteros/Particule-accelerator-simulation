@@ -37,8 +37,8 @@ class Element : public Dessinable
         virtual void affiche(ofstream&) const;
         virtual void dessine() override
         { support->dessine(*this); }
-        virtual void update_force(Particle* p,double dt) = 0 ;
-        virtual Vecteur3D get_vecteur_r(Vecteur3D position) = 0;
+        virtual void update_force(Particle* p,double dt) ;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) ;
 
 };
 
