@@ -76,23 +76,7 @@ void Accelerateur::evolue(double dt){
     //Onc commence par parcourir toutes les particules
     for(auto p:particules){  
         Element* current_element = p ->get_element_inside();
-        if(current_element->get_type() == "dipole"){
-
-            Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
-            Vecteur3D champ_magnetique = dip->get_champ_magnetique() * constantes::e3;
-            p->ajouteForceMagnetique(champ_magnetique, dt);
-
-        }else if(current_element->get_type() == "quadrupole"){
-
-
-            Quadrupoles* quad = static_cast<Quadrupoles*>(p->get_element_inside());
-            Vecteur3D champ_magnetique = quad->get_intensite()*constantes::e3 +
-               quad->get_intensite() * (constantes::e3 ^ ~(quad->get_out() - quad->get_in()));
-            p->ajouteForceMagnetique(champ_magnetique, dt);
-
-        }
-
-
+        current_element->update_force(p,dt);
         //Update la position des particules
         p->move(dt);
 
