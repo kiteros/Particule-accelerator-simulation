@@ -5,7 +5,11 @@
 #include "dessinable.h"
 #include <iostream>
 
-
+struct Couleur{
+    double R;
+    double G;
+    double B;
+};
 
 class Element : public Dessinable
 
@@ -15,9 +19,11 @@ class Element : public Dessinable
         Vecteur3D out_pos;
         double rayon;
         Element* element_suivant;
+        double rayon_courbure;
+        Couleur c;
 
     public:
-        Element(Vecteur3D, Vecteur3D, double,SupportADessin*,Element* = nullptr);
+        Element(Vecteur3D, Vecteur3D, double,SupportADessin*,Element* = nullptr, double = 0.0);
         Vecteur3D get_in();
         Vecteur3D get_out();
         double get_size();
@@ -31,8 +37,9 @@ class Element : public Dessinable
         virtual void affiche(ofstream&) const;
         virtual void dessine() override
         { support->dessine(*this); }
-        virtual void update_force(Particle* p,double dt)  ;
-        virtual Vecteur3D get_vecteur_r(Vecteur3D position);
+        virtual void update_force(Particle* p,double dt) = 0 ;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) = 0;
+
 };
 
 class Element_droit : public Element
@@ -51,7 +58,7 @@ class Element_droit : public Element
 class Element_courbe : public Element
 {
     protected:
-        double rayon_courbure;
+
     public:
         Element_courbe(Vecteur3D, Vecteur3D, double, double,SupportADessin*,Element* e = nullptr);
 
