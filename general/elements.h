@@ -37,8 +37,8 @@ class Element : public Dessinable
         virtual void affiche(ofstream&) const;
         virtual void dessine() override
         { support->dessine(*this); }
-        virtual void update_force(Particle* p,double dt) ;
-        virtual Vecteur3D get_vecteur_r(Vecteur3D position) ;
+        virtual void update_force(Particle* p,double dt) = 0;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) = 0;
 
 };
 
@@ -51,7 +51,9 @@ class Element_droit : public Element
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
         double getLongeur() override;
-        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;        
+        virtual void update_force(Particle* p,double dt) override;
+
 };
 
 
@@ -68,6 +70,7 @@ class Element_courbe : public Element
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+        virtual void update_force(Particle* p,double dt) override;
 
 };
 
@@ -80,6 +83,7 @@ class Dipole : public Element_courbe
         double get_champ_magnetique(){return champ_magnetique;}
         void update_force(Particle* p ,double dt) override;
         virtual void affiche(ofstream&) const override;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
 };
 
 
@@ -91,6 +95,8 @@ class Quadrupoles: public Element_droit
         double get_intensite(){return intensite;}
         void update_force(Particle* p ,double dt) override;
         virtual void affiche(ofstream&) const override;
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+
 };
 
 ostream& operator<<(ostream&, Element&);
