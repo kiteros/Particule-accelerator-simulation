@@ -2,6 +2,8 @@
 #include "vertex_shader.h" // Identifiants Qt de nos différents attributs
 #include "accelerateur.h"
 #include "elements.h"
+#include <QOpenGLShaderProgram> // Classe qui regroupe les fonctions OpenGL liées aux shaders
+#include <QOpenGLFunctions>
 
 // ======================================================================
 void VueOpenGL::dessine(Accelerateur const& a_dessiner)
@@ -30,6 +32,10 @@ void VueOpenGL::dessine(Accelerateur const& a_dessiner)
   dessineCube(matrice);
 }
 
+void VueOpenGL::dessine()
+{
+
+}
 
 void VueOpenGL::dessine(Element const& a_dessiner)
 {

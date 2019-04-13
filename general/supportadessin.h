@@ -9,6 +9,7 @@ class SupportADessin
  public:
   virtual void dessine(Accelerateur const&) = 0;
   virtual void dessine(Element const&) = 0;
+  virtual void dessine() = 0;
   virtual ~SupportADessin() = default;
 
   // A priori, on ne souhaite pas copier les SupportADessin
