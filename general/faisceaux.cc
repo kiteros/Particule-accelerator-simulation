@@ -25,7 +25,7 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
                 particules.push_back(p);
                 longeur_accu = longeur_accu + pas;
             }
-            rest = abs(longeur - longeur_accu);
+            rest = fabs(longeur - longeur_accu);
 
 
 //            double longeur = ele->getLongeur();

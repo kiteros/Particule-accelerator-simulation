@@ -39,7 +39,7 @@ void Vecteur3D::affiche(){
 }
 
 bool equalFloat(double a, double b){
-    return abs(a-b)<1E-8;
+    return fabs(a-b)<1E-8;
 }
 
 bool Vecteur3D::compare(Vecteur3D v){
