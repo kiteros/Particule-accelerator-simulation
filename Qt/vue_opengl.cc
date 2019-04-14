@@ -6,8 +6,8 @@
 #include <QOpenGLFunctions>
 #include <QDebug>
 #include <QMouseEvent>
-#include <GL/glu.h>
-#include <GL/glu_mangle.h>
+//#include <GL/glu.h>
+//#include <GL/glu_mangle.h>
 
 
 // ======================================================================
