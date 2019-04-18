@@ -2,9 +2,9 @@
 #include "elements.h"
 #include"accelerateur.h"
 
-void TextViewer::dessine(Element const& e)
+void TextViewer::dessine(Element * e)
 {
-    e.affiche(flot);
+    e->affiche(flot);
     return;
 }
 

@@ -12,15 +12,19 @@ class GLWidget : public QOpenGLWidget
  */
 {
 public:
+  void affiche_accelerateur(Accelerateur* acc);
+
   GLWidget(QWidget* parent = nullptr)
     : QOpenGLWidget(parent)
-    , acc(&vue)
+    , acc(&vue),ele(nullptr)
   {
 
   }
   virtual ~GLWidget() {}
   virtual void resizeGL(int width, int height) override;
-
+  VueOpenGL* get_GL_vu(){return &vue;}
+  Accelerateur* get_acc() {return &acc;}
+   void set_ele(Element* e) { ele = e;}
 private:
   // Les 3 méthodes clés de la classe QOpenGLWidget à réimplémenter
   virtual void initializeGL()                  override;
@@ -44,6 +48,7 @@ private:
 
   // objets à dessiner, faire évoluer
   Accelerateur acc;
+  Element* ele;
 };
 
 #endif // GLWIDGET_H

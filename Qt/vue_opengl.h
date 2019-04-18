@@ -7,12 +7,13 @@
 #include "supportadessin.h"
 #include "accelerateur.h"
 #include "elements.h"
+#include "glcylindre.h"
 
 class VueOpenGL : public SupportADessin {
  public:
   // méthode(s) de dessin (héritée(s) de SupportADessin)
   virtual void dessine(Accelerateur const& a_dessiner) override;
-  virtual void dessine(Element const& a_dessiner) override;
+  virtual void dessine(Element* a_dessiner) override;
   virtual void dessine();
 
   // méthodes de (ré-)initialisation
@@ -29,8 +30,9 @@ class VueOpenGL : public SupportADessin {
   
   // méthode utilitaire offerte pour simplifier
   void dessineCube(QMatrix4x4 const& point_de_vue = QMatrix4x4() );
-  void dessineCylindre(QMatrix4x4 const& point_de_vue = QMatrix4x4() );
-
+  void dessineCylindre(Glcylindre cylindre,QMatrix4x4 const& point_de_vue,
+                     double rouge = 1.0, double vert = 1.0, double bleu = 1.0);
+  void dessineAccelerateur(Accelerateur const * acc,QMatrix4x4 const& point_de_vue);
  private:
   // Un shader OpenGL encapsulé dans une classe Qt
   QOpenGLShaderProgram prog;

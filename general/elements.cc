@@ -101,16 +101,14 @@ double Element_courbe::get_courbure(){
 
 double Element_courbe::getLongeur(){
     double longeur = 0;
-    double l = (this->get_out()-this->get_out()).norme();
+    double l = (this->get_in()-this->get_out()).norme();
     double r = fabs(1/this->get_courbure());
     longeur = asin(l/(2*r))*2*r;
     return longeur;
 }
 
 double Element_droit::getLongeur(){
-    double longeur = 0;
-    longeur = (this->get_out()-this->get_out()).norme();
-    return longeur;
+    return (this->get_in()-this->get_out()).norme();
 }
 
 
@@ -214,14 +212,18 @@ Vecteur3D Element_courbe::get_vecteur_r(Vecteur3D  position){
 }
 
 Vecteur3D Dipole::get_vecteur_r(Vecteur3D position){
-    double k = (this)->get_courbure();
-    Vecteur3D Cc = 0.5*(this->get_in() + this->get_out()) + ((1/k) * sqrt(1-pow (k,2.0)*((this->get_out()-this->get_in()).norme2())/4))*(~(this->get_out()-this->get_in())^constantes::e3);
-    Vecteur3D big_X = position - Cc;
-    return  ~(big_X - big_X.get_z()*constantes::e3);
+   return Element_courbe::get_vecteur_r(position);
 }
 
 Vecteur3D Quadrupoles::get_vecteur_r(Vecteur3D position)
 {
-    return constantes::e3 ^ ~(this->get_out()-this->get_in());
-
+    return Element_droit::get_vecteur_r(position);
 }
+
+Vecteur3D Element_courbe::get_centre_circle(){
+    double k = (this)->get_courbure();
+    Vecteur3D Cc = 0.5*(this->get_in() + this->get_out()) + ((1/k) * sqrt(1-pow (k,2.0)*((this->get_out()-this->get_in()).norme2())/4))*(~(this->get_out()-this->get_in())^constantes::e3);
+    return Cc;
+}
+
+

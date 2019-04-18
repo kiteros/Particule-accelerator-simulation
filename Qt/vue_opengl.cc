@@ -9,14 +9,31 @@
 //#include <GL/glu.h>
 //#include <GL/glu_mangle.h>
 
+void VueOpenGL::dessineCylindre (Glcylindre cylindre,QMatrix4x4 const& point_de_vue,
+                               double rouge, double vert, double bleu)
+{
+  cylindre.initialize();
+  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+  prog.setAttributeValue(CouleurId, rouge, vert, bleu);
+  cylindre.draw(prog, SommetId);
+}
+
+void VueOpenGL::dessineAccelerateur(Accelerateur const * acc,QMatrix4x4 const& point_de_vue){
+
+    for(auto ele:acc->getElements()){
+        Glcylindre cycl(ele);
+        dessineCylindre(cycl,point_de_vue);
+    }
+}
 
 // ======================================================================
 void VueOpenGL::dessine(Accelerateur const& a_dessiner)
 {
-   // Dessine le 1er cube (à l'origine)
-  dessineCube();
-
-
+    Q_UNUSED(a_dessiner); // dans cet exemple simple on n'utilise pas le paramètre
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // efface l'écran
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    QMatrix4x4 matrice;
+    dessineAccelerateur(&a_dessiner,matrice);
 }
 
 void VueOpenGL::dessine()
@@ -24,15 +41,17 @@ void VueOpenGL::dessine()
 
 }
 
-void VueOpenGL::dessine(Element const& a_dessiner)
-{
-   // Dessine le 1er cube (à l'origine)
-  //dessineCube();
+void VueOpenGL::dessine(Element* a_dessiner)
+{   Q_UNUSED(a_dessiner); // dans cet exemple simple on n'utilise pas le paramètre
 
-    //Il faut dessiner un cylindre
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // efface l'écran
 
 
 
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    QMatrix4x4 matrice;
+    Glcylindre cycl(a_dessiner);
+    dessineCylindre(cycl,matrice);
 }
 
 // ======================================================================
@@ -174,15 +193,3 @@ void VueOpenGL::dessineCube (QMatrix4x4 const& point_de_vue)
   glEnd();
 }
 
-void VueOpenGL::dessineCylindre (QMatrix4x4 const& point_de_vue)
-{
-  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
-
-  /*glColor3f(1,0,0);
-  glBegin(GL_POLYGON);
-  GLUquadricObj *obj = gluNewQuadric();
-
-  gluCylinder(obj, 1.0, 1, 3, 30, 30);*/
-
-  glEnd();
-}
