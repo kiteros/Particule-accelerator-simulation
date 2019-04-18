@@ -33,7 +33,36 @@ void VueOpenGL::dessine(Accelerateur const& a_dessiner)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // efface l'écran
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     QMatrix4x4 matrice;
+    dessineAxes(matrice);
     dessineAccelerateur(&a_dessiner,matrice);
+}
+
+void VueOpenGL::dessineAxes(QMatrix4x4 const& point_de_vue, bool en_couleur)
+{
+  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+
+  glBegin(GL_LINES);
+
+  // axe X
+  if (en_couleur) {
+    prog.setAttributeValue(CouleurId, 1.0, 0.0, 0.0); // rouge
+  } else {
+    prog.setAttributeValue(CouleurId, 1.0, 1.0, 1.0); // blanc
+  }
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 0.0);
+  prog.setAttributeValue(SommetId, 1.0, 0.0, 0.0);
+
+  // axe Y
+  if (en_couleur) prog.setAttributeValue(CouleurId, 0.0, 1.0, 0.0); // vert
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 0.0);
+  prog.setAttributeValue(SommetId, 0.0, 1.0, 0.0);
+
+  // axe Z
+  if (en_couleur) prog.setAttributeValue(CouleurId, 0.0, 0.0, 1.0); // bleu
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 0.0);
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 1.0);
+
+  glEnd();
 }
 
 void VueOpenGL::dessine()
@@ -107,8 +136,8 @@ void VueOpenGL::init()
    */
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
-
   initializePosition();
+
 }
 
 // ======================================================================
@@ -117,8 +146,8 @@ void VueOpenGL::initializePosition()
   // position initiale
   matrice_vue.setToIdentity();
   matrice_vue.translate(0.0, 0.0, -4.0);
-  matrice_vue.rotate(60.0, 0.0, 1.0, 0.0);
-  matrice_vue.rotate(45.0, 0.0, 0.0, 1.0);
+  //matrice_vue.rotate(60.0, 0.0, 1.0, 0.0);
+  //matrice_vue.rotate(45.0, 0.0, 0.0, 1.0);
 }
 
 // ======================================================================
