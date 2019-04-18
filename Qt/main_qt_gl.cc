@@ -12,6 +12,9 @@ int main(int argc, char* argv[])
 
     QApplication a(argc, argv);
 
+    GLWidgetMenu menu;
+    menu.show();
+
     GLWidget gl;
 
     gl.show();
