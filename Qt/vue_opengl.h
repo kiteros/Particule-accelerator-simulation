@@ -7,6 +7,7 @@
 #include "supportadessin.h"
 #include "accelerateur.h"
 #include "elements.h"
+#include "glcylindre.h"
 
 class VueOpenGL : public SupportADessin {
  public:
@@ -28,8 +29,7 @@ class VueOpenGL : public SupportADessin {
   void rotate(double angle, double dir_x, double dir_y, double dir_z);
   
   // méthode utilitaire offerte pour simplifier
-  void dessineCube(QMatrix4x4 const& point_de_vue = QMatrix4x4() );
-  void dessineCylindre(QMatrix4x4 const& point_de_vue = QMatrix4x4() );
+  void dessineCylindre(QMatrix4x4 const& point_de_vue = QMatrix4x4(), double, double, double, double);
 
  private:
   // Un shader OpenGL encapsulé dans une classe Qt

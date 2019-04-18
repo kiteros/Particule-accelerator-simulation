@@ -11,29 +11,30 @@
 
 
 // ======================================================================
-void VueOpenGL::dessine(Accelerateur const& a_dessiner)
-{
-   // Dessine le 1er cube (à l'origine)
-  dessineCube();
-
-
-}
-
 void VueOpenGL::dessine()
 {
 
 }
 
-void VueOpenGL::dessine(Element const& a_dessiner)
+void VueOpenGL::dessine(Accelerateur const& a_dessiner)
 {
-   // Dessine le 1er cube (à l'origine)
-  //dessineCube();
-
-    //Il faut dessiner un cylindre
-
+    for(auto elem:a_dessiner.getElements()){
+        dessine(elem);
+    }
 
 
 }
+
+
+
+void VueOpenGL::dessine(Element const& a_dessiner)
+{
+    //Element droit = rayon de courbe 0
+    QMatrix4x4 matrice;
+    dessineCylindre(matrix, a_dessiner.get_c(), a_dessiner.get_courbure());
+
+}
+
 
 // ======================================================================
 void VueOpenGL::init()
@@ -123,66 +124,11 @@ void VueOpenGL::rotate(double angle, double dir_x, double dir_y, double dir_z)
   matrice_vue = rotation_supplementaire * matrice_vue;
 }
 
-// ======================================================================
-void VueOpenGL::dessineCube (QMatrix4x4 const& point_de_vue)
+
+
+void VueOpenGL::dessineCylindre (QMatrix4x4 const& point_de_vue, Couleur c)
 {
-  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
-
-  glBegin(GL_QUADS);
-  // face coté X = +1
-  prog.setAttributeValue(CouleurId, 1.0, 0.0, 0.0); // rouge
-  prog.setAttributeValue(SommetId, +1.0, -1.0, -1.0);
-  prog.setAttributeValue(SommetId, +1.0, +1.0, -1.0);
-  prog.setAttributeValue(SommetId, +1.0, +1.0, +1.0);
-  prog.setAttributeValue(SommetId, +1.0, -1.0, +1.0);
-
-  // face coté X = -1
-  prog.setAttributeValue(CouleurId, 0.0, 1.0, 0.0); // vert
-  prog.setAttributeValue(SommetId, -1.0, -1.0, -1.0);
-  prog.setAttributeValue(SommetId, -1.0, -1.0, +1.0);
-  prog.setAttributeValue(SommetId, -1.0, +1.0, +1.0);
-  prog.setAttributeValue(SommetId, -1.0, +1.0, -1.0);
-
-  // face coté Y = +1
-  prog.setAttributeValue(CouleurId, 0.0, 0.0, 1.0); // bleu
-  prog.setAttributeValue(SommetId, -1.0, +1.0, -1.0);
-  prog.setAttributeValue(SommetId, -1.0, +1.0, +1.0);
-  prog.setAttributeValue(SommetId, +1.0, +1.0, +1.0);
-  prog.setAttributeValue(SommetId, +1.0, +1.0, -1.0);
-
-  // face coté Y = -1
-  prog.setAttributeValue(CouleurId, 0.0, 1.0, 1.0); // cyan
-  prog.setAttributeValue(SommetId, -1.0, -1.0, -1.0);
-  prog.setAttributeValue(SommetId, +1.0, -1.0, -1.0);
-  prog.setAttributeValue(SommetId, +1.0, -1.0, +1.0);
-  prog.setAttributeValue(SommetId, -1.0, -1.0, +1.0);
-
-  // face coté Z = +1
-  prog.setAttributeValue(CouleurId, 1.0, 1.0, 0.0); // jaune
-  prog.setAttributeValue(SommetId, -1.0, -1.0, +1.0);
-  prog.setAttributeValue(SommetId, +1.0, -1.0, +1.0);
-  prog.setAttributeValue(SommetId, +1.0, +1.0, +1.0);
-  prog.setAttributeValue(SommetId, -1.0, +1.0, +1.0);
-
-  // face coté Z = -1
-  prog.setAttributeValue(CouleurId, 1.0, 0.0, 1.0); // magenta
-  prog.setAttributeValue(SommetId, -1.0, -1.0, -1.0);
-  prog.setAttributeValue(SommetId, -1.0, +1.0, -1.0);
-  prog.setAttributeValue(SommetId, +1.0, +1.0, -1.0);
-  prog.setAttributeValue(SommetId, +1.0, -1.0, -1.0);
-
-  glEnd();
-}
-
-void VueOpenGL::dessineCylindre (QMatrix4x4 const& point_de_vue)
-{
-  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
-
-  /*glColor3f(1,0,0);
-  glBegin(GL_POLYGON);
-  GLUquadricObj *obj = gluNewQuadric();
-
-  gluCylinder(obj, 1.0, 1, 3, 30, 30);*/
-
-  glEnd();
+    prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+    prog.setAttributeValue(CouleurId, c.R, c.G, c.B);  // met la couleur
+    cylindre.draw(prog, rayon, SommetId);                           // dessine la sphère
 }
