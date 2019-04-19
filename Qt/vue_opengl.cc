@@ -9,32 +9,79 @@
 //#include <GL/glu.h>
 //#include <GL/glu_mangle.h>
 
+void VueOpenGL::dessineCylindre (Glcylindre cylindre,QMatrix4x4 const& point_de_vue,
+                               double rouge, double vert, double bleu)
+{
+  cylindre.initialize();
+  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+  prog.setAttributeValue(CouleurId, rouge, vert, bleu);
+  cylindre.draw(prog, SommetId);
+}
+
+void VueOpenGL::dessineAccelerateur(Accelerateur const * acc,QMatrix4x4 const& point_de_vue){
+
+    for(auto ele:acc->getElements()){
+        Glcylindre cycl(ele);
+        dessineCylindre(cycl,point_de_vue);
+    }
+}
 
 // ======================================================================
+void VueOpenGL::dessine(Accelerateur const& a_dessiner)
+{
+    Q_UNUSED(a_dessiner); // dans cet exemple simple on n'utilise pas le paramètre
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // efface l'écran
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    QMatrix4x4 matrice;
+    dessineAxes(matrice);
+    dessineAccelerateur(&a_dessiner,matrice);
+}
+
+void VueOpenGL::dessineAxes(QMatrix4x4 const& point_de_vue, bool en_couleur)
+{
+  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+
+  glBegin(GL_LINES);
+
+  // axe X
+  if (en_couleur) {
+    prog.setAttributeValue(CouleurId, 1.0, 0.0, 0.0); // rouge
+  } else {
+    prog.setAttributeValue(CouleurId, 1.0, 1.0, 1.0); // blanc
+  }
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 0.0);
+  prog.setAttributeValue(SommetId, 1.0, 0.0, 0.0);
+
+  // axe Y
+  if (en_couleur) prog.setAttributeValue(CouleurId, 0.0, 1.0, 0.0); // vert
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 0.0);
+  prog.setAttributeValue(SommetId, 0.0, 1.0, 0.0);
+
+  // axe Z
+  if (en_couleur) prog.setAttributeValue(CouleurId, 0.0, 0.0, 1.0); // bleu
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 0.0);
+  prog.setAttributeValue(SommetId, 0.0, 0.0, 1.0);
+
+  glEnd();
+}
+
 void VueOpenGL::dessine()
 {
 
 }
 
-void VueOpenGL::dessine(Accelerateur const& a_dessiner)
-{
-    for(auto elem:a_dessiner.getElements()){
-        dessine(elem);
-    }
+void VueOpenGL::dessine(Element* a_dessiner)
+{   Q_UNUSED(a_dessiner); // dans cet exemple simple on n'utilise pas le paramètre
 
-
-}
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // efface l'écran
 
 
 
-void VueOpenGL::dessine(Element const& a_dessiner)
-{
-    //Element droit = rayon de courbe 0
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     QMatrix4x4 matrice;
-    dessineCylindre(matrix, a_dessiner.get_c(), a_dessiner.get_courbure());
-
+    Glcylindre cycl(a_dessiner);
+    dessineCylindre(cycl,matrice);
 }
-
 
 // ======================================================================
 void VueOpenGL::init()
@@ -89,8 +136,8 @@ void VueOpenGL::init()
    */
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
-
   initializePosition();
+
 }
 
 // ======================================================================
@@ -99,8 +146,8 @@ void VueOpenGL::initializePosition()
   // position initiale
   matrice_vue.setToIdentity();
   matrice_vue.translate(0.0, 0.0, -4.0);
-  matrice_vue.rotate(60.0, 0.0, 1.0, 0.0);
-  matrice_vue.rotate(45.0, 0.0, 0.0, 1.0);
+  //matrice_vue.rotate(60.0, 0.0, 1.0, 0.0);
+  //matrice_vue.rotate(45.0, 0.0, 0.0, 1.0);
 }
 
 // ======================================================================
@@ -124,11 +171,53 @@ void VueOpenGL::rotate(double angle, double dir_x, double dir_y, double dir_z)
   matrice_vue = rotation_supplementaire * matrice_vue;
 }
 
-
-
-void VueOpenGL::dessineCylindre (QMatrix4x4 const& point_de_vue, Couleur c)
+// ======================================================================
+void VueOpenGL::dessineCube (QMatrix4x4 const& point_de_vue)
 {
-    prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
-    prog.setAttributeValue(CouleurId, c.R, c.G, c.B);  // met la couleur
-    cylindre.draw(prog, rayon, SommetId);                           // dessine la sphère
+  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+
+  glBegin(GL_QUADS);
+  // face coté X = +1
+  prog.setAttributeValue(CouleurId, 1.0, 0.0, 0.0); // rouge
+  prog.setAttributeValue(SommetId, +1.0, -1.0, -1.0);
+  prog.setAttributeValue(SommetId, +1.0, +1.0, -1.0);
+  prog.setAttributeValue(SommetId, +1.0, +1.0, +1.0);
+  prog.setAttributeValue(SommetId, +1.0, -1.0, +1.0);
+
+  // face coté X = -1
+  prog.setAttributeValue(CouleurId, 0.0, 1.0, 0.0); // vert
+  prog.setAttributeValue(SommetId, -1.0, -1.0, -1.0);
+  prog.setAttributeValue(SommetId, -1.0, -1.0, +1.0);
+  prog.setAttributeValue(SommetId, -1.0, +1.0, +1.0);
+  prog.setAttributeValue(SommetId, -1.0, +1.0, -1.0);
+
+  // face coté Y = +1
+  prog.setAttributeValue(CouleurId, 0.0, 0.0, 1.0); // bleu
+  prog.setAttributeValue(SommetId, -1.0, +1.0, -1.0);
+  prog.setAttributeValue(SommetId, -1.0, +1.0, +1.0);
+  prog.setAttributeValue(SommetId, +1.0, +1.0, +1.0);
+  prog.setAttributeValue(SommetId, +1.0, +1.0, -1.0);
+
+  // face coté Y = -1
+  prog.setAttributeValue(CouleurId, 0.0, 1.0, 1.0); // cyan
+  prog.setAttributeValue(SommetId, -1.0, -1.0, -1.0);
+  prog.setAttributeValue(SommetId, +1.0, -1.0, -1.0);
+  prog.setAttributeValue(SommetId, +1.0, -1.0, +1.0);
+  prog.setAttributeValue(SommetId, -1.0, -1.0, +1.0);
+
+  // face coté Z = +1
+  prog.setAttributeValue(CouleurId, 1.0, 1.0, 0.0); // jaune
+  prog.setAttributeValue(SommetId, -1.0, -1.0, +1.0);
+  prog.setAttributeValue(SommetId, +1.0, -1.0, +1.0);
+  prog.setAttributeValue(SommetId, +1.0, +1.0, +1.0);
+  prog.setAttributeValue(SommetId, -1.0, +1.0, +1.0);
+
+  // face coté Z = -1
+  prog.setAttributeValue(CouleurId, 1.0, 0.0, 1.0); // magenta
+  prog.setAttributeValue(SommetId, -1.0, -1.0, -1.0);
+  prog.setAttributeValue(SommetId, -1.0, +1.0, -1.0);
+  prog.setAttributeValue(SommetId, +1.0, +1.0, -1.0);
+  prog.setAttributeValue(SommetId, +1.0, -1.0, -1.0);
+
+  glEnd();
 }

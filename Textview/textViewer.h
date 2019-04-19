@@ -10,7 +10,7 @@ class TextViewer:public SupportADessin
         : flot(flot)
       {}
       virtual ~TextViewer() override {}
-      virtual void dessine(Element const& a_dessiner) override;
+      virtual void dessine(Element * a_dessiner) override;
       virtual void dessine(Accelerateur const& a_dessiner) override;
       virtual void dessine() override;
      private:

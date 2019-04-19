@@ -4,6 +4,7 @@
 #include "vecteur3D.h"
 #include "dessinable.h"
 #include <iostream>
+#include "constantes.h"
 
 struct Couleur{
     double R;
@@ -38,10 +39,12 @@ class Element : public Dessinable
         virtual bool touch_border(Particle const&) = 0;
         virtual void affiche(ofstream&) const;
         virtual void dessine() override
-        { support->dessine(*this); }
+        { support->dessine(this); }
         virtual void update_force(Particle* p,double dt) = 0;
-        virtual Vecteur3D get_vecteur_r(Vecteur3D position) = 0;
-
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position = Vecteur3D()) = 0;
+       // virtual Vecteur3D get_vecteur_s(Vecteur3D position = Vecteur3D()) = 0;
+        double get_courbure() {return rayon_courbure;}
+        double get_rayon() {return rayon;}
 };
 
 class Element_droit : public Element
@@ -53,7 +56,8 @@ class Element_droit : public Element
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
         double getLongeur() override;
-        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;        
+        virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+       // virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         virtual void update_force(Particle* p,double dt) override;
 
 };
@@ -72,8 +76,9 @@ class Element_courbe : public Element
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+     //   virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         virtual void update_force(Particle* p,double dt) override;
-
+        Vecteur3D get_centre_circle();
 };
 
 class Dipole : public Element_courbe
@@ -86,6 +91,7 @@ class Dipole : public Element_courbe
         void update_force(Particle* p ,double dt) override;
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+      //  virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
 };
 
 
@@ -98,7 +104,7 @@ class Quadrupoles: public Element_droit
         void update_force(Particle* p ,double dt) override;
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
-
+       // virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
 };
 
 ostream& operator<<(ostream&, Element&);

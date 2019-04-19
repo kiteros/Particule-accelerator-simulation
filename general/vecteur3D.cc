@@ -86,7 +86,7 @@ Vecteur3D  operator* (double scal, Vecteur3D v){
 //Meme classe en surcharge d'opérator (* : dot product)
 double Vecteur3D::operator*(Vecteur3D const& v1){
     double dot_prod;
-    dot_prod = this->x * v1.x + this->y * v1.y + this->z + v1.z;
+    dot_prod = this->x * v1.x + this->y * v1.y + this->z * v1.z;
     return dot_prod;
 }
 
@@ -97,7 +97,6 @@ Vecteur3D Vecteur3D::operator^(Vecteur3D const& v1){
     v_n.set(this->y * v1.z - this->z * v1.y,
             this->z * v1.x - this->x * v1.z,
             this->x * v1.y - this->y * v1.x);
-
     return v_n;
 }
 

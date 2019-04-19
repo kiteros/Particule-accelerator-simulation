@@ -16,7 +16,8 @@ SOURCES += \
     glwidget.cc \
     vue_opengl.cc \
     glwidget_menu.cc \
-    vue_opengl_menu.cc
+    vue_opengl_menu.cc \
+    glcylindre.cc
     
 
 HEADERS += \
@@ -28,7 +29,8 @@ HEADERS += \
     ../general/accelerateur.h \
     glwidget_menu.h \
     vue_opengl_menu.h \
-    vertex_shader_menu.h
+    vertex_shader_menu.h \
+    glcylindre.h
     ../general/elements.h
 
 RESOURCES += \

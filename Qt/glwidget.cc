@@ -38,6 +38,7 @@ void GLWidget::paintGL()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   acc.dessine();
+  //ele->dessine();
 }
 
 
@@ -134,4 +135,8 @@ void GLWidget::pause()
 	killTimer(timerId);
 	timerId = 0;
   }
+}
+
+void GLWidget::affiche_accelerateur(Accelerateur* acc){
+    acc->dessine();
 }
