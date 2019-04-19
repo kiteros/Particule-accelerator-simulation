@@ -221,4 +221,3 @@ void VueOpenGL::dessineCube (QMatrix4x4 const& point_de_vue)
 
   glEnd();
 }
-
