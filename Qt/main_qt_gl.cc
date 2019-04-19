@@ -20,14 +20,17 @@ int main(int argc, char* argv[])
 
 
     VueOpenGL* vue = gl.get_GL_vu();
-   // Accelerateur LHC = Accelerateur(vue, "LHC");
-        Quadrupoles Q1(Vecteur3D(3,2,0),Vecteur3D(3,1,0),0.1,1.2,nullptr);
-        Quadrupoles Q2(Vecteur3D(3,0,0),Vecteur3D(3,-1,0),0.1,-1.2,nullptr);
-        Quadrupoles Q3(Vecteur3D(2,-3,0),Vecteur3D(1,-3,0),0.1,1.2,nullptr);
-        Quadrupoles Q4(Vecteur3D(0,-3,0),Vecteur3D(-1,-3,0),0.1,-1.2,nullptr);
-        Quadrupoles Q5(Vecteur3D(-3,-2,0),Vecteur3D(-3,-1,0),0.1,1.2,nullptr);
-        Quadrupoles Q6(Vecteur3D(-3,0,0),Vecteur3D(-3,1,0),0.1,-1.2,nullptr);
-        Quadrupoles Q7(Vecteur3D(-2,3,0),Vecteur3D(-1,3,0),0.1,1.2,nullptr);
+
+    Particle proton = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(2.99,0,0));
+    Particle electron = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(3.01,0,0));
+
+    Quadrupoles Q1(Vecteur3D(3,2,0),Vecteur3D(3,1,0),0.1,1.2,nullptr);
+    Quadrupoles Q2(Vecteur3D(3,0,0),Vecteur3D(3,-1,0),0.1,-1.2,nullptr);
+    Quadrupoles Q3(Vecteur3D(2,-3,0),Vecteur3D(1,-3,0),0.1,1.2,nullptr);
+    Quadrupoles Q4(Vecteur3D(0,-3,0),Vecteur3D(-1,-3,0),0.1,-1.2,nullptr);
+    Quadrupoles Q5(Vecteur3D(-3,-2,0),Vecteur3D(-3,-1,0),0.1,1.2,nullptr);
+    Quadrupoles Q6(Vecteur3D(-3,0,0),Vecteur3D(-3,1,0),0.1,-1.2,nullptr);
+    Quadrupoles Q7(Vecteur3D(-2,3,0),Vecteur3D(-1,3,0),0.1,1.2,nullptr);
         Quadrupoles Q8(Vecteur3D(0,3,0),Vecteur3D(1,3,0),0.1,-1.2,nullptr);
 
 
@@ -67,21 +70,20 @@ int main(int argc, char* argv[])
         D4.set_element_suivant(&Q1);
 
         vector<Element*> v{ &Q1,&Q2,&Q3,&Q4,&Q5,&Q6,&Q7,&Q8,&D1,&D2,&D3,&D4,&E1,&E2,&E3,&E4,&E5,&E6,&E7,&E8} ;
-        gl.get_acc()->add_elements(v);
+       gl.get_acc()->add_elements(v);
+        //gl.get_acc()->add_particles(&proton);
+        std::cout<<"avant:"<<gl.get_acc()->getPartcules().size()<<endl;
+        gl.get_acc()->add_particles(&electron);
+        std::cout<<"apres:"<<gl.get_acc()->getPartcules().size()<<endl;
+
         //gl.set_ele(&D2);
 
-        gl.show();
-        gl.resize(1000, 500);
+
+        gl.showMaximized();
+
 
     //gl.affiche_accelerateur(&LHC);
 
-    /*QWidget choice_window;
-    choice_window.resize(600, 400);
-    QPushButton *button = new QPushButton("Hello World", &choice_window);
-    button->setGeometry(10, 10, 80, 30);
-    choice_window.show();
-    choice_window.setWindowTitle(
-    QApplication::translate("toplevel", "Accelerateur"));*/
 
 
 

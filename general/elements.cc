@@ -22,6 +22,12 @@ Element_courbe::Element_courbe(Vecteur3D in_pos,
                                Vecteur3D out_pos, double rayon,
                                double rayon_courbure,SupportADessin* support,Element* s):Element(in_pos, out_pos, rayon, support,s, rayon_courbure){
 
+    Couleur c;
+    c.R = 1.0;
+    c.G = 0.5;
+    c.B = 0.0;
+    this->c = c;
+
 }
 
 Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
@@ -29,11 +35,25 @@ Dipole::Dipole(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,
                double champ_magnetique,SupportADessin* support,Element* s):Element_courbe(in_pos, out_pos, rayon, rayon_courbure,support,s){
 
     this->champ_magnetique = champ_magnetique;
+    Couleur c;
+    c.R = 1.0;
+    c.G = 1.0;
+    c.B = 0.0;
+    this->c = c;
+
 }
 
 Element_droit::Element_droit(Vecteur3D in_pos, Vecteur3D out_pos,
                              double rayon,SupportADessin* support,Element* s):Element(in_pos, out_pos, rayon,support,s)
-{}
+{
+
+    Couleur c;
+    c.R = 1.0;
+    c.G = 0.5;
+    c.B = 0.5;
+    this->c = c;
+
+}
 
 
 Quadrupoles::Quadrupoles(Vecteur3D in_pos,
@@ -43,6 +63,12 @@ Quadrupoles::Quadrupoles(Vecteur3D in_pos,
                          Element* e):Element_droit(in_pos, out_pos, rayon, support, e)
 {
      this->intensite = intensite;
+    Couleur c;
+    c.R = 0.0;
+    c.G = 0.5;
+    c.B = 1.0;
+    this->c = c;
+
 }
 
 bool Element::particle_out(Particle const& p){

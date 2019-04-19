@@ -43,7 +43,6 @@ class Element : public Dessinable
         virtual void update_force(Particle* p,double dt) = 0;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position = Vecteur3D()) = 0;
        // virtual Vecteur3D get_vecteur_s(Vecteur3D position = Vecteur3D()) = 0;
-        double get_courbure() {return rayon_courbure;}
         double get_rayon() {return rayon;}
 };
 
