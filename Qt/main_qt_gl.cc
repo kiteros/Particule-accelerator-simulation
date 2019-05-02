@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
     VueOpenGL* vue = gl.get_GL_vu();
 
-    Particle proton = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(2.99,0,0));
+    Particle proton = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(2.8,0,0));
     Particle electron = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(3.01,0,0));
 
     Quadrupoles Q1(Vecteur3D(3,2,0),Vecteur3D(3,1,0),0.1,1.2,nullptr);
@@ -73,15 +73,13 @@ int main(int argc, char* argv[])
         vector<Element*> v{ &Q1,&Q2,&Q3,&Q4,&Q5,&Q6,&Q7,&Q8,&D1,&D2,&D3,&D4,&E1,&E2,&E3,&E4,&E5,&E6,&E7,&E8} ;
         gl.get_acc()->add_elements(v);
         gl.get_acc()->add_particles(&proton);
-        std::cout<<"avant:"<<gl.get_acc()->getPartcules().size()<<endl;
-        //gl.get_acc()->add_particles(&electron);
-        std::cout<<"apres:"<<gl.get_acc()->getPartcules().size()<<endl;
-        Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,Vecteur3D(0,-2.64754e+08,0), nullptr,gl.get_acc());
+
+        Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,Vecteur3D(0,-0.5,0), nullptr,gl.get_acc());
         gl.get_acc()->add_faisceau(f);
         //gl.set_ele(&D2);
 
 
-        gl.showMaximized();
+        gl.show();
 
 
 

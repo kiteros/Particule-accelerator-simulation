@@ -24,7 +24,7 @@ private:
     void Update_somme_attributs();
 public:
     Faisceau(int nombre_particules, int lambda, double charge, double mass,Vecteur3D vitesse, SupportADessin* support,Accelerateur* acc);
-    void bouger();
+    void bouger(double dt);
     void remove_particle(Particle *);
     vector<Particle*> getParticules() {return particules;}
     virtual void dessine() override

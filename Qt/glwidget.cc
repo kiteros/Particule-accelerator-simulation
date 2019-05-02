@@ -8,6 +8,7 @@ void GLWidget::initializeGL()
 {
   vue.init();
   timerId = startTimer(20);
+  //acc.start();
 }
 
 // ======================================================================
@@ -38,7 +39,7 @@ void GLWidget::paintGL()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   acc.dessine();
-  //ele->dessine();
+  //std::cout << "redessine" << endl;
 }
 
 
@@ -119,7 +120,7 @@ void GLWidget::timerEvent(QTimerEvent* event)
 
   double dt = chronometre.restart() / 1000.0;
 
-  acc.evolue(0.5);
+  acc.evolue(dt);
   update();
 }
 

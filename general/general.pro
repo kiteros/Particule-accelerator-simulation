@@ -11,7 +11,7 @@ HEADERS += \
     dessinable.h \
     supportadessin.h \
     textViewer.h \
-    Faisceau.h \
+    faisceau.h \
     ../Textview/textViewer.h
 
 SOURCES += \
@@ -28,7 +28,7 @@ SOURCES += \
     dessinable.cc \
     testParticle.cc \
     supportadessin.cc \
-    Faisceau.cc
+    faisceau.cc
 
 DISTFILES += \
     Makefile_old

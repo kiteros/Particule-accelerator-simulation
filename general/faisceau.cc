@@ -1,4 +1,4 @@
-#include "Faisceau.h"
+#include "faisceau.h"
 #include "accelerateur.h"
 #include "elements.h"
 #include  <math.h>
@@ -15,7 +15,7 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
     int i = 0;
     Element* ele = acc->getElements().front();
     while(i < N){
-            double longeur = ele->getLongeur();
+        double longeur = ele->getLongeur();
             double longeur_accu = rest;
             while((longeur - longeur_accu) >= 0){
                 Vecteur3D position = ele->convertir_depuis_Abscisse_curviligne(longeur_accu);
@@ -46,12 +46,12 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
     Update_somme_attributs();
 }
 
-void Faisceau::bouger(){
+void Faisceau::bouger(double dt){
     for(auto p:particules){
-        Element* current_element = p ->get_element_inside();
-        current_element->update_force(p,constantes::time_step);
+        Element* current_element = p->get_element_inside();
+        current_element->update_force(p,dt);
         //Update la position des particules
-        p->move(constantes::time_step);
+        p->move(dt);
 
         while(current_element->particle_out(*p)){
             p->set_element_inside(current_element->get_element_suivant());
@@ -61,9 +61,15 @@ void Faisceau::bouger(){
         //Check si elles touchent le bord et les supprimer en concécences
         if(current_element->touch_border(*p)){
             remove_particle(p);
+            std::cout << "particle out" << endl;
             continue;
         }
+
+
     }
+
+    std::cout << particules.size() << endl;
+    std::cout << *particules[0] << endl;
 
     Update_somme_attributs();
 

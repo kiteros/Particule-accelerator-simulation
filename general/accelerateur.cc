@@ -70,33 +70,10 @@ void Accelerateur::remove_particle(Particle * p) {
 }
 
 void Accelerateur::evolue(double dt){
-    //Okay donc on utilise l'algorithme avec sauvegarde...
-    //On doit donc update toutes les particles (leurs forces)
 
-    //Onc commence par parcourir toutes les particules
-    Particle* p_ = particules[0];
-    Element* current_element = p_->get_element_inside();
+    //Bouger les faisceaux?
+    getFaisceaux().front()->bouger(dt);
 
-
-
-    //current_element->update_force(p_,dt);
-    /*for(auto p:particules){
-
-
-       //Update la position des particules
-        p->move(dt);
-
-        while(current_element->particle_out(*p)){
-            p->set_element_inside(current_element->get_element_suivant());
-            current_element = p ->get_element_inside();
-        }
-
-        //Check si elles touchent le bord et les supprimer en concécences
-        if(current_element->touch_border(*p)){
-            this->remove_particle(p);
-            continue;
-        }
-    }*/
 }
 
 void Accelerateur::start(ofstream & os){
@@ -138,6 +115,24 @@ void Accelerateur::start(ofstream & os){
             }
 
 
+        }
+    }
+
+}
+
+void Accelerateur::start(){
+
+    for(auto p:particules){
+        int i = -1;
+        for(auto el: elements){
+            i++;
+            //Si la particule touche pas le bord et est pas sortie
+            if(!el->touch_border(*p) && !el->particle_out(*p)){
+                //p is in there
+                p->set_element_inside(el);
+            }else if(i == elements.size()){
+                this->remove_particle(p);
+            }
         }
     }
 

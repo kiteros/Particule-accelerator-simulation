@@ -4,7 +4,7 @@
 #include "elements.h"
 #include "particle.h"
 #include "dessinable.h"
-#include "Faisceau.h"
+#include "faisceau.h"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -44,6 +44,7 @@ class Accelerateur: public Dessinable
 
         void evolue(double);
         void start(ofstream&);
+        void start();
         virtual void affiche(ofstream&) const;
         virtual void dessine() override
         { support->dessine(*this); }
