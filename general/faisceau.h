@@ -1,10 +1,10 @@
-#ifndef FAISCEAUX_H
-#define FAISCEAUX_H
+#ifndef Faisceau_H
+#define Faisceau_H
 #include "particle.h"
 #include "dessinable.h"
 #include <vector>
 
-class Faisceaux: public Dessinable
+class Faisceau: public Dessinable
 {
 private:
     Particle* particule_typique;
@@ -23,10 +23,12 @@ private:
     double A12Z;
     void Update_somme_attributs();
 public:
-    Faisceaux(int nombre_particules, int lambda, double charge, double mass,Vecteur3D vitesse, SupportADessin* support,Accelerateur* acc);
+    Faisceau(int nombre_particules, int lambda, double charge, double mass,Vecteur3D vitesse, SupportADessin* support,Accelerateur* acc);
     void bouger();
     void remove_particle(Particle *);
-
+    vector<Particle*> getParticules() {return particules;}
+    virtual void dessine() override
+    { support->dessine(*this); }
 };
 
-#endif // FAISCEAUX_H
+#endif // Faisceau_H

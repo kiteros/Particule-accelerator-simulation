@@ -4,6 +4,7 @@
 #include "elements.h"
 #include "particle.h"
 #include "dessinable.h"
+#include "Faisceau.h"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -14,11 +15,11 @@ class Accelerateur: public Dessinable
         //On met un array dynamique pour tout les elements
         vector<Element*> elements;
         vector<Particle*> particules;
-
+        vector<Faisceau*> faisceaux;
         string name;
 
     public:
-
+        vector<Faisceau*> getFaisceaux()const{return faisceaux;}
         vector<Element*> getElements()const {return elements;}
         vector<Particle*> getPartcules()const {return particules;}
 
@@ -33,6 +34,7 @@ class Accelerateur: public Dessinable
 
         double getLongeur();
         void add_elements(vector<Element*>);
+        void add_faisceau(Faisceau*);
         void add_element(Element*);
         void remove_particle(Particle*);
         void remove_all_element();
