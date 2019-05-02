@@ -1,19 +1,26 @@
 #include "glcylindre.h"
 #include <cmath>
+
+
 double get_angle_with_y(Vecteur3D direction){
     double produit_y = (Vecteur3D(0,1,0)^direction)*Vecteur3D(0,0,1);
 
-    std::cout<<"direction: "<<(Vecteur3D(0,1,0)^Vecteur3D(-1,0,0))*Vecteur3D(0,0,1)<<endl;
+    //std::cout<<"direction: "<<(Vecteur3D(0,1,0)^Vecteur3D(-1,0,0))*Vecteur3D(0,0,1)<<endl;
     double produit_x = (Vecteur3D(1,0,0)^direction )*Vecteur3D(0,0,1);
     double theta = 0;
     if ( produit_y > 0 ) {
         if(produit_x > 0)
         {theta = asin(produit_y);
-            std::cout<<"py: "<<(produit_y)<<endl;
-        std::cout<<"px>0 asin: "<<asin(produit_y)<<endl;}
+
+            //std::cout<<"py: "<<(produit_y)<<endl;
+            //std::cout<<"px>0 asin: "<<asin(produit_y)<<endl;
+        }
+
         else
         {theta = M_PI - asin(produit_y);
-            std::cout<<"px<=0 asin: "<<asin(produit_y)<<endl;
+
+            //std::cout<<"px<=0 asin: "<<asin(produit_y)<<endl;
+
         }
     } else {
         if(produit_x > 0)
@@ -83,9 +90,9 @@ void Glcylindre::initialize(GLuint slices, GLuint stacks)
           positions << element->get_in().get_x() << element->get_in().get_y() << element->get_in().get_z();
       else
           positions << element->get_out().get_x() << element->get_out().get_y() << element->get_out().get_z();
-      std::cout << "start: "<<~start<<endl;
+      //std::cout << "start: "<<~start<<endl;
       double angle_start = get_angle_with_y(~start);
-      std::cout << "angle_start: "<<angle_start<<endl;
+      //std::cout << "angle_start: "<<angle_start<<endl;
       double x_s = start.get_x();
       double y_s = start.get_y();
       double z_s = 0.0;
@@ -129,7 +136,7 @@ void Glcylindre::initialize(GLuint slices, GLuint stacks)
        //std::cout << "longeur est" <<  (element->get_out()-element->get_in()).norme() <<endl;
        double d_s = longeur / (stacks -1);
        Vecteur3D direction =  ~(element->get_out()-element->get_in());
-       std::cout << "direction est"<<direction <<endl;
+       //std::cout << "direction est"<<direction <<endl;
        double theta = get_angle_with_y(direction);
        for (GLuint i(0); i <stacks; ++i) {
          for (GLuint j(0); j < slices; ++j) {

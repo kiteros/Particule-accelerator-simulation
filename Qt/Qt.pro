@@ -15,9 +15,8 @@ SOURCES += \
     main_qt_gl.cc \
     glwidget.cc \
     vue_opengl.cc \
-    glwidget_menu.cc \
-    vue_opengl_menu.cc \
-    glcylindre.cc
+    glcylindre.cc \
+    glsphere.cc
     
 
 HEADERS += \
@@ -27,10 +26,8 @@ HEADERS += \
     ../general/dessinable.h \
     ../general/supportadessin.h \
     ../general/accelerateur.h \
-    glwidget_menu.h \
-    vue_opengl_menu.h \
-    vertex_shader_menu.h \
-    glcylindre.h
+    glcylindre.h \
+    glsphere.h
     ../general/elements.h
 
 RESOURCES += \

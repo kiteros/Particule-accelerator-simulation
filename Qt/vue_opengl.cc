@@ -6,8 +6,8 @@
 #include <QOpenGLFunctions>
 #include <QDebug>
 #include <QMouseEvent>
-//#include <GL/glu.h>
-//#include <GL/glu_mangle.h>
+#include "glsphere.h"
+
 
 void VueOpenGL::dessineCylindre (Glcylindre cylindre,QMatrix4x4 const& point_de_vue,
                                double rouge, double vert, double bleu)
@@ -18,12 +18,37 @@ void VueOpenGL::dessineCylindre (Glcylindre cylindre,QMatrix4x4 const& point_de_
   cylindre.draw(prog, SommetId);
 }
 
+// ======================================================================
+void VueOpenGL::dessineSphere (GLSphere sphere, QMatrix4x4 const& point_de_vue,
+                               double rouge, double vert, double bleu)
+{
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    sphere.initialize();
+  prog.setUniformValue("vue_modele", matrice_vue * point_de_vue);
+  prog.setAttributeValue(CouleurId, rouge, vert, bleu);  // met la couleur
+  sphere.draw(prog, SommetId);                           // dessine la sphère
+}
+
 void VueOpenGL::dessineAccelerateur(Accelerateur const * acc,QMatrix4x4 const& point_de_vue){
 
-    for(auto ele:acc->getElements()){
+   for(auto ele:acc->getElements()){
         Glcylindre cycl(ele);
-        dessineCylindre(cycl,point_de_vue);
+        Couleur c = ele->get_c();
+        dessineCylindre(cycl,point_de_vue, c.R, c.G, c.B);
     }
+
+   //On dessine une particule factice en attendant
+   Particle p = Particle(0.3,0.3, Vecteur3D(1,1,1), Vecteur3D(1,1,1));
+   GLSphere sphere(&p);
+   //std::cout<<"particule exist"<<endl;
+   dessineSphere(sphere, point_de_vue);
+
+    /*for(auto p:acc->getPartcules()){
+        //Dessine la sphère
+
+    }*/
+
 }
 
 // ======================================================================
@@ -32,6 +57,7 @@ void VueOpenGL::dessine(Accelerateur const& a_dessiner)
     Q_UNUSED(a_dessiner); // dans cet exemple simple on n'utilise pas le paramètre
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // efface l'écran
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //
     QMatrix4x4 matrice;
     dessineAxes(matrice);
     dessineAccelerateur(&a_dessiner,matrice);
@@ -71,16 +97,16 @@ void VueOpenGL::dessine()
 }
 
 void VueOpenGL::dessine(Element* a_dessiner)
-{   Q_UNUSED(a_dessiner); // dans cet exemple simple on n'utilise pas le paramètre
+{
+    Q_UNUSED(a_dessiner); // dans cet exemple simple on n'utilise pas le paramètre
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       // efface l'écran
-
-
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     QMatrix4x4 matrice;
     Glcylindre cycl(a_dessiner);
-    dessineCylindre(cycl,matrice);
+    dessineCylindre(cycl,matrice, a_dessiner->get_c().R,
+                    a_dessiner->get_c().G, a_dessiner->get_c().B);
 }
 
 // ======================================================================

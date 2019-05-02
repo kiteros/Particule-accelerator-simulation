@@ -347,7 +347,8 @@ dessinable.o: dessinable.cc dessinable.h \
 		supportadessin.h \
 		elements.h \
 		particle.h \
-		vecteur3D.h
+		vecteur3D.h \
+		constantes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dessinable.o dessinable.cc
 
 testParticle.o: testParticle.cc particle.h \

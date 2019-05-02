@@ -364,9 +364,9 @@ main_text.o: main_text.cc ../general/particle.h \
 		../general/elements.h \
 		../general/dessinable.h \
 		../general/supportadessin.h \
+		../general/constantes.h \
 		../general/accelerateur.h \
-		textViewer.h \
-		../general/constantes.h
+		textViewer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main_text.o main_text.cc
 
 textViewer.o: textViewer.cc textViewer.h \
@@ -375,6 +375,7 @@ textViewer.o: textViewer.cc textViewer.h \
 		../general/particle.h \
 		../general/vecteur3D.h \
 		../general/dessinable.h \
+		../general/constantes.h \
 		../general/accelerateur.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o textViewer.o textViewer.cc
 
