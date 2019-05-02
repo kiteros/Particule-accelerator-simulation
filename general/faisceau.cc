@@ -6,7 +6,7 @@
 #include "vecteur3D.h"
 
 
-Faisceau::Faisceau(int nombre_particules, int lambda, double charge, double mass,Vecteur3D vitesse,SupportADessin* support,Accelerateur* acc):
+Faisceau::Faisceau(int nombre_particules, int lambda, double charge, double mass,double vitesse,SupportADessin* support,Accelerateur* acc):
 Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
 {
     int N = nombre_particules/lambda;
@@ -19,7 +19,9 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
             double longeur_accu = rest;
             while((longeur - longeur_accu) >= 0){
                 Vecteur3D position = ele->convertir_depuis_Abscisse_curviligne(longeur_accu);
-                Particle* p = new Particle(lambda*mass,lambda*charge,vitesse,position);
+                Vecteur3D V_1 = ele->get_vecteur_r(position)* vitesse;
+                Vecteur3D V_2(V_1.get_y(),-V_1.get_x(),V_1.get_z());
+                Particle* p = new Particle(lambda*mass,lambda*charge,V_2,position);
                 p->set_element_inside(ele);
                 particules.push_back(p);
                 longeur_accu = longeur_accu + pas;
@@ -51,8 +53,6 @@ void Faisceau::bouger(double dt){
             std::cout << "particle out" << endl;
             continue;
         }
-
-
     }
 
     std::cout << particules.size() << endl;
