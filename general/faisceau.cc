@@ -26,32 +26,18 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
                 i++;
             }
             rest = fabs(longeur - longeur_accu);
-
-
-//            double longeur = ele->getLongeur();
-//            double longeur_accu = pas - rest;
-//            while ((longeur - longeur_accu) > 0) {
-//                Vecteur3D position = ele->convertir_depuis_Abscisse_curviligne(longeur_accu);
-//                Particle* p = new Particle(lambda*mass,lambda*charge,vitesse,position);
-//                p->set_element_inside(ele);
-//                particules.push_back(p);
-//                longeur_accu = longeur_accu + pas;
-//            }
-//            rest = abs(longeur - longeur_accu);
-
-
         ele = ele->get_element_suivant();
     }
 
     Update_somme_attributs();
 }
 
-void Faisceau::bouger(){
+void Faisceau::bouger(double dt){
     for(auto p:particules){
         Element* current_element = p ->get_element_inside();
-        current_element->update_force(p,constantes::time_step);
+        current_element->update_force(p,dt);
         //Update la position des particules
-        p->move(constantes::time_step);
+        p->move(dt);
 
         while(current_element->particle_out(*p)){
             p->set_element_inside(current_element->get_element_suivant());
@@ -60,12 +46,17 @@ void Faisceau::bouger(){
 
         //Check si elles touchent le bord et les supprimer en concécences
         if(current_element->touch_border(*p)){
+            std::cout <<"suprimmereeeeeeeeeeeeeeé "<<endl;
             remove_particle(p);
             continue;
         }
     }
-
-    Update_somme_attributs();
+    for(auto p:particules){
+        std::cout<<"nomnnnnnnbre:3333333333333 ";
+        std::cout<<*p<<endl;
+        std::cout<<"nomnnnnnnbre: " << particules.size() <<endl;
+    }
+    //Update_somme_attributs();
 
 }
 

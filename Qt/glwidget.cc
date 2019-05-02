@@ -7,7 +7,7 @@
 void GLWidget::initializeGL()
 {
   vue.init();
-  timerId = startTimer(20);
+  timerId = startTimer(2);
 }
 
 // ======================================================================
@@ -117,9 +117,9 @@ void GLWidget::timerEvent(QTimerEvent* event)
 {
   Q_UNUSED(event);
 
-  double dt = chronometre.restart() / 1000.0;
-
-  acc.evolue(0.5);
+  double dt = chronometre.restart() / 10000.0;
+  acc.getFaisceaux().front()->bouger(dt);
+  //acc.evolue(dt);
   update();
 }
 

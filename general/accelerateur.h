@@ -4,7 +4,7 @@
 #include "elements.h"
 #include "particle.h"
 #include "dessinable.h"
-#include "Faisceau.h"
+#include "faisceau.h"
 #include <vector>
 #include <iostream>
 using namespace std;

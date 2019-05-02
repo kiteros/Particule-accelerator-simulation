@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
         std::cout<<"avant:"<<gl.get_acc()->getPartcules().size()<<endl;
         //gl.get_acc()->add_particles(&electron);
         std::cout<<"apres:"<<gl.get_acc()->getPartcules().size()<<endl;
-        Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,Vecteur3D(0,-2.64754e+08,0), nullptr,gl.get_acc());
+        Faisceau* f = new Faisceau(1000,50,1.60217653e-19,0.938272,Vecteur3D(0,-2.64754e+08,0), nullptr,gl.get_acc());
         gl.get_acc()->add_faisceau(f);
         //gl.set_ele(&D2);
 
