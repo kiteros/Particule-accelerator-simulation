@@ -162,3 +162,8 @@ double Accelerateur::getLongeur(){
     }
     return longeur;
 }
+
+//Faisceau
+void Accelerateur::add_faisceau(Faisceau * f){
+    faisceaux.push_back(f);
+}

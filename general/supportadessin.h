@@ -3,12 +3,14 @@
 
 class Accelerateur;
 class Element;
+class Faisceau;
 
 class SupportADessin
 {
  public:
   virtual void dessine(Accelerateur const& a_dessiner) = 0;
   virtual void dessine(Element *) = 0;
+  virtual void dessine(Faisceau const& a_dessiner) = 0;
   virtual void dessine() = 0;
   virtual ~SupportADessin() = default;
 

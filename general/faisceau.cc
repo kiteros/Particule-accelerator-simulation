@@ -1,4 +1,4 @@
-#include "faisceaux.h"
+#include "Faisceau.h"
 #include "accelerateur.h"
 #include "elements.h"
 #include  <math.h>
@@ -6,24 +6,24 @@
 #include "vecteur3D.h"
 
 
-Faisceaux::Faisceaux(int nombre_particules, int lambda, double charge, double mass,Vecteur3D vitesse,SupportADessin* support,Accelerateur* acc):
+Faisceau::Faisceau(int nombre_particules, int lambda, double charge, double mass,Vecteur3D vitesse,SupportADessin* support,Accelerateur* acc):
 Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
 {
     int N = nombre_particules/lambda;
     double pas = acc->getLongeur()/N;
-    double rest = 0;
+    double rest = 0.5;
     int i = 0;
     Element* ele = acc->getElements().front();
     while(i < N){
-
             double longeur = ele->getLongeur();
-            double longeur_accu = pas - rest;
-            while((longeur - longeur_accu) > 0){
+            double longeur_accu = rest;
+            while((longeur - longeur_accu) >= 0){
                 Vecteur3D position = ele->convertir_depuis_Abscisse_curviligne(longeur_accu);
                 Particle* p = new Particle(lambda*mass,lambda*charge,vitesse,position);
                 p->set_element_inside(ele);
                 particules.push_back(p);
                 longeur_accu = longeur_accu + pas;
+                i++;
             }
             rest = fabs(longeur - longeur_accu);
 
@@ -39,14 +39,14 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
 //            }
 //            rest = abs(longeur - longeur_accu);
 
-        i++;
+
         ele = ele->get_element_suivant();
     }
 
     Update_somme_attributs();
 }
 
-void Faisceaux::bouger(){
+void Faisceau::bouger(){
     for(auto p:particules){
         Element* current_element = p ->get_element_inside();
         current_element->update_force(p,constantes::time_step);
@@ -69,7 +69,7 @@ void Faisceaux::bouger(){
 
 }
 
-void Faisceaux::remove_particle(Particle * p){
+void Faisceau::remove_particle(Particle * p){
     unsigned long size = particules.size();
     for (unsigned long i=0; i< size; i++) {
         if(particules[i] == p) {
@@ -80,7 +80,7 @@ void Faisceaux::remove_particle(Particle * p){
 
 
 //set values to emittance, A11, A12, A22,and energie_moyenne.
-void Faisceaux::Update_somme_attributs(){
+void Faisceau::Update_somme_attributs(){
     double somme_r_2 = 0, somme_Vr_2=0, somme_r_Vr=0;
     double somme_z_2 = 0, somme_Vz_2=0, somme_z_Vz=0;
     int nb = 0;

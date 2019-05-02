@@ -41,15 +41,12 @@ void VueOpenGL::dessineAccelerateur(Accelerateur const * acc,QMatrix4x4 const& p
    //On dessine une particule factice en attendant
    //Particle p = Particle(0.3,0.3, Vecteur3D(1,1,1), Vecteur3D(1,1,1));
 
-
-    for(auto p:acc->getPartcules()){
-        //Dessine la sphère
-        GLSphere sphere(p);
-
-        dessineSphere(sphere, point_de_vue);
-
-    }
-
+   for(auto f:acc->getFaisceaux()){
+       for(auto p:f->getParticules()){
+           GLSphere sphere(p);
+           dessineSphere(sphere, point_de_vue);
+       }
+   }
 }
 
 // ======================================================================
@@ -108,6 +105,10 @@ void VueOpenGL::dessine(Element* a_dessiner)
     Glcylindre cycl(a_dessiner);
     dessineCylindre(cycl,matrice, a_dessiner->get_c().R,
                     a_dessiner->get_c().G, a_dessiner->get_c().B);
+}
+
+void VueOpenGL::dessine(Faisceau const& a_dessiner){
+    cout<<"Faisceau";
 }
 
 // ======================================================================

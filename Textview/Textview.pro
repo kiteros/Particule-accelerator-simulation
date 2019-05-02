@@ -16,7 +16,7 @@ HEADERS += \
     ../general/particle.h \
     ../general/elements.h \
     ../general/vecteur3D.h \
-    ../general/faisceaux.h \
+    ../general/Faisceau.h \
     ../general/constantes.h \
     textViewer.h \
     ../general/dessinable.h \
