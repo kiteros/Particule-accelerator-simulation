@@ -201,7 +201,15 @@ ostream& operator<<(ofstream& os, Dipole& el)
 
 
 //UPDATE FORCE
+
+void Element::update_force(Particle * p, double dt)  {
+
+
+    return;
+}
+
 void Dipole::update_force(Particle * p, double dt)  {
+
     Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
     Vecteur3D champ_magnetique = dip->get_champ_magnetique() * constantes::e3;
     p->ajouteForceMagnetique(champ_magnetique, dt);
@@ -209,11 +217,13 @@ void Dipole::update_force(Particle * p, double dt)  {
 }
 
 void Quadrupoles::update_force(Particle *p, double dt) {
+
     Quadrupoles* quad = static_cast<Quadrupoles*>(p->get_element_inside());
     Vecteur3D champ_magnetique = quad->get_intensite()*constantes::e3 +
        quad->get_intensite() * (constantes::e3 ^ ~(quad->get_out() - quad->get_in()));
     p->ajouteForceMagnetique(champ_magnetique, dt);
     return;
+
 }
 
 void Element_courbe::update_force(Particle *p, double dt) {
