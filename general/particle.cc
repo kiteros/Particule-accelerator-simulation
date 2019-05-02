@@ -26,6 +26,8 @@ Particle::Particle(double mass, double charge, Vecteur3D speed, Vecteur3D positi
     this->electric_charge = charge;
     this->speed = speed;
     this->pos = position;
+
+    //Definir l'element inside
 }
 
 double Particle::energy(){
@@ -46,7 +48,9 @@ void Particle::move(double dt){
     this->speed = this->speed + dt * acceleration;
 
     this->pos = this->pos + this->speed * dt;
-    this->force = Vecteur3D(0,0,0);
+
+
+
 }
 
 //surcharge << afficher la particule
@@ -66,7 +70,9 @@ ostream& operator<<(ostream& os, Particle p)
 
 void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
 
-    if(dt > 1e-8){
+    if(dt > 1e-14){
+        this->force = Vecteur3D(0,0,0);
+
         Vecteur3D current_speed;
         current_speed = this->speed;
         Vecteur3D F;

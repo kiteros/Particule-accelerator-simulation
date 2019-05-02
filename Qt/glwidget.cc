@@ -7,20 +7,20 @@
 void GLWidget::initializeGL()
 {
   vue.init();
-  timerId = startTimer(2);
+  timerId = startTimer(20);
 }
 
 // ======================================================================
 void GLWidget::resizeGL(int width, int height)
 {
-  /* On commance par dire sur quelle partie de la 
+  /* On commance par dire sur quelle partie de la
    * fenêtre OpenGL doit dessiner.
    * Ici on lui demande de dessiner sur toute la fenêtre.
    */
   glViewport(0, 0, width, height);
 
   /* Puis on modifie la matrice de projection du shader.
-   * Pour ce faire on crée une matrice identité (constructeur 
+   * Pour ce faire on crée une matrice identité (constructeur
    * par défaut), on la multiplie par la droite par une matrice
    * de perspective.
    * Plus de détail sur cette matrice
@@ -38,7 +38,7 @@ void GLWidget::paintGL()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   acc.dessine();
-  //ele->dessine();
+  //std::cout << "redessine" << endl;
 }
 
 
@@ -117,9 +117,9 @@ void GLWidget::timerEvent(QTimerEvent* event)
 {
   Q_UNUSED(event);
 
-  double dt = chronometre.restart() / 10000.0;
-  acc.getFaisceaux().front()->bouger(dt);
-  //acc.evolue(dt);
+  double dt = chronometre.restart() / 1000.0;
+
+  acc.evolue(dt);
   update();
 }
 

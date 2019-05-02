@@ -44,6 +44,7 @@ class Accelerateur: public Dessinable
 
         void evolue(double);
         void start(ofstream&);
+        void start();
         virtual void affiche(ofstream&) const;
         virtual void dessine() override
         { support->dessine(*this); }

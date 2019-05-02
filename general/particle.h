@@ -4,6 +4,7 @@
 #include "vecteur3D.h"
 #include <iostream>
 
+
 class Element;
 
 class Particle
