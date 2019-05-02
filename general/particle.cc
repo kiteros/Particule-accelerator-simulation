@@ -31,7 +31,7 @@ Particle::Particle(double mass, double charge, Vecteur3D speed, Vecteur3D positi
 }
 
 double Particle::energy(){
-    return this->gamma_factor() * this->mass * pow(constantes::light_speed, 2);
+    return this->gamma_factor() * this->mass  * pow(constantes::light_speed, 2);
 }
 
 double Particle::gamma_factor(){
@@ -44,10 +44,12 @@ double Particle::gamma_factor(){
 }*/
 
 void Particle::move(double dt){
-    Vecteur3D acceleration = (1/(this->gamma_factor() * this->mass)) * this->force;
-    this->speed = this->speed + dt * acceleration;
+    double masse_kg = this->mass * 1.79e-27;
+    Vecteur3D acceleration = (1/(this->gamma_factor() * masse_kg)) * this->force;
+    this->speed = this->speed + acceleration * dt;
 
     this->pos = this->pos + this->speed * dt;
+    this->force = Vecteur3D(0,0,0);
 
 
 
@@ -64,14 +66,14 @@ ostream& operator<<(ostream& os, Particle p)
        << "mass (GeV/c²) : " << p.getMass() << "\n"
        << "charge : " << p.getElectricCharge() << "\n"
        << "force : " << p.getForce() << "\n"
-       << "element_in"<<p.get_element_inside()<< "\n";
+       << "element_in : "<<p.get_element_inside()<< "\n";
     return os;
 }
 
 void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
 
     if(dt > 1e-14){
-        this->force = Vecteur3D(0,0,0);
+
 
         Vecteur3D current_speed;
         current_speed = this->speed;
@@ -81,8 +83,8 @@ void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
 
         //Rotation de force mtn
 
-        Vecteur3D axeRotation = (current_speed ^F);
-        double angle = asin((dt * F.norme())/(2 * this->gamma_factor() * this->mass * this->speed.norme()));
+        Vecteur3D axeRotation = (current_speed ^ F);
+        double angle = asin((dt * F.norme())/(2 * this->gamma_factor() * this->mass * 1.79e-27  * this->speed.norme()));
 
         this->force = this->force.rotation(axeRotation, angle);
 

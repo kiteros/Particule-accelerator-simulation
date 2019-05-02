@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
         gl.get_acc()->add_elements(v);
         gl.get_acc()->add_particles(&proton);
 
-        Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,Vecteur3D(0,-0.5,0), nullptr,gl.get_acc());
+        Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,Vecteur3D(0,-2.64e+8,0), nullptr,gl.get_acc());
         gl.get_acc()->add_faisceau(f);
         //gl.set_ele(&D2);
 
