@@ -17,20 +17,28 @@ void GLSphere::initialize(GLuint slices, GLuint stacks)
   const double alpha(M_PI / double(stacks));
   const double beta(2.0*M_PI / double(slices));
 
-  positions << 0.0 << 0.0 << 1.0;
+  double x_ = particle->getPosition().get_x();
+  double y_ = particle->getPosition().get_y();
+  double z_ = particle->getPosition().get_z();
+
+  double apparent_size = 0.05;
+
+  positions << x_ << y_ << z_ + apparent_size;
+
+
 
   for (GLuint i(1); i < stacks; ++i) {
     for (GLuint j(0); j < slices; ++j) {
-      float r = sin(i*alpha);
-      float z = cos(i*alpha);
-      float y = sin(j*beta) * r;
-      float x = cos(j*beta) * r;
+      float r = sin(i*alpha)*apparent_size;
+      float z = cos(i*alpha)*apparent_size + z_;
+      float y = sin(j*beta) * r + y_;
+      float x = cos(j*beta) * r + x_;
 
       positions << x << y << z;
     }
   }
 
-  positions << 0.0 << 0.0 << -1.0;
+  positions << x_ << y_ << z_ - apparent_size;
 
   indices0.reserve(slices+2);
   for (GLuint i(0); i <= slices; ++i)

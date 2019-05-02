@@ -39,15 +39,16 @@ void VueOpenGL::dessineAccelerateur(Accelerateur const * acc,QMatrix4x4 const& p
     }
 
    //On dessine une particule factice en attendant
-   Particle p = Particle(0.3,0.3, Vecteur3D(1,1,1), Vecteur3D(1,1,1));
-   GLSphere sphere(&p);
-   //std::cout<<"particule exist"<<endl;
-   dessineSphere(sphere, point_de_vue);
+   //Particle p = Particle(0.3,0.3, Vecteur3D(1,1,1), Vecteur3D(1,1,1));
 
-    /*for(auto p:acc->getPartcules()){
+
+    for(auto p:acc->getPartcules()){
         //Dessine la sphère
+        GLSphere sphere(p);
 
-    }*/
+        dessineSphere(sphere, point_de_vue);
+
+    }
 
 }
 
