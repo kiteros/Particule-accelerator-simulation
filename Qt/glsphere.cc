@@ -10,19 +10,19 @@ void GLSphere::initialize(GLuint slices, GLuint stacks)
   QVector<GLuint> indices1;
   QVector<GLuint> indices2;
 
-  GLuint size(2 + slices * stacks);
+  GLuint size(2 + slices * (stacks - 1));
 
   positions.reserve(3 * size);
 
   const double alpha(M_PI / double(stacks));
   const double beta(2.0*M_PI / double(slices));
 
-  positions << particle->getPosition().get_x() << particle->getPosition().get_y() << particle->getPosition().get_z();
+  positions << 0.0 << 0.0 << 1.0;
 
-  for (GLuint i(0); i < stacks; ++i) {
+  for (GLuint i(1); i < stacks; ++i) {
     for (GLuint j(0); j < slices; ++j) {
-      float r = 1.0;
-      float z = i/10.0;
+      float r = sin(i*alpha);
+      float z = cos(i*alpha);
       float y = sin(j*beta) * r;
       float x = cos(j*beta) * r;
 
@@ -30,7 +30,7 @@ void GLSphere::initialize(GLuint slices, GLuint stacks)
     }
   }
 
-  positions << particle->getPosition().get_x() << particle->getPosition().get_y() << particle->getPosition().get_z() + 2.5;
+  positions << 0.0 << 0.0 << -1.0;
 
   indices0.reserve(slices+2);
   for (GLuint i(0); i <= slices; ++i)
@@ -38,7 +38,7 @@ void GLSphere::initialize(GLuint slices, GLuint stacks)
   indices0 << 1;
 
   indices1.reserve((stacks-2) * 4 * slices);
-  for (GLuint i(0); i < stacks-1; ++i) {
+  for (GLuint i(0); i < stacks-2; ++i) {
     for (GLuint j(0); j < slices; ++j) {
       indices1 << 1+i*slices+j;
       indices1 << 1+(i+1)*slices+j;

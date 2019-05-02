@@ -73,17 +73,13 @@ int main(int argc, char* argv[])
        gl.get_acc()->add_elements(v);
         //gl.get_acc()->add_particles(&proton);
         std::cout<<"avant:"<<gl.get_acc()->getPartcules().size()<<endl;
-        gl.get_acc()->add_particles(&electron);
+        //gl.get_acc()->add_particles(&electron);
         std::cout<<"apres:"<<gl.get_acc()->getPartcules().size()<<endl;
 
         //gl.set_ele(&D2);
 
 
         gl.showMaximized();
-
-
-    //gl.affiche_accelerateur(&LHC);
-
 
 
 
