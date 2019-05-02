@@ -145,8 +145,8 @@ void Glcylindre::initialize(GLuint slices, GLuint stacks)
              float y = rayon_ele*cos(j*beta) ;
              float x = 0.0 ;
              float z_1 = z;
-             float x_1 = x*cos(theta+M_PI/2) - y*sin(theta+M_PI/2);
-             float y_1 = x*sin(theta+M_PI/2) + y*cos(theta+M_PI/2);
+             float x_1 = x*cos(theta+M_PI/2+M_PI) - y*sin(theta+M_PI/2+M_PI);
+             float y_1 = x*sin(theta+M_PI/2+M_PI) + y*cos(theta+M_PI/2+M_PI);
              float x_2 = x_1 + p.get_x();
              float y_2 = y_1 + p.get_y();
              float z_2 = z_1 + p.get_z();
