@@ -44,6 +44,9 @@ class Element : public Dessinable
         virtual Vecteur3D get_vecteur_r(Vecteur3D position = Vecteur3D()) = 0;
        // virtual Vecteur3D get_vecteur_s(Vecteur3D position = Vecteur3D()) = 0;
         double get_rayon() {return rayon;}
+        //virtual string get_type() = 0;
+
+
 };
 
 class Element_droit : public Element
@@ -58,6 +61,7 @@ class Element_droit : public Element
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
        // virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         virtual void update_force(Particle* p,double dt) override;
+        //virtual string get_type() override {return "element_droit";}
 
 };
 
@@ -78,6 +82,7 @@ class Element_courbe : public Element
      //   virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         virtual void update_force(Particle* p,double dt) override;
         Vecteur3D get_centre_circle();
+        //virtual string get_type() override {return "element_courbe";}
 };
 
 class Dipole : public Element_courbe
@@ -87,10 +92,11 @@ class Dipole : public Element_courbe
     public:
         Dipole(Vecteur3D, Vecteur3D, double, double, double,SupportADessin*,Element* e= nullptr);
         double get_champ_magnetique(){return champ_magnetique;}
-        void update_force(Particle* p ,double dt) override;
+        virtual void update_force(Particle* p ,double dt) override;
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
       //  virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
+        //virtual string get_type() override {return "dipole";}
 };
 
 
@@ -100,10 +106,11 @@ class Quadrupoles: public Element_droit
     public:
         Quadrupoles(Vecteur3D, Vecteur3D, double, double, SupportADessin*, Element* e= nullptr);
         double get_intensite(){return intensite;}
-        void update_force(Particle* p ,double dt) override;
+        virtual void update_force(Particle* p ,double dt) override;
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
        // virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
+        //virtual string get_type() override {return "quadrupole";}
 };
 
 ostream& operator<<(ostream&, Element&);

@@ -74,10 +74,16 @@ void Accelerateur::evolue(double dt){
     //On doit donc update toutes les particles (leurs forces)
 
     //Onc commence par parcourir toutes les particules
-    for(auto p:particules){  
-        Element* current_element = p ->get_element_inside();
-        current_element->update_force(p,dt);
-        //Update la position des particules
+    Particle* p_ = particules[0];
+    Element* current_element = p_->get_element_inside();
+
+
+
+    //current_element->update_force(p_,dt);
+    /*for(auto p:particules){
+
+
+       //Update la position des particules
         p->move(dt);
 
         while(current_element->particle_out(*p)){
@@ -90,7 +96,7 @@ void Accelerateur::evolue(double dt){
             this->remove_particle(p);
             continue;
         }
-    }
+    }*/
 }
 
 void Accelerateur::start(ofstream & os){
