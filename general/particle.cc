@@ -46,33 +46,32 @@ void Particle::move(double dt){
     this->speed = this->speed + dt * acceleration;
 
     this->pos = this->pos + this->speed * dt;
-
     this->force = Vecteur3D(0,0,0);
-
 }
 
 //surcharge << afficher la particule
 ostream& operator<<(ostream& os, Particle p)
 {
-    os << "position : " << p.getPosition() << "\n"
+    os <<"adress: "<<&p<< "\n"
+       << "position : " << p.getPosition() << "\n"
        << "speed : " << p.getSpeed() << "\n"
        << "gamma : " << p.gamma_factor() << "\n"
        << "energy (GeV) : " << p.energy() << "\n"
        << "mass (GeV/c²) : " << p.getMass() << "\n"
        << "charge : " << p.getElectricCharge() << "\n"
-       << "force : " << p.getForce() << "\n";
+       << "force : " << p.getForce() << "\n"
+       << "element_in"<<p.get_element_inside()<< "\n";
     return os;
 }
 
 void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
 
-    if(dt < 1e-8){
-
+    if(dt > 1e-8){
         Vecteur3D current_speed;
         current_speed = this->speed;
         Vecteur3D F;
         F = this->electric_charge * (current_speed ^ B);
-        this->force = this->force + B;
+        this->force = this->force + F;
 
         //Rotation de force mtn
 

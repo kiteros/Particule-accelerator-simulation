@@ -73,7 +73,7 @@ Quadrupoles::Quadrupoles(Vecteur3D in_pos,
 
 bool Element::particle_out(Particle const& p){
     //Check si la particule sort
-    return prod_mixte(constantes::e3, p.getPosition(), this->out_pos) > 0;
+    return (prod_mixte(constantes::e3, p.getPosition(), this->out_pos) > 0)||(prod_mixte(constantes::e3, p.getPosition(), this->in_pos) < 0);
 }
 
 bool Element_droit::touch_border(Particle const& p){
@@ -202,11 +202,11 @@ ostream& operator<<(ofstream& os, Dipole& el)
 
 //UPDATE FORCE
 
-void Element::update_force(Particle * p, double dt)  {
+//void Element::update_force(Particle * p, double dt)  {
 
 
-    return;
-}
+//    return;
+//}
 
 void Dipole::update_force(Particle * p, double dt)  {
 

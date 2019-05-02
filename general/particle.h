@@ -20,6 +20,7 @@ class Particle
 
     public:
 
+        void update_pos(Vecteur3D v){pos = v;}
         Vecteur3D getPosition() const;
         Vecteur3D getSpeed();
         double getMass();
