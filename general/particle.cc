@@ -44,13 +44,11 @@ double Particle::gamma_factor(){
 }*/
 
 void Particle::move(double dt){
-
     double mass_kg = this->mass * 1.78266191e-27;
     Vecteur3D acceleration = (1/(this->gamma_factor() * mass_kg)) * this->force;
     this->speed = this->speed + dt * acceleration;
     this->pos = this->pos + this->speed * dt;
     this->force = Vecteur3D(0,0,0);
-
 }
 
 //surcharge << afficher la particule
@@ -70,8 +68,7 @@ ostream& operator<<(ostream& os, Particle p)
 
 void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
 
-    if(dt > 1e-14){
-
+    if(dt > 0){
 
         Vecteur3D current_speed;
         current_speed = this->speed;
@@ -80,14 +77,17 @@ void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
         this->force = this->force + F;
 
         //Rotation de force mtn
-
-
-        Vecteur3D axeRotation = (current_speed ^F);
-        double angle = asin((dt * F.norme())/(2 * this->gamma_factor() * this->mass * 1.78266191e-27 * this->speed.norme()));
-
-
-        this->force = this->force.rotation(axeRotation, angle);
-
+        Vecteur3D axeRotation = (current_speed ^ F);
+        std::cout <<"current_speed:" <<current_speed<<endl;
+        std::cout <<"F:" <<F<<endl;
+        std::cout <<"axeRotation::" <<axeRotation<<endl;
+        double mass_kg = this->mass * 1.78266191e-27;
+        double angle = asin((dt * F.norme())/(2 * this->gamma_factor()*mass_kg*this->speed.norme()));
+        std::cout <<"aaaannnggglllleeee:::" <<angle<<endl;
+        if(!(axeRotation == Vecteur3D(0,0,0))){
+          std::cout<<"rotation de force!!!!!!!!!!"<<endl;
+          this->force = this->force.rotation(axeRotation, angle);
+        }
     }
 }
 
