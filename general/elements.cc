@@ -117,9 +117,9 @@ Vecteur3D Element::get_out(){
     return out_pos;
 }
 
-double Element::get_size(){
-    return rayon;
-}
+//double Element::get_size(){
+//    return rayon;
+//}
 
 double Element_courbe::get_courbure(){
     return rayon_courbure;
@@ -209,21 +209,21 @@ ostream& operator<<(ofstream& os, Dipole& el)
 //}
 
 void Dipole::update_force(Particle * p, double dt)  {
-
-    Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
-    Vecteur3D champ_magnetique = dip->get_champ_magnetique() * constantes::e3;
+    //Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
+    Vecteur3D champ_magnetique = this->get_champ_magnetique() * constantes::e3;
     p->ajouteForceMagnetique(champ_magnetique, dt);
     return;
 }
 
 void Quadrupoles::update_force(Particle *p, double dt) {
-
-    Quadrupoles* quad = static_cast<Quadrupoles*>(p->get_element_inside());
-    Vecteur3D champ_magnetique = quad->get_intensite()*constantes::e3 +
-       quad->get_intensite() * (constantes::e3 ^ ~(quad->get_out() - quad->get_in()));
+    Vecteur3D d = ~(this->get_out() - this->get_in());
+    Vecteur3D X = p->getPosition()-this->get_in();
+    Vecteur3D y = X - (X*d)*d;
+    Vecteur3D u = constantes::e3^d;
+    Vecteur3D champ_magnetique = this->get_intensite()*((y*u)*constantes::e3+X.get_z()*u);
+    std::cout<<"champ_magnetique Quadrupoles: "<<champ_magnetique<<endl;
     p->ajouteForceMagnetique(champ_magnetique, dt);
     return;
-
 }
 
 void Element_courbe::update_force(Particle *p, double dt) {

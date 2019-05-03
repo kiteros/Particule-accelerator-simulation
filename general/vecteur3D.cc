@@ -39,7 +39,7 @@ void Vecteur3D::affiche(){
 }
 
 bool equalFloat(double a, double b){
-    return fabs(a-b)<1E-8;
+    return fabs(a-b)<1E-32;
 }
 
 bool Vecteur3D::compare(Vecteur3D v){
@@ -129,7 +129,7 @@ double prod_mixte(Vecteur3D v1, Vecteur3D v2, Vecteur3D v3){
 
 //classe surcharge d'operator == egalite
 bool Vecteur3D::operator==(Vecteur3D const& v){
-    return (equalFloat(x,v.x) && equalFloat(y,v.y) && equalFloat(y,v.y));
+    return (equalFloat(x,v.x) && equalFloat(y,v.y) && equalFloat(z,v.z));
 }
 
 //surcharge << afficher vecteur
