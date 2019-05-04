@@ -3,6 +3,7 @@
 #include "vecteur3D.h"
 #include <math.h>
 #include "constantes.h"
+#include "accelerateur.h"
 
 
 Particle::Particle(){
@@ -117,4 +118,8 @@ double Particle::getElectricCharge(){
 
 Vecteur3D Particle::getForce(){
     return force;
+}
+
+double Particle::get_abscisse_curviligne(Accelerateur* acc){
+
 }

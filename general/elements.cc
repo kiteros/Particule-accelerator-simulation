@@ -262,4 +262,24 @@ Vecteur3D Element_courbe::get_centre_circle(){
     return Cc;
 }
 
+double Element_droit::convertir_a_Abscisse_curviligne(Vecteur3D v){
+    Vecteur3D u = ~(this->out_pos - this->in_pos);
+    return (v-this->in_pos)*u;
+}
 
+double Element_courbe::convertir_a_Abscisse_curviligne(Vecteur3D v){
+    Vecteur3D Cc = this->get_centre_circle();
+    double R = 1/abs(this->get_courbure());
+    Vecteur3D u = ~(this->in_pos - Cc);
+    Vecteur3D x = ~(v - Cc);
+    double angle = acos(u*x);
+    return R*angle;
+}
+
+double Dipole::convertir_a_Abscisse_curviligne(Vecteur3D v){
+    return  Element_courbe::convertir_a_Abscisse_curviligne(v);
+}
+
+double Quadrupoles::convertir_a_Abscisse_curviligne(Vecteur3D v){
+    return Element_droit::convertir_a_Abscisse_curviligne(v);
+}
