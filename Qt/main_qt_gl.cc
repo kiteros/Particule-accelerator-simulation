@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
 
     GLWidget gl;
 
+    double rayon = 0.1;
+
 
     VueOpenGL* vue = gl.get_GL_vu();
 
