@@ -7,6 +7,7 @@
 class Faisceau: public Dessinable
 {
 private:
+    Accelerateur* acc;
     Particle* particule_typique;
     vector<Particle*> particules;
     int nombre_particules;
@@ -17,7 +18,7 @@ private:
     double A11R;
     double A22R;
     double A12R;
-
+    int nombre_case_simulation;
     double A11Z;
     double A22Z;
     double A12Z;
@@ -29,6 +30,7 @@ public:
     vector<Particle*> getParticules() {return particules;}
     virtual void dessine() override
     { support->dessine(*this); }
+    void calcul_force_neighbour_p14(Particle * p);
 };
 
 #endif // Faisceau_H

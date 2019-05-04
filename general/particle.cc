@@ -121,5 +121,12 @@ Vecteur3D Particle::getForce(){
 }
 
 double Particle::get_abscisse_curviligne(Accelerateur* acc){
-
+    double s = this->get_element_inside()->convertir_a_Abscisse_curviligne(this->getPosition());
+    double l = 0;
+    Element* p = acc->getElements().front();
+    while(p != this->get_element_inside()){
+        l = l + p->getLongeur();
+        p = p->get_element_suivant();
+    }
+    return l + s;
 }

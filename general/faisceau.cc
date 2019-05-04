@@ -7,7 +7,7 @@
 
 
 Faisceau::Faisceau(int nombre_particules, int lambda, double charge, double mass,double vitesse,SupportADessin* support,Accelerateur* acc):
-Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
+Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda)
 {
     particules = vector<Particle*>();
     int N = nombre_particules/lambda;
@@ -36,7 +36,8 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
 
     //Update_somme_attributs();
     std::cout <<"ddddeeeeeebbbbbbbbb"<< particules.size() << endl;
-
+    double longeur = acc->getLongeur();
+    this->nombre_case_simulation = ceil(longeur / 1e-7) ;
 }
 
 void Faisceau::bouger(double dt){
@@ -115,4 +116,23 @@ void Faisceau::Update_somme_attributs(){
     A22Z = (somme_z_2/nb)/emittance_z;
 
     energie_moyenne = somme_energie / nb;
+}
+
+void Faisceau::calcul_force_neighbour_p14(Particle* p){
+    int N = nombre_case_simulation ;
+    vector<Particle*> particules_influantes();
+    double longeur = acc->getLongeur();
+    double epsilon = longeur/N;
+    double abscisse = p->get_element_inside()->convertir_a_Abscisse_curviligne(p->getPosition());
+    int nb_case = ceil(abscisse/epsilon);
+    int nb_case_next = (nb_case + 1) > N ? 1:nb_case + 1;
+    int nb_case_pre = (nb_case - 1) < 1 ? N:nb_case - 1;
+    for(auto pp :this->getParticules()){
+       double abscisse = pp->get_element_inside()->convertir_a_Abscisse_curviligne(pp->getPosition());
+       int nb_case_pp = ceil(abscisse/epsilon);
+       if(nb_case_pp == nb_case || nb_case_pp == nb_case_pre || nb_case_pp == nb_case_next){
+            particules_influantes().push_back(pp);
+       }
+    }
+
 }
