@@ -137,7 +137,7 @@ void Faisceau::Update_somme_attributs(){
 
 void Faisceau::calcul_force_neighbour_p14(Particle* p){
     int N = nombre_case_simulation ;
-    vector<Particle*> particules_influantes();
+    vector<Particle*> particules_influantes = vector<Particle*>();
     double longeur = acc->getLongeur();
     double epsilon = longeur/N;
     double abscisse = p->get_element_inside()->convertir_a_Abscisse_curviligne(p->getPosition());
@@ -148,8 +148,18 @@ void Faisceau::calcul_force_neighbour_p14(Particle* p){
        double abscisse = pp->get_element_inside()->convertir_a_Abscisse_curviligne(pp->getPosition());
        int nb_case_pp = ceil(abscisse/epsilon);
        if(nb_case_pp == nb_case || nb_case_pp == nb_case_pre || nb_case_pp == nb_case_next){
-            particules_influantes().push_back(pp);
+            particules_influantes.push_back(pp);
        }
     }
 
+    for(auto q:particules_influantes){
+        //Calcul force between p and q
+        Vecteur3D distance = p->getPosition() - q->getPosition();
+        Vecteur3D force_inter_particle =
+                pow(p->getElectricCharge(), 2) /
+                (4 * M_PI * constantes::void_permitivity *
+                 pow(distance.norme(),3) * pow(p->gamma_factor(), 2)) * distance;
+        p->ajouteForceMagnetique(force_inter_particle);
+        q->ajouteForceMagnetique(-force_inter_particle);
+    }
 }

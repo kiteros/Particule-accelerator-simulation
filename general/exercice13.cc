@@ -15,9 +15,8 @@ void Faisceau::calcul_force_neighboor_P13(Particle* p, vector<Particle*> list){
         Vecteur3D force_inter_particle =
                 pow(p->getElectricCharge(), 2) /
                 (4 * M_PI * constantes::void_permitivity *
-                 distance.norme() * pow(p->gamma_factor(), 2)) * distance;
+                pow(distance.norme(),3) * pow(p->gamma_factor(), 2)) * distance;
         p->ajouteForceMagnetique(force_inter_particle);
         q->ajouteForceMagnetique(-force_inter_particle);
-
     }
 }
