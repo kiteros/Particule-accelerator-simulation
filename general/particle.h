@@ -41,7 +41,11 @@ class Particle
         double gamma_factor();
         void move(double);
         void ajouteForceMagnetique(Vecteur3D, double);
+
+        void ajouteForceMagnetique(Vecteur3D);
+
         double get_abscisse_curviligne(Accelerateur *);
+
 };
 
 ostream& operator<<(ostream&, Particle);
