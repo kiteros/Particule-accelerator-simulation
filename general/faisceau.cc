@@ -57,6 +57,7 @@ void Faisceau::bouger(double dt){
     for(auto p:particules){
         next_particles = remove_particle_from_vector(next_particles, p);
         this->calcul_force_neighboor_P13(p, next_particles);
+
         Element* current_element = p->get_element_inside();
         current_element->update_force(p,dt);
         //Update la position des particules
