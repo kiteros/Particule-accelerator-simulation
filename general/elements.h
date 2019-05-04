@@ -45,7 +45,7 @@ class Element : public Dessinable
        // virtual Vecteur3D get_vecteur_s(Vecteur3D position = Vecteur3D()) = 0;
         double get_rayon() {return rayon;}
         //virtual string get_type() = 0;
-
+        virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) = 0;
 
 };
 
@@ -62,6 +62,7 @@ class Element_droit : public Element
        // virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         virtual void update_force(Particle* p,double dt) override;
         //virtual string get_type() override {return "element_droit";}
+        virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
 
 };
 
@@ -79,10 +80,11 @@ class Element_courbe : public Element
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
-     //   virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
+        //virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         virtual void update_force(Particle* p,double dt) override;
         Vecteur3D get_centre_circle();
         //virtual string get_type() override {return "element_courbe";}
+        virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
 };
 
 class Dipole : public Element_courbe
@@ -95,8 +97,9 @@ class Dipole : public Element_courbe
         virtual void update_force(Particle* p ,double dt) override;
         virtual void affiche(ofstream&) const override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
-      //  virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
+        //virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         //virtual string get_type() override {return "dipole";}
+        virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
 };
 
 
@@ -111,6 +114,7 @@ class Quadrupoles: public Element_droit
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
        // virtual Vecteur3D get_vecteur_s(Vecteur3D position) override;
         //virtual string get_type() override {return "quadrupole";}
+        virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
 };
 
 ostream& operator<<(ostream&, Element&);

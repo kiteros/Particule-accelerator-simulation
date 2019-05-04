@@ -4,6 +4,7 @@
 #include "vecteur3D.h"
 #include <iostream>
 
+class Accelerateur;
 
 class Element;
 
@@ -20,7 +21,6 @@ class Particle
         Element* element_inside;
 
     public:
-
         void update_pos(Vecteur3D v){pos = v;}
         Vecteur3D getPosition() const;
         Vecteur3D getSpeed();
@@ -41,7 +41,7 @@ class Particle
         double gamma_factor();
         void move(double);
         void ajouteForceMagnetique(Vecteur3D, double);
-
+        double get_abscisse_curviligne(Accelerateur *);
 };
 
 ostream& operator<<(ostream&, Particle);
