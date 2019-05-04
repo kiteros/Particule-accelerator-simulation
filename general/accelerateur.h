@@ -32,6 +32,8 @@ class Accelerateur: public Dessinable
 
         ~Accelerateur();
 
+        void set_name(string name){this->name = name;}
+
         double getLongeur();
         void add_elements(vector<Element*>);
         void add_faisceau(Faisceau*);
