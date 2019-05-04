@@ -13,14 +13,22 @@ class Particle
     private:
 
         Vecteur3D pos = Vecteur3D();
+        Vecteur3D force = Vecteur3D();
+        Vecteur3D speed = Vecteur3D();
+
         double mass;
         double electric_charge;
         double momentum;
-        Vecteur3D force = Vecteur3D();
-        Vecteur3D speed = Vecteur3D();
+
         Element* element_inside;
 
     public:
+
+        Particle();
+        Particle(double, double);
+        Particle(double mass, double charge, Vecteur3D speed, Vecteur3D position);
+        ~Particle();
+
         void update_pos(Vecteur3D v){pos = v;}
         Vecteur3D getPosition() const;
         Vecteur3D getSpeed();
@@ -32,11 +40,11 @@ class Particle
         Element* get_element_inside();
 
         //constructors
-        Particle();
+
         //Destructor
-        ~Particle();
-        Particle(double, double);
-        Particle(double mass, double charge, Vecteur3D speed, Vecteur3D position);
+
+
+
         double energy();
         double gamma_factor();
         void move(double);

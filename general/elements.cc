@@ -117,10 +117,6 @@ Vecteur3D Element::get_out(){
     return out_pos;
 }
 
-//double Element::get_size(){
-//    return rayon;
-//}
-
 double Element_courbe::get_courbure(){
     return rayon_courbure;
 }

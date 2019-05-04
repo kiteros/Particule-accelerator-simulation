@@ -29,27 +29,25 @@ class Accelerateur: public Dessinable
 
         Accelerateur(SupportADessin*, string name="unnamed accelerator");
         Accelerateur(vector<Element*>, vector<Particle*>,SupportADessin*, string name="unnamed accelerator");
-  
         Accelerateur(Accelerateur const &) = delete ;
         Accelerateur operator=(Accelerateur const &) = delete;
 
         ~Accelerateur();
 
         void set_name(string name){this->name = name;}
-
-        double getLongeur();
         void add_elements(vector<Element*>);
         void add_faisceau(Faisceau*);
         void add_element(Element*);
         void remove_particle(Particle*);
         void remove_all_element();
-
         void add_particles(Particle*);
         void remove_all_particle();
-
         void evolue(double);
         void start(ofstream&);
         void start();
+
+        double getLongeur();
+
         virtual void affiche(ofstream&) const;
         virtual void dessine() override
         { support->dessine(*this); }
