@@ -27,7 +27,7 @@ class Element : public Dessinable
         Element(Vecteur3D, Vecteur3D, double,SupportADessin*,Element* = nullptr, double = 0.0);
         Vecteur3D get_in();
         Vecteur3D get_out();
-        double get_size();
+        //double get_size();
         int get_index();
         Couleur get_c(){return c;}
         double get_courbure(){return rayon_courbure;}

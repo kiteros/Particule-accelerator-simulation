@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
         gl.get_acc()->set_name("LHC");
 
 
-        Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,2.64e+8, nullptr,gl.get_acc());
+        Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,2.64745e+8, nullptr,gl.get_acc());
 
         gl.get_acc()->add_faisceau(f);
 

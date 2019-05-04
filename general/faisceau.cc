@@ -9,6 +9,7 @@
 Faisceau::Faisceau(int nombre_particules, int lambda, double charge, double mass,double vitesse,SupportADessin* support,Accelerateur* acc):
 Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
 {
+    particules = vector<Particle*>();
     int N = nombre_particules/lambda;
     double pas = acc->getLongeur()/N;
     double rest = 0.5;
@@ -17,21 +18,25 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
     while(i < N){
         double longeur = ele->getLongeur();
             double longeur_accu = rest;
-            while((longeur - longeur_accu) >= 0){
+            while((longeur - longeur_accu) >= 0 && i<N){
                 Vecteur3D position = ele->convertir_depuis_Abscisse_curviligne(longeur_accu);
                 Vecteur3D V_1 = ele->get_vecteur_r(position)* vitesse;
                 Vecteur3D V_2(V_1.get_y(),-V_1.get_x(),V_1.get_z());
-                Particle* p = new Particle(lambda*mass,lambda*charge,V_2,position);
+                Particle* p = new Particle(lambda*mass,lambda*charge,V_1.rotation(constantes::e3, -M_PI/2),position);
                 p->set_element_inside(ele);
                 particules.push_back(p);
                 longeur_accu = longeur_accu + pas;
-                i++;
+                i = i + 1;
+                std::cout <<"iiiiiiiiiiiiiiiiiii"<< N << endl;
+                std::cout <<"kkkkkkkkkkkkkkkkkkk"<< i << endl;
             }
             rest = fabs(longeur - longeur_accu);
         ele = ele->get_element_suivant();
     }
 
-    Update_somme_attributs();
+    //Update_somme_attributs();
+    std::cout <<"ddddeeeeeebbbbbbbbb"<< particules.size() << endl;
+
 }
 
 void Faisceau::bouger(double dt){
@@ -48,9 +53,7 @@ void Faisceau::bouger(double dt){
 
         //Check si elles touchent le bord et les supprimer en concécences
         if(current_element->touch_border(*p)){
-            std::cout <<"suprimmereeeeeeeeeeeeeeé "<<endl;
             remove_particle(p);
-            std::cout << "particle out" << endl;
             continue;
         }
     }
