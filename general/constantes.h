@@ -14,6 +14,7 @@ class constantes
         static int current_index_element;
         static int current_index_particle;
         static double time_step;
+        static double void_permitivity;
 
 };
 

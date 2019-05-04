@@ -66,6 +66,10 @@ ostream& operator<<(ostream& os, Particle p)
     return os;
 }
 
+void Particle::ajouteForceMagnetique(Vecteur3D F){
+    this->force = this->force + F;
+}
+
 void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
 
     if(dt > 0){

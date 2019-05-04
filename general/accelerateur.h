@@ -7,27 +7,30 @@
 #include "faisceau.h"
 #include <vector>
 #include <iostream>
+
 using namespace std;
 
 class Accelerateur: public Dessinable
 {
     private:
-        //On met un array dynamique pour tout les elements
+
+        //Dynamic arrays for all the objects inside
         vector<Element*> elements;
         vector<Particle*> particules;
         vector<Faisceau*> faisceaux;
+
         string name;
 
     public:
+
         vector<Faisceau*> getFaisceaux()const{return faisceaux;}
         vector<Element*> getElements()const {return elements;}
         vector<Particle*> getPartcules()const {return particules;}
 
         Accelerateur(SupportADessin*, string name="unnamed accelerator");
-
         Accelerateur(vector<Element*>, vector<Particle*>,SupportADessin*, string name="unnamed accelerator");
   
-        //Accelerateur(Accelerateur const &) = delete ;
+        Accelerateur(Accelerateur const &) = delete ;
         Accelerateur operator=(Accelerateur const &) = delete;
 
         ~Accelerateur();

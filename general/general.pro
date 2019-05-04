@@ -28,7 +28,8 @@ SOURCES += \
     dessinable.cc \
     testParticle.cc \
     supportadessin.cc \
-    faisceau.cc
+    faisceau.cc \
+    exercice13.cc
 
 DISTFILES += \
     Makefile_old

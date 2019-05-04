@@ -27,6 +27,8 @@ public:
     void bouger(double dt);
     void remove_particle(Particle *);
     vector<Particle*> getParticules() {return particules;}
+    void calcul_force_neighboor_P13(Particle *, vector<Particle*>);//A part
+    void calcul_force_neighboor(void*);
     virtual void dessine() override
     { support->dessine(*this); }
 };

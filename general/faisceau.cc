@@ -39,8 +39,23 @@ Dessinable (support),nombre_particules(nombre_particules),lambda(lambda)
 
 }
 
+vector<Particle*> remove_particle_from_vector(vector<Particle*> list, Particle * p){
+    unsigned long size = list.size();
+    for (unsigned long i=0; i< size; i++) {
+        if(list[i] == p) {
+            list.erase(list.begin() + i);
+         }
+    }
+    return list;
+}
+
 void Faisceau::bouger(double dt){
+
+    vector<Particle*> next_particles = particules;
+
     for(auto p:particules){
+        next_particles = remove_particle_from_vector(next_particles, p);
+        this->calcul_force_neighboor_P13(p, next_particles);
         Element* current_element = p->get_element_inside();
         current_element->update_force(p,dt);
         //Update la position des particules
@@ -73,6 +88,8 @@ void Faisceau::remove_particle(Particle * p){
          }
     }
 }
+
+
 
 
 //set values to emittance, A11, A12, A22,and energie_moyenne.

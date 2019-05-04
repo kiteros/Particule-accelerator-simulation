@@ -41,6 +41,8 @@ class Particle
         double gamma_factor();
         void move(double);
         void ajouteForceMagnetique(Vecteur3D, double);
+        void ajouteForceMagnetique(Vecteur3D);
+
 
 };
 
