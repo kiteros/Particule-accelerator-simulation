@@ -49,8 +49,8 @@ void VueOpenGL::dessineAccelerateur(Accelerateur const * acc,QMatrix4x4 const& p
            Couleur c;
 
            double electric_charge = p->getElectricCharge();
-           c.R = 1 + electric_charge*0.01;
-           c.G = 0.2 + electric_charge*0.01;
+           c.R = 0.2 + electric_charge*0.01;
+           c.G = 1 + electric_charge*0.01;
            c.B = 0.0 + electric_charge*0.01;
 
            dessineSphere(sphere, point_de_vue, c.R, c.G, c.B);
