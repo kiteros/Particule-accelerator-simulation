@@ -75,13 +75,12 @@ int main(int argc, char* argv[])
         vector<Element*> v{ &Q1,&Q2,&Q3,&Q4,&Q5,&Q6,&Q7,&Q8,&D1,&D2,&D3,&D4,&E1,&E2,&E3,&E4,&E5,&E6,&E7,&E8} ;
         gl.get_acc()->add_elements(v);
         gl.get_acc()->add_particles(&proton);
+        gl.get_acc()->set_name("LHC");
 
 
         Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,2.64e+8, nullptr,gl.get_acc());
 
         gl.get_acc()->add_faisceau(f);
-        //gl.set_ele(&D2);
-
 
         gl.showMaximized();
 
