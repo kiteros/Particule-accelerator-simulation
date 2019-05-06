@@ -25,34 +25,27 @@ class Particle
     public:
 
         Particle();
-        Particle(double, double);
-        Particle(double mass, double charge, Vecteur3D speed, Vecteur3D position);
+        Particle(double mass, double charge);
+        Particle(double mass = 0.938272, double charge = 1.60217653e-19, Vecteur3D speed = Vecteur3D(0,0,0), Vecteur3D position = Vecteur3D(0,0,0));
         ~Particle();
 
-        void update_pos(Vecteur3D v){pos = v;}
-        Vecteur3D getPosition() const;
-        Vecteur3D getSpeed();
         double getMass();
         double getElectricCharge();
-        Vecteur3D getForce();
-
-        void set_element_inside(Element* e);
-        Element* get_element_inside();
-
-        //constructors
-
-        //Destructor
-
-
-
         double energy();
         double gamma_factor();
+        double get_abscisse_curviligne(Accelerateur *);
+
+        Vecteur3D getPosition() const;
+        Vecteur3D getSpeed();
+        Vecteur3D getForce();
+
+        void update_pos(Vecteur3D v){pos = v;}
+        void set_element_inside(Element* e);
         void move(double);
         void ajouteForceMagnetique(Vecteur3D, double);
-
         void ajouteForceMagnetique(Vecteur3D);
 
-        double get_abscisse_curviligne(Accelerateur *);
+        Element* get_element_inside();
 
 };
 

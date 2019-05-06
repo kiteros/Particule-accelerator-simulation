@@ -25,7 +25,6 @@ Vecteur3D::Vecteur3D(double x, double y, double z){
     this->z=z;
 }
 
-//Pas de constructeur de copie : copie de surface necessaire
 
 void Vecteur3D::set(double x, double y, double z){
     this->x=x;
@@ -44,9 +43,7 @@ bool equalFloat(double a, double b){
 
 bool Vecteur3D::compare(Vecteur3D v){
     return (equalFloat(v.x,this->x) and equalFloat(v.y,this->y) and equalFloat(v.z,this->z));
-
 }
-
 
 //Meme classe en surcharge d'opérator (+ : addition)
 Vecteur3D Vecteur3D::operator+(Vecteur3D const& v1){
@@ -90,7 +87,6 @@ double Vecteur3D::operator*(Vecteur3D const& v1){
     return dot_prod;
 }
 
-
 //Meme classe en surcharge d'opérator (^ : vector product)
 Vecteur3D Vecteur3D::operator^(Vecteur3D const& v1){
     Vecteur3D v_n;
@@ -101,10 +97,11 @@ Vecteur3D Vecteur3D::operator^(Vecteur3D const& v1){
 }
 
 double Vecteur3D::norme(){
+
     double norme;
     norme = sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
-
     return norme;
+
 }
 
 double Vecteur3D::norme2(){
@@ -145,7 +142,6 @@ ostream& operator<<(ofstream& os, Vecteur3D v)
     os << v.get_x() << " " << v.get_y() << " " << v.get_z();
     return os;
 }
-
 
 //creation methode rotation
 Vecteur3D Vecteur3D::rotation(Vecteur3D a, double t){

@@ -6,14 +6,9 @@
 #include "accelerateur.h"
 
 
-Particle::Particle(){
-    //Constructeur par défaut
-    //mettre des valeurs de protons par exemple
-}
+Particle::Particle(){}
 
-Particle::~Particle(){
-
-}
+Particle::~Particle(){}
 
 Particle::Particle(double mass, double charge){
     //Constructeur
