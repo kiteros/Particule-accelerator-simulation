@@ -7,49 +7,40 @@
 #include "accelerateur.h"
 
 class GLWidget : public QOpenGLWidget
-/* La fenêtre hérite de QOpenGLWidget ;
- * les événements (clavier, souris, temps) sont des méthodes virtuelles à redéfinir.
- */
 {
-public:
-  void affiche_accelerateur(Accelerateur* acc);
+    public:
 
-  GLWidget(QWidget* parent = nullptr)
-    : QOpenGLWidget(parent)
-    , acc(&vue),ele(nullptr)
-  {
+        GLWidget(QWidget* parent = nullptr)
+            : QOpenGLWidget(parent), acc(&vue),ele(nullptr)
+        {}
 
-  }
-  virtual ~GLWidget() {}
-  virtual void resizeGL(int width, int height) override;
-  VueOpenGL* get_GL_vu(){return &vue;}
-  Accelerateur* get_acc() {return &acc;}
-  void set_ele(Element* e) { ele = e;}
-  void add(Particle* p){}
+        void affiche_accelerateur(Accelerateur* acc);
+        void set_ele(Element* e) { ele = e;}
+        void add(Particle* p){}
+
+        VueOpenGL* get_GL_vu(){return &vue;}
+        Accelerateur* get_acc() {return &acc;}
+
+        virtual ~GLWidget() {}
+        virtual void resizeGL(int width, int height) override;
+
 private:
-  // Les 3 méthodes clés de la classe QOpenGLWidget à réimplémenter
-  virtual void initializeGL()                  override;
 
-  virtual void paintGL()                       override;
-
-  // Méthodes de gestion d'évènements
+  virtual void initializeGL() override;
+  virtual void paintGL() override;
   virtual void keyPressEvent(QKeyEvent* event) override;
-  virtual void timerEvent(QTimerEvent* event)  override;
+  virtual void timerEvent(QTimerEvent* event) override;
 
-  // Méthodes de gestion interne
   void pause();
 
-  // Vue : ce qu'il faut donner au contenu pour qu'il puisse se dessiner sur la vue
   VueOpenGL vue;
-
-  // Timer
-  int timerId;
-  // pour faire évoluer les objets avec le bon "dt"
   QTime chronometre;
 
-  // objets à dessiner, faire évoluer
+  int timerId;
+
   Accelerateur acc;
   Element* ele;
+
 };
 
 #endif // GLWIDGET_H

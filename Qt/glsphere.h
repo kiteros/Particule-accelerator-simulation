@@ -3,31 +3,31 @@
 
 #include <QGLBuffer>
 #include <QOpenGLShaderProgram>
-
 #include "particle.h"
 
 class GLSphere
 {
-public:
- GLSphere(Particle* p)
-   : vbo(QGLBuffer::VertexBuffer), ibo(QGLBuffer::IndexBuffer), particle(p)
- {}
+    public:
 
-  void initialize(GLuint slices = 25, GLuint stacks = 25);
+        GLSphere(Particle* p)
+            : vbo(QGLBuffer::VertexBuffer), ibo(QGLBuffer::IndexBuffer), particle(p)
+        {}
 
-  void draw(QOpenGLShaderProgram& program, int attributeLocation);
+        void initialize(GLuint slices = 25, GLuint stacks = 25);
+        void draw(QOpenGLShaderProgram& program, int attributeLocation);
+        void bind();
+        void release();
 
-  void bind();
-  void release();
+        Particle* get_particle(){return particle;}
 
-  Particle* get_particle(){return particle;}
+    private:
 
-private:
-  QGLBuffer vbo, ibo;
-  GLuint vbo_sz;
-  GLuint ibo_sz[3];
+        QGLBuffer vbo, ibo;
+        GLuint vbo_sz;
+        GLuint ibo_sz[3];
 
-  Particle* particle;
+        Particle* particle;
+
 };
 
 #endif // GLSPHERE_H

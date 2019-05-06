@@ -7,9 +7,10 @@
 #include "dessinable.h"
 #include <fstream>
 
-//First constructor
+
 Element::Element(Vecteur3D in_pos, Vecteur3D out_pos, double rayon, SupportADessin* support,Element* s, double rayon_courbure):Dessinable (support)
 {
+
     this->in_pos = in_pos;
     this->out_pos = out_pos;
     this->rayon = rayon;
@@ -55,14 +56,13 @@ Element_droit::Element_droit(Vecteur3D in_pos, Vecteur3D out_pos,
 
 }
 
-
 Quadrupoles::Quadrupoles(Vecteur3D in_pos,
                          Vecteur3D out_pos,
                          double rayon, double intensite,
                          SupportADessin* support,
                          Element* e):Element_droit(in_pos, out_pos, rayon, support, e)
 {
-     this->intensite = intensite;
+    this->intensite = intensite;
     Couleur c;
     c.R = 0.0;
     c.G = 0.5;
@@ -77,24 +77,29 @@ bool Element::particle_out(Particle const& p){
 }
 
 bool Element_droit::touch_border(Particle const& p){
+
     //Check si la particule touche the bord
     Vecteur3D big_X = p.getPosition() - in_pos;
     Vecteur3D d = ~(out_pos - in_pos);
 
     return (big_X - (big_X * d) * d).norme() > rayon;
+
 }
 
 
 
 bool Element_courbe::touch_border(Particle const& p){
+
     double k = rayon_courbure;
     Vecteur3D Cc = 0.5*(in_pos + out_pos) + ((1/k) * sqrt(1-pow (k,2.0)*((out_pos-in_pos).norme2())/4))*(~(out_pos-in_pos)^constantes::e3);
     Vecteur3D big_X = p.getPosition() - Cc;
     Vecteur3D u = ~(big_X - big_X.get_z()*constantes::e3);
     return (big_X- (1/fabs(k))*u).norme() > rayon;
+
 }
 
 Vecteur3D Element_courbe::convertir_depuis_Abscisse_curviligne(double s) {
+
     double k = rayon_courbure;
     Vecteur3D Cc = 0.5*(in_pos + out_pos) + ((1/k) * sqrt(1-pow (k,2.0)*((out_pos-in_pos).norme2())/4))*(~(out_pos-in_pos)^constantes::e3);
     double alpha = s/fabs(1/k);
@@ -102,11 +107,14 @@ Vecteur3D Element_courbe::convertir_depuis_Abscisse_curviligne(double s) {
     double x = R.get_x()*cos(alpha) + R.get_y()*sin(alpha);
     double y = -R.get_x()*sin(alpha) + R.get_y()*cos(alpha);
     return Cc + Vecteur3D(x,y,0);
+
 }
 
 Vecteur3D Element_droit::convertir_depuis_Abscisse_curviligne(double s) {
+
     Vecteur3D u = ~(this->get_out()-this->get_in());
     return in_pos + s *u;
+
 }
 
 Vecteur3D Element::get_in(){
@@ -134,8 +142,7 @@ double Element_droit::getLongeur(){
 }
 
 
-//virtual functions affiche
-
+//Virtual functions affiche
 void Element::affiche(ofstream& f) const{
 
     f <<"in position: "<<in_pos<<endl
@@ -197,21 +204,14 @@ ostream& operator<<(ofstream& os, Dipole& el)
 
 
 //UPDATE FORCE
-
-//void Element::update_force(Particle * p, double dt)  {
-
-
-//    return;
-//}
-
 void Dipole::update_force(Particle * p, double dt)  {
-    //Dipole* dip = static_cast<Dipole*>(p->get_element_inside());
     Vecteur3D champ_magnetique = this->get_champ_magnetique() * constantes::e3;
     p->ajouteForceMagnetique(champ_magnetique, dt);
     return;
 }
 
 void Quadrupoles::update_force(Particle *p, double dt) {
+
     Vecteur3D d = ~(this->get_out() - this->get_in());
     Vecteur3D X = p->getPosition()-this->get_in();
     Vecteur3D y = X - (X*d)*d;
@@ -220,6 +220,7 @@ void Quadrupoles::update_force(Particle *p, double dt) {
     std::cout<<"champ_magnetique Quadrupoles: "<<champ_magnetique<<endl;
     p->ajouteForceMagnetique(champ_magnetique, dt);
     return;
+
 }
 
 void Element_courbe::update_force(Particle *p, double dt) {
@@ -229,7 +230,6 @@ void Element_courbe::update_force(Particle *p, double dt) {
 void Element_droit::update_force(Particle *p, double dt) {
     return;
 }
-
 
 //GET VECREUR r
 Vecteur3D Element_droit::get_vecteur_r(Vecteur3D v){
@@ -264,12 +264,14 @@ double Element_droit::convertir_a_Abscisse_curviligne(Vecteur3D v){
 }
 
 double Element_courbe::convertir_a_Abscisse_curviligne(Vecteur3D v){
+
     Vecteur3D Cc = this->get_centre_circle();
     double R = 1/abs(this->get_courbure());
     Vecteur3D u = ~(this->in_pos - Cc);
     Vecteur3D x = ~(v - Cc);
     double angle = acos(u*x);
     return R*angle;
+
 }
 
 double Dipole::convertir_a_Abscisse_curviligne(Vecteur3D v){

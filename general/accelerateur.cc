@@ -7,6 +7,7 @@
 #include <fstream>
 #include <math.h>
 
+using namespace std;
 
 Accelerateur::Accelerateur(SupportADessin* support, string name):Dessinable (support)
 {
@@ -61,7 +62,7 @@ void Accelerateur::remove_particle(Particle * p) {
             }
          }
          else{
-            for (unsigned long j=i+1;j < size;j++) {
+            for (unsigned long j=i+1; j < size; j++) {
                  particules[j-1] = particules[j];
                  particules.pop_back();
             }
@@ -71,21 +72,18 @@ void Accelerateur::remove_particle(Particle * p) {
 
 void Accelerateur::evolue(double dt){
 
-    //Bouger les faisceaux?
     getFaisceaux().front()->bouger(dt);
 
 }
 
 void Accelerateur::start(ofstream & os){
 
-
     int number_elements = elements.size();
     int number_particles = particules.size();
+
     os << "Accelerator : " << name << endl;
     os << "--Number of elements : " << number_elements << endl;
     os << "--Number of particule : " << number_particles << endl;
-
-
     os << "L'accélérateur est constitué des éléments suivant :"<<endl;
 
     for(auto ele:elements){
@@ -98,13 +96,13 @@ void Accelerateur::start(ofstream & os){
      os << "Starting the accelerator " << name << " ..." << endl << endl;
      os << "*****************" << endl << endl;
 
-    //Extremely important :
     //Parcourir toutes les particules et déterminer dans quel element elle sont.
     //Si pas d'element, détruire la particule
 
     for(auto p:particules){
         int i = -1;
         for(auto el: elements){
+
             i++;
             //Si la particule touche pas le bord et est pas sortie
             if(!el->touch_border(*p) && !el->particle_out(*p)){
@@ -114,10 +112,8 @@ void Accelerateur::start(ofstream & os){
                 this->remove_particle(p);
             }
 
-
         }
     }
-
 }
 
 void Accelerateur::start(){
@@ -125,6 +121,7 @@ void Accelerateur::start(){
     for(auto p:particules){
         int i = -1;
         for(auto el: elements){
+
             i++;
             //Si la particule touche pas le bord et est pas sortie
             if(!el->touch_border(*p) && !el->particle_out(*p)){
@@ -133,6 +130,7 @@ void Accelerateur::start(){
             }else if(i == elements.size()){
                 this->remove_particle(p);
             }
+
         }
     }
 
@@ -140,17 +138,17 @@ void Accelerateur::start(){
 
 void Accelerateur::affiche(ofstream & os) const{
 
-
     os << "L'accélérateur contient les particules suivantes :"<<endl;
 
-      for(auto ele:particules){
+    for(auto ele:particules){
         os<<"***********************"<<endl;
         os << *ele<<endl;
-      }
+    }
     return ;
+
 }
 
-std::ostream& operator<<(ofstream& os, Accelerateur const & a)
+ostream& operator<<(ofstream& os, Accelerateur const & a)
 {
     a.affiche(os);
     return os;

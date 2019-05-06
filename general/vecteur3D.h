@@ -5,18 +5,27 @@
 
 using namespace std;
 
-class Vecteur3D{
+class Vecteur3D
+{
     private:
+
         double x,y,z;
+
     public:
+
+        Vecteur3D();
+        Vecteur3D(double, double, double);
+
+        //Pas de constructeur de copie : copie de surface necessaire
+
         double get_x();
         double get_y();
         double get_z();
-        Vecteur3D();
-        Vecteur3D(double, double, double);
+
         void set(double, double, double);
         void affiche();
         bool compare(Vecteur3D);
+
         Vecteur3D addition(Vecteur3D) const;
         Vecteur3D operator+(Vecteur3D const&);
         Vecteur3D operator-(Vecteur3D const&);
@@ -35,6 +44,7 @@ class Vecteur3D{
         Vecteur3D unitaire();
         bool operator==(Vecteur3D const &);
         Vecteur3D rotation(Vecteur3D,double);
+
 };
 
 Vecteur3D  operator* (double scal, Vecteur3D v);
