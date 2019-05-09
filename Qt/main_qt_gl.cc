@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
     GLWidget gl;
 
-    double rayon = 10;
+    double rayon = 0.1;
 
 
     VueOpenGL* vue = gl.get_GL_vu();
@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     Particle proton = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(2.8,0,0));
     Particle electron = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(3.01,0,0));
 
-    /*Quadrupoles Q1(Vecteur3D(3,2,0),Vecteur3D(3,1,0),rayon,1.2,nullptr);
+    Quadrupoles Q1(Vecteur3D(3,2,0),Vecteur3D(3,1,0),rayon,1.2,nullptr);
     Quadrupoles Q2(Vecteur3D(3,0,0),Vecteur3D(3,-1,0),rayon,-1.2,nullptr);
     Quadrupoles Q3(Vecteur3D(2,-3,0),Vecteur3D(1,-3,0),rayon,1.2,nullptr);
     Quadrupoles Q4(Vecteur3D(0,-3,0),Vecteur3D(-1,-3,0),rayon,-1.2,nullptr);
@@ -73,9 +73,9 @@ int main(int argc, char* argv[])
 
 
         vector<Element*> v{ &Q1,&Q2,&Q3,&Q4,&Q5,&Q6,&Q7,&Q8,&D1,&D2,&D3,&D4,&E1,&E2,&E3,&E4,&E5,&E6,&E7,&E8} ;
-        */
 
-    Dipole D1(Vecteur3D(0,1,0),Vecteur3D(1,0,0),rayon,1,5.89158,vue);
+
+    /*Dipole D1(Vecteur3D(0,1,0),Vecteur3D(1,0,0),rayon,1,5.89158,vue);
     Dipole D2(Vecteur3D(1,0,0),Vecteur3D(0,-1,0),rayon,1,5.89158,vue);
     Dipole D3(Vecteur3D(0,-1,0),Vecteur3D(-1,0,0),rayon,1,5.89158,vue);
     Dipole D4(Vecteur3D(-1,0,0),Vecteur3D(0,1,0),rayon,1,5.89158,vue);
@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     D3.set_element_suivant(&D4);
     D4.set_element_suivant(&D1);
 
-    vector<Element*> v{ &D1,&D2,&D3,&D4};
+    vector<Element*> v{ &D1,&D2,&D3,&D4};*/
 
 
         gl.get_acc()->add_elements(v);
