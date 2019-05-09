@@ -118,11 +118,13 @@ void GLWidget::timerEvent(QTimerEvent* event)
   Q_UNUSED(event);
 
 
-  double dt = chronometre.restart() / 0.9e+10;
+  double dt = chronometre.restart() / 5e+11;
 
 
+  for(int i = 0; i < 15; i++){
+       acc.evolue(dt);
+  }
 
-  acc.evolue(dt);
   update();
 }
 
@@ -131,7 +133,7 @@ void GLWidget::pause()
 {
   if (timerId == 0) {
 	// dans ce cas le timer ne tourne pas alors on le lance
-	timerId = startTimer(20);
+    timerId = startTimer(20);
 	chronometre.restart();
   } else {
 	// le timer tourne alors on l'arrête
