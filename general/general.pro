@@ -32,4 +32,5 @@ SOURCES += \
     exercice13.cc
 
 DISTFILES += \
-    Makefile_old
+    Makefile_old \
+    params.txt

@@ -6,6 +6,7 @@
 #include "elements.h"
 #include "accelerateur.h"
 #include "faisceau.h"
+#include "constantes.h"
 
 int main(int argc, char* argv[])
 {
@@ -20,6 +21,7 @@ int main(int argc, char* argv[])
 
     double rayon = 0.1;
 
+    constantes::load_file();
 
     VueOpenGL* vue = gl.get_GL_vu();
 
