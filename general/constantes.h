@@ -1,6 +1,8 @@
 #ifndef CONSTANTES_H
 #define CONSTANTES_H
 #include "vecteur3D.h"
+#include <iostream>
+#include <fstream>
 
 class constantes
 {
@@ -15,6 +17,8 @@ class constantes
         static int current_index_particle;
         static double time_step;
         static double void_permitivity;
+
+        static void load_file();
 
 };
 
