@@ -44,12 +44,12 @@ class Accelerateur: public Dessinable
         void add_particles(Particle*);
         void remove_all_particle();
         void evolue(double);
-        void evolue_sans_faisceaux(std::ofstream&, double dt);
-        void start(ofstream&);
+        void evolue_sans_faisceaux(std::ostream&, double dt);
+        void start(ostream&);
         void start();
         double getLongeur();
 
-        virtual void affiche(ofstream&) const;
+        virtual void affiche(ostream&) const;
         virtual void dessine() override
         { support->dessine(*this); }
 

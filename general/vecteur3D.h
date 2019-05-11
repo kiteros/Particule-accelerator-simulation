@@ -43,6 +43,7 @@ class Vecteur3D
         double norme2();
         Vecteur3D unitaire();
         bool operator==(Vecteur3D const &);
+        bool operator!=(Vecteur3D const &);
         Vecteur3D rotation(Vecteur3D,double);
 
 };

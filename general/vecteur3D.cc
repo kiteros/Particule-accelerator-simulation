@@ -129,6 +129,11 @@ bool Vecteur3D::operator==(Vecteur3D const& v){
     return (equalFloat(x,v.x) && equalFloat(y,v.y) && equalFloat(z,v.z));
 }
 
+//classe surcharge d'operator != inegalite
+bool Vecteur3D::operator!=(Vecteur3D const& v){
+    return not(equalFloat(x,v.x) && equalFloat(y,v.y) && equalFloat(z,v.z));
+}
+
 //surcharge << afficher vecteur
 ostream& operator<<(ostream& os, Vecteur3D v)
 {

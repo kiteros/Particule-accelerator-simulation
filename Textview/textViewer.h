@@ -6,7 +6,7 @@
 class TextViewer:public SupportADessin
 {
 public:
-     TextViewer(std::ofstream& flot)
+     TextViewer(std::ostream& flot)
         : flot(flot)
       {}
       virtual ~TextViewer() override {}
@@ -15,7 +15,7 @@ public:
       virtual void dessine(Accelerateur const& a_dessiner) override;
       virtual void dessine() override;
      private:
-      std::ofstream& flot;
+      std::ostream& flot;
 
 };
 

@@ -142,8 +142,9 @@ double Element_droit::getLongeur(){
 }
 
 
-//Virtual functions affiche
-void Element::affiche(ofstream& f) const{
+//virtual functions affiche
+
+void Element::affiche(ostream& f) const{
 
     f <<"in position: "<<in_pos<<endl
     <<"out position: "<<out_pos<<endl
@@ -153,50 +154,50 @@ void Element::affiche(ofstream& f) const{
 
 }
 
-void Element_droit::affiche(ofstream & f) const{
+void Element_droit::affiche(ostream & f) const{
     Element::affiche(f);
     return;
 }
 
-void Element_courbe::affiche(ofstream & f) const{
+void Element_courbe::affiche(ostream & f) const{
     Element::affiche(f);
     f<<"rayon_courbure: "<<rayon_courbure<<endl;
     return;
 }
 
-void Dipole::affiche(ofstream &f)const{
+void Dipole::affiche(ostream &f)const{
     Element_courbe::affiche(f);
     f<<"champ_magnetique: "<<champ_magnetique<<endl;
     return;
 }
 
-void Quadrupoles::affiche(ofstream &f) const{
+void Quadrupoles::affiche(ostream &f) const{
     Element_droit::affiche(f);
     f<<"intensite: "<<intensite<<endl;
     return;
 }
 
-ostream& operator<<(ofstream& os, Element& el){
+ostream& operator<<(ostream& os, Element& el){
     el.affiche(os);
     return os;
 }
 
 //surcharge << afficher l'element
-ostream& operator<<(ofstream& os, Element_droit& el)
+ostream& operator<<(ostream& os, Element_droit& el)
 {
     el.affiche(os);
     return os;
 }
 
 //surcharge << afficher l'element
-ostream& operator<<(ofstream& os, Element_courbe& el)
+ostream& operator<<(ostream& os, Element_courbe& el)
 {
     el.affiche(os);
     return os;
 }
 
 //surcharge << afficher dipole
-ostream& operator<<(ofstream& os, Dipole& el)
+ostream& operator<<(ostream& os, Dipole& el)
 {
     el.affiche(os);
     return os;
