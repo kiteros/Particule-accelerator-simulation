@@ -34,10 +34,8 @@ Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda
         ele = ele->get_element_suivant();
     }
 
-    //Update_somme_attributs();
+    Update_somme_attributs();
     std::cout <<"ddddeeeeeebbbbbbbbb"<< particules.size() << endl;
-    double longeur = acc->getLongeur();
-    this->nombre_case_simulation = ceil(longeur / 1e-7) ;
 }
 
 vector<Particle*> remove_particle_from_vector(vector<Particle*> list, Particle * p){
@@ -51,13 +49,7 @@ vector<Particle*> remove_particle_from_vector(vector<Particle*> list, Particle *
 }
 
 void Faisceau::bouger(double dt){
-
-    vector<Particle*> next_particles = particules;
-
     for(auto p:particules){
-        next_particles = remove_particle_from_vector(next_particles, p);
-        this->calcul_force_neighboor_P13(p, next_particles);
-
         Element* current_element = p->get_element_inside();
         current_element->update_force(p,dt);
         //Update la position des particules
@@ -136,16 +128,18 @@ void Faisceau::Update_somme_attributs(){
     energie_moyenne = somme_energie / nb;
 }
 
-void Faisceau::calcul_force_neighbour_p14(Particle* p){
-    int N = nombre_case_simulation ;
+void Faisceau_P14::calcul_force_neighbour_p14(Particle* p){
     vector<Particle*> particules_influantes = vector<Particle*>();
     double longeur = acc->getLongeur();
+    int N = ceil(longeur/1e-7) ;
     double epsilon = longeur/N;
     double abscisse = p->get_element_inside()->convertir_a_Abscisse_curviligne(p->getPosition());
     int nb_case = ceil(abscisse/epsilon);
     int nb_case_next = (nb_case + 1) > N ? 1:nb_case + 1;
     int nb_case_pre = (nb_case - 1) < 1 ? N:nb_case - 1;
-    for(auto pp :this->getParticules()){
+    vector<Particle*> next_particles = remove_particle_from_vector(this->getParticules(), p);
+
+    for(auto pp :next_particles){
        double abscisse = pp->get_element_inside()->convertir_a_Abscisse_curviligne(pp->getPosition());
        int nb_case_pp = ceil(abscisse/epsilon);
        if(nb_case_pp == nb_case || nb_case_pp == nb_case_pre || nb_case_pp == nb_case_next){
@@ -156,11 +150,75 @@ void Faisceau::calcul_force_neighbour_p14(Particle* p){
     for(auto q:particules_influantes){
         //Calcul force between p and q
         Vecteur3D distance = p->getPosition() - q->getPosition();
+
         Vecteur3D force_inter_particle =
                 pow(p->getElectricCharge(), 2) /
                 (4 * M_PI * constantes::void_permitivity *
                  pow(distance.norme(),3) * pow(p->gamma_factor(), 2)) * distance;
+        std::cout<<"ForceMagnetique: "<<force_inter_particle << *q <<endl;
         p->ajouteForceMagnetique(force_inter_particle);
-        q->ajouteForceMagnetique(-force_inter_particle);
+        //q->ajouteForceMagnetique(-force_inter_particle);
     }
+}
+
+Faisceau_P13::Faisceau_P13(int nombre_particules, int lambda, double charge, double mass,double vitesse, SupportADessin* support,Accelerateur* acc)
+    :Faisceau (nombre_particules,lambda,charge,mass,vitesse,support,acc){};
+
+void Faisceau_P13::bouger(double dt){
+    vector<Particle*> next_particles = particules;
+
+    for(auto p:particules){
+        next_particles = remove_particle_from_vector(next_particles, p);
+        this->calcul_force_neighbour_P13(p, next_particles);
+
+        Element* current_element = p->get_element_inside();
+        current_element->update_force(p,dt);
+        //Update la position des particules
+        p->move(dt);
+
+        while(current_element->particle_out(*p)){
+            p->set_element_inside(current_element->get_element_suivant());
+            current_element = p ->get_element_inside();
+        }
+
+        //Check si elles touchent le bord et les supprimer en concécences
+        if(current_element->touch_border(*p)){
+            remove_particle(p);
+            continue;
+        }
+    }
+
+    std::cout << particules.size() << endl;
+    std::cout << *particules[0] << endl;
+
+    Update_somme_attributs();
+}
+
+Faisceau_P14::Faisceau_P14(int nombre_particules, int lambda, double charge, double mass,double vitesse, SupportADessin* support,Accelerateur* acc)
+    :Faisceau (nombre_particules,lambda,charge,mass,vitesse,support,acc){};
+
+void Faisceau_P14::bouger(double dt){
+    for(auto p:particules){
+        this->calcul_force_neighbour_p14(p);
+        Element* current_element = p->get_element_inside();
+        current_element->update_force(p,dt);
+        //Update la position des particules
+        p->move(dt);
+
+        while(current_element->particle_out(*p)){
+            p->set_element_inside(current_element->get_element_suivant());
+            current_element = p ->get_element_inside();
+        }
+
+        //Check si elles touchent le bord et les supprimer en concécences
+        if(current_element->touch_border(*p)){
+            remove_particle(p);
+            continue;
+        }
+    }
+
+    std::cout << particules.size() << endl;
+    std::cout << *particules[0] << endl;
+
+    Update_somme_attributs();
 }

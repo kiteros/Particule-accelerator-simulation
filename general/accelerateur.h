@@ -29,7 +29,8 @@ class Accelerateur: public Dessinable
 
         Accelerateur(SupportADessin*, string name="unnamed accelerator");
         Accelerateur(vector<Element*>, vector<Particle*>,SupportADessin*, string name="unnamed accelerator");
-        Accelerateur(Accelerateur const &) = delete ;
+
+        //Accelerateur(Accelerateur const &) = delete ;
         Accelerateur operator=(Accelerateur const &) = delete;
 
         ~Accelerateur();
@@ -43,9 +44,9 @@ class Accelerateur: public Dessinable
         void add_particles(Particle*);
         void remove_all_particle();
         void evolue(double);
+        void evolue_sans_faisceaux(double dt,std::ofstream&);
         void start(ofstream&);
         void start();
-
         double getLongeur();
 
         virtual void affiche(ofstream&) const;

@@ -29,7 +29,7 @@ class VueOpenGL : public SupportADessin
         // Méthodes set
         void translate(double x, double y, double z);
         void rotate(double angle, double dir_x, double dir_y, double dir_z);
-  
+
         // méthode utilitaire offerte pour simplifier
         void dessineCube(QMatrix4x4 const& point_de_vue = QMatrix4x4() );
         void dessineCylindre(Glcylindre cylindre,QMatrix4x4 const& point_de_vue,

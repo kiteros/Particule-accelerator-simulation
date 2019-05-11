@@ -76,6 +76,29 @@ void Accelerateur::evolue(double dt){
 
 }
 
+void Accelerateur::evolue_sans_faisceaux(double dt, std::ofstream& f){
+    for(auto p:particules){
+        Element* current_element = p->get_element_inside();
+        current_element->update_force(p,dt);
+        //Update la position des particules
+        p->move(dt);
+
+        while(current_element->particle_out(*p)){
+            p->set_element_inside(current_element->get_element_suivant());
+            current_element = p ->get_element_inside();
+        }
+
+        //Check si elles touchent le bord et les supprimer en concécences
+        if(current_element->touch_border(*p)){
+            remove_particle(p);
+            continue;
+        }
+    }
+    for (auto p:particules) {
+        f << *p << endl;
+    }
+}
+
 void Accelerateur::start(ofstream & os){
 
     int number_elements = elements.size();
@@ -86,12 +109,6 @@ void Accelerateur::start(ofstream & os){
     os << "--Number of particule : " << number_particles << endl;
     os << "L'accélérateur est constitué des éléments suivant :"<<endl;
 
-    for(auto ele:elements){
-
-        os<<"***********************"<<endl;
-        ele->dessine();
-
-     }
 
      os << "Starting the accelerator " << name << " ..." << endl << endl;
      os << "*****************" << endl << endl;
@@ -105,13 +122,12 @@ void Accelerateur::start(ofstream & os){
 
             i++;
             //Si la particule touche pas le bord et est pas sortie
-            if(!el->touch_border(*p) && !el->particle_out(*p)){
+            if(!el->touch_border(*p) && ! el->particle_out(*p)){
                 //p is in there
                 p->set_element_inside(el);
             }else if(i == elements.size()){
                 this->remove_particle(p);
             }
-
         }
     }
 }
