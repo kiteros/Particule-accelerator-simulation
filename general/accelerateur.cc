@@ -76,7 +76,7 @@ void Accelerateur::evolue(double dt){
 
 }
 
-void Accelerateur::evolue_sans_faisceaux(std::ostream& f, double dt = constantes::time_step){
+void Accelerateur::evolue_sans_faisceaux(std::ostream& f, double dt){
     for(auto p:particules){
         Element* current_element = p->get_element_inside();
         current_element->update_force(p,dt);

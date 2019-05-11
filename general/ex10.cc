@@ -18,10 +18,10 @@ int main(){
     cout << "welcome to l'accelerateur de Jules et Weisheng" << endl;
 
     //But créer le support a dessin befor
-    ofstream result_file;
-    result_file.open("./Results/text_results.txt");
+    //ostream result_file;
+    //result_file.open("results_ex10.txt");
 
-    TextViewer textView = TextViewer(result_file);
+    TextViewer textView = TextViewer(cout);
 
 
 
@@ -80,12 +80,12 @@ int main(){
     LHC.add_particles(&electron);
     LHC.add_particles(&proton);
 
-    LHC.start(result_file);
+    LHC.start(cout);
     LHC.dessine();
     LHC.evolue_sans_faisceaux(cout);
     LHC.dessine();
 
-    result_file.close();
+    //result_file.close();
 
 
     return 0;

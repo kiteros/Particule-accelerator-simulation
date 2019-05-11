@@ -19,7 +19,7 @@ int main(){
     double rayon = 0.1;
     //But créer le support a dessin befor
     ofstream result_file;
-    result_file.open("/Users/weisheng/Desktop/Icc_final/Textview/results.txt");
+    result_file.open("./results.txt");
     result_file << "welcome to l'accelerateur de Jules et Weisheng" << endl;
     TextViewer textView = TextViewer(result_file);
 
@@ -83,7 +83,7 @@ int main(){
     int i = 0;
 
     while(i < 1000){
-      LHC.evolue_sans_faisceaux(1e-11, result_file);
+      LHC.evolue_sans_faisceaux(result_file);
       i++;
      }
     //LHC.dessine();
