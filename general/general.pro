@@ -24,7 +24,7 @@ SOURCES += \
     #testAccelerateur.cc \
     #testVecteur3D.cc \
     #testElements.cc \
-    #ex10.cc \
+    ex10.cc \
     #ex9.cc \
     dessinable.cc \
     testParticle.cc \
