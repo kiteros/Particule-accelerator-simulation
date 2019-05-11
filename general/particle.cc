@@ -50,8 +50,7 @@ void Particle::move(double dt){
 //surcharge << afficher la particule
 ostream& operator<<(ostream& os, Particle p)
 {
-    os <<"adress: "<<&p<< "\n"
-       << "position : " << p.getPosition() << "\n"
+    os << "position : " << p.getPosition() << "\n"
        << "speed : " << p.getSpeed() << "\n"
        << "gamma : " << p.gamma_factor() << "\n"
        << "energy (GeV) : " << p.energy() << "\n"

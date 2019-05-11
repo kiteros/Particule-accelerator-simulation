@@ -76,7 +76,7 @@ void Accelerateur::evolue(double dt){
 
 }
 
-void Accelerateur::evolue_sans_faisceaux(std::ostream& f, double dt = constantes::time_step){
+void Accelerateur::evolue_sans_faisceaux(std::ostream& f, double dt ){
     for(auto p:particules){
         Element* current_element = p->get_element_inside();
         current_element->update_force(p,dt);
@@ -160,8 +160,12 @@ void Accelerateur::affiche(ostream & os) const{
         os<<"***********************"<<endl;
         os << *ele<<endl;
     }
+    os << "L'accélérateur contient les elements suivantes :"<<endl;
+    for(auto ele:elements){
+        os<<"***********************"<<endl;
+        os << *ele<<endl;
+    }
     return ;
-
 }
 
 std::ostream& operator<<(ostream& os, Accelerateur const & a)

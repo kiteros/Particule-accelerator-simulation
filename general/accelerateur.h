@@ -44,7 +44,7 @@ class Accelerateur: public Dessinable
         void add_particles(Particle*);
         void remove_all_particle();
         void evolue(double);
-        void evolue_sans_faisceaux(std::ostream&, double dt);
+        void evolue_sans_faisceaux(std::ostream&, double dt = constantes::time_step);
         void start(ostream&);
         void start();
         double getLongeur();

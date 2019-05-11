@@ -83,7 +83,7 @@ int main(){
     int i = 0;
 
     while(i < 1000){
-      LHC.evolue_sans_faisceaux(1e-11, result_file);
+      LHC.evolue_sans_faisceaux(result_file);
       i++;
      }
     //LHC.dessine();
