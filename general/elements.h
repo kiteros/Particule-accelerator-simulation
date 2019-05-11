@@ -48,7 +48,7 @@ class Element : public Dessinable
 
         Couleur get_c(){return c;}
 
-        virtual void affiche(ofstream&) const;
+        virtual void affiche(ostream&) const;
         virtual void dessine() override { support->dessine(this); }
 
 };
@@ -64,7 +64,7 @@ class Element_droit : public Element
 
         virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
         virtual bool touch_border(Particle const& p) override;
-        virtual void affiche(ofstream&) const override;
+        virtual void affiche(ostream&) const override;
         virtual void update_force(Particle* p,double dt) override;
         virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
@@ -83,7 +83,7 @@ class Element_courbe : public Element
         Vecteur3D get_centre_circle();
 
         virtual bool touch_border(Particle const&) override;
-        virtual void affiche(ofstream&) const override;
+        virtual void affiche(ostream&) const override;
         virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s) override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
         virtual void update_force(Particle* p,double dt) override;
@@ -104,7 +104,7 @@ class Dipole : public Element_courbe
         double get_champ_magnetique(){return champ_magnetique;}
 
         virtual void update_force(Particle* p ,double dt) override;
-        virtual void affiche(ofstream&) const override;
+        virtual void affiche(ostream&) const override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
         virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
 
@@ -124,7 +124,7 @@ class Quadrupoles: public Element_droit
         double get_intensite(){return intensite;}
 
         virtual void update_force(Particle* p ,double dt) override;
-        virtual void affiche(ofstream&) const override;
+        virtual void affiche(ostream&) const override;
         virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
         virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
 

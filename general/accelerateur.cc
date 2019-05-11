@@ -76,7 +76,7 @@ void Accelerateur::evolue(double dt){
 
 }
 
-void Accelerateur::evolue_sans_faisceaux(double dt, std::ofstream& f){
+void Accelerateur::evolue_sans_faisceaux(double dt, std::ostream& f){
     for(auto p:particules){
         Element* current_element = p->get_element_inside();
         current_element->update_force(p,dt);
@@ -99,7 +99,7 @@ void Accelerateur::evolue_sans_faisceaux(double dt, std::ofstream& f){
     }
 }
 
-void Accelerateur::start(ofstream & os){
+void Accelerateur::start(ostream & os){
 
 
     int number_elements = elements.size();
@@ -156,7 +156,7 @@ void Accelerateur::start(){
 
 }
 
-void Accelerateur::affiche(ofstream & os) const{
+void Accelerateur::affiche(ostream & os) const{
 
 
     os << "L'accélérateur contient les particules suivantes :"<<endl;
@@ -168,7 +168,7 @@ void Accelerateur::affiche(ofstream & os) const{
     return ;
 }
 
-std::ostream& operator<<(ofstream& os, Accelerateur const & a)
+std::ostream& operator<<(ostream& os, Accelerateur const & a)
 {
     a.affiche(os);
     return os;
@@ -186,3 +186,5 @@ double Accelerateur::getLongeur(){
 void Accelerateur::add_faisceau(Faisceau * f){
     faisceaux.push_back(f);
 }
+
+
