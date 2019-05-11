@@ -19,9 +19,9 @@ int main(int argc, char* argv[])
 
     GLWidget gl;
 
-    double rayon = 0.1;
+    double rayon = constantes::rayon;
 
-    constantes::load_file();
+    constantes::load();
 
     VueOpenGL* vue = gl.get_GL_vu();
 

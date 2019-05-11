@@ -13,29 +13,14 @@ Vecteur3D constantes::e2 = Vecteur3D(0.0,1.0,0.0);
 Vecteur3D constantes::e3 = Vecteur3D(0.0,0.0,1.0);
 double constantes::time_step = 0.5;
 double constantes::void_permitivity = 8.85e-12;
+int constantes::turn_before_update = 10;
+double constantes::time_division = 5e12;
+double constantes::rayon = 0.1;
 
-void constantes::load_file(){
-
-    ofstream myfile ("example.txt");
-      if (myfile.is_open())
-      {
-        myfile << "This is a line.\n";
-        myfile << "This is another line.\n";
-        myfile.close();
-        cout << "its supposed to work" << endl;
-      }
-      else cout << "Unable to open file";
-      /*
-    string line;
-      ifstream myfile ("params.txt");
-      if (myfile.is_open())
-      {
-        while ( getline (myfile,line) )
-        {
-          cout << line << '\n';
-        }
-        myfile.close();
-      }
-
-      else cout << "Unable to open file";*/
+void constantes::load(){
+    cout << "void_permitivity : " << void_permitivity << endl;
+    cout << "turn_before_update : " << turn_before_update << endl;
+    cout << "time_division : " << time_division << endl;
+    cout << "light_speed : " << light_speed << endl;
+    cout << "rayon : " << rayon << endl;
 }
