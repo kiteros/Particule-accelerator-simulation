@@ -16,7 +16,7 @@ class VueOpenGL : public SupportADessin {
   virtual void dessine(Accelerateur const& a_dessiner) override;
   virtual void dessine(Element* a_dessiner) override;
   virtual void dessine(Faisceau const& a_dessiner) override;
-  virtual void dessine();
+  virtual void dessine() override;
 
   // méthodes de (ré-)initialisation
   void init();

@@ -79,20 +79,20 @@ void Particle::ajouteForceMagnetique(Vecteur3D B, double dt){
         current_speed = this->speed;
         Vecteur3D F;
         F = this->electric_charge * (current_speed ^ B);
-        this->force = this->force + F;
-
         //Rotation de force mtn
         Vecteur3D axeRotation = (current_speed ^ F);
         std::cout <<"current_speed:" <<current_speed<<endl;
         std::cout <<"F:" <<F<<endl;
         std::cout <<"axeRotation::" <<axeRotation<<endl;
         double mass_kg = this->mass * 1.78266191e-27;
+        std::cout <<"aaaaassssssssiiineeeee::" <<(dt * F.norme())/(2 * this->gamma_factor()*mass_kg*this->speed.norme())<<endl;
         double angle = asin((dt * F.norme())/(2 * this->gamma_factor()*mass_kg*this->speed.norme()));
         std::cout <<"aaaannnggglllleeee:::" <<angle<<endl;
         if(!(axeRotation == Vecteur3D(0,0,0))){
           std::cout<<"rotation de force!!!!!!!!!!"<<endl;
-          this->force = this->force.rotation(axeRotation, angle);
+           F = F.rotation(axeRotation, angle);
         }
+        this->force = this->force + F;
     }
 }
 

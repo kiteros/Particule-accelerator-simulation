@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void Faisceau::calcul_force_neighboor_P13(Particle* p, vector<Particle*> list){
+void Faisceau_P13::calcul_force_neighbour_P13(Particle* p, vector<Particle*> list){
     //Calcul des forces avec la première methode
 
     for(auto q:list){
@@ -16,6 +16,7 @@ void Faisceau::calcul_force_neighboor_P13(Particle* p, vector<Particle*> list){
                 pow(p->getElectricCharge(), 2) /
                 (4 * M_PI * constantes::void_permitivity *
                 pow(distance.norme(),3) * pow(p->gamma_factor(), 2)) * distance;
+        std::cout<<"ForceMagnetique: "<<force_inter_particle<<endl;
         p->ajouteForceMagnetique(force_inter_particle);
         q->ajouteForceMagnetique(-force_inter_particle);
     }

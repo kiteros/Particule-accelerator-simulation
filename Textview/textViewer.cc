@@ -17,3 +17,8 @@ void TextViewer::dessine(){
 
     return;
 }
+
+void TextViewer::dessine(Faisceau const& a_dessiner){
+    std::cout << "Faisceau"<<endl;
+    return;
+}
