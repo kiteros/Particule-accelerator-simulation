@@ -20,7 +20,7 @@ SOURCES += \
     constantes.cc \
     elements.cc \
     accelerateur.cc \
-    #testParticle.cc \
+    testParticle.cc \
     #testAccelerateur.cc \
     #testVecteur3D.cc \
     #testElements.cc \
