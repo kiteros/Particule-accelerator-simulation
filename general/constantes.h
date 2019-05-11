@@ -17,8 +17,11 @@ class constantes
         static int current_index_particle;
         static double time_step;
         static double void_permitivity;
+        static int turn_before_update;
+        static double time_division;
+        static double rayon;
 
-        static void load_file();
+        static void load();
 
 };
 
