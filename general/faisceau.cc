@@ -84,8 +84,6 @@ void Faisceau::remove_particle(Particle * p){
 }
 
 
-
-
 //set values to emittance, A11, A12, A22,and energie_moyenne.
 void Faisceau::Update_somme_attributs(){
     double somme_r_2 = 0, somme_Vr_2=0, somme_r_Vr=0;
