@@ -72,7 +72,11 @@ void Accelerateur::remove_particle(Particle * p) {
 
 void Accelerateur::evolue(double dt){
 
-    getFaisceaux().front()->bouger(dt);
+    for(auto f : getFaisceaux()){
+        f->bouger(dt);
+    }
+
+
 
 }
 

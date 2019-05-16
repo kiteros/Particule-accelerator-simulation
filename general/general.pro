@@ -27,7 +27,7 @@ SOURCES += \
     #ex10.cc \
     #ex9.cc \
     dessinable.cc \
-    testParticle.cc \
+    #testParticle.cc \
     supportadessin.cc \
     faisceau.cc \
     exercice13.cc

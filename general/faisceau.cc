@@ -27,15 +27,12 @@ Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda
                 particules.push_back(p);
                 longeur_accu = longeur_accu + pas;
                 i = i + 1;
-                std::cout <<"iiiiiiiiiiiiiiiiiii"<< N << endl;
-                std::cout <<"kkkkkkkkkkkkkkkkkkk"<< i << endl;
             }
             rest = fabs(longeur - longeur_accu);
         ele = ele->get_element_suivant();
     }
 
     Update_somme_attributs();
-    std::cout <<"ddddeeeeeebbbbbbbbb"<< particules.size() << endl;
 }
 
 vector<Particle*> remove_particle_from_vector(vector<Particle*> list, Particle * p){
