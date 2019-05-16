@@ -16,11 +16,8 @@ int main(){
 
     cout << "welcome to l'accelerateur de Jules et Weishung" << endl;
 
-    ofstream result_file;
-    result_file.open("./Results/text_results.txt");
-
     //But créer le support a dessin befor
-    TextViewer textView = TextViewer(result_file);
+    TextViewer textView = TextViewer(cout);
 
 
     Accelerateur LHC = Accelerateur(&textView, "LHC");
@@ -41,9 +38,8 @@ int main(){
     LHC.add_particles(&electron);
     LHC.add_particles(&proton);
 
-    LHC.start(result_file);
+    LHC.start(cout);
     textView.dessine(LHC);
-    result_file.close();
 
 
     return 0;
