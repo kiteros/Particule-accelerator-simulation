@@ -2,4 +2,4 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
    general \
-   Textview
+   Qt
