@@ -79,8 +79,14 @@ int main(int argc, char* argv[])
     gl.get_acc()->add_particles(&proton);
     gl.get_acc()->set_name("LHC");
 
+    //type Faisceau est le Faisceau normal qui n'a pas des interactions entre les particules
+    Faisceau* f = new Faisceau(40,1,1.60217653e-19,0.938272,2.64745e+8, nullptr,gl.get_acc());
 
-    Faisceau* f = new Faisceau(1000,20,1.60217653e-19,0.938272,-2.64745e+8, nullptr,gl.get_acc());
+    //type Faisceau_P13 est herite de type Faisceau et implimente la methode de calcule les interations entre particules de exercise 13
+    //Faisceau* f = new Faisceau_P13(40,1,1.60217653e-19,0.938272,2.64745e+8, nullptr,gl.get_acc());
+
+    //type Faisceau_P14 est herite de type Faisceau et implimente la methode de calcule les interations entre particules de exercise 14
+    //Faisceau* f = new Faisceau_P14(40,1,1.60217653e-19,0.938272,2.64745e+8, nullptr,gl.get_acc());
 
     gl.get_acc()->add_faisceau(f);
 
