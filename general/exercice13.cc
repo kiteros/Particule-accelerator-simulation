@@ -12,12 +12,17 @@ void Faisceau_P13::calcul_force_neighbour_P13(Particle* p, vector<Particle*> lis
     for(auto q:list){
         //Calcul force between p and q
         Vecteur3D distance = p->getPosition() - q->getPosition();
-        Vecteur3D force_inter_particle =
+        Vecteur3D force_inter_particle;
+       force_inter_particle =
                 pow(p->getElectricCharge(), 2) /
-                (4 * M_PI * constantes::void_permitivity *
+               (4 * M_PI * constantes::void_permitivity *
                 pow(distance.norme(),3) * pow(p->gamma_factor(), 2)) * distance;
-        std::cout<<"ForceMagnetique: "<<force_inter_particle<<endl;
+       std::cout<<"ForceMagnetiquespeed: "<<p->getSpeed()<<endl;
+       std::cout<<"ForceMagnetiquegamma: "<<p->gamma_factor()<<endl;
+       std::cout<<"ForceMagnetiquedistance: "<<distance<<endl;
+       std::cout<<"ForceMagnetique: "<<force_inter_particle<<endl;
         p->ajouteForceMagnetique(force_inter_particle);
         q->ajouteForceMagnetique(-force_inter_particle);
+
     }
 }

@@ -6,13 +6,13 @@
 #include "vecteur3D.h"
 
 
-Faisceau::Faisceau(int nombre_particules, int lambda, double charge, double mass,double vitesse,SupportADessin* support,Accelerateur* acc):
-Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda)
+Faisceau::Faisceau(int nombre_particules, int lambda, double charge, double mass,double vitesse,SupportADessin* support,Accelerateur* acc, double offset,Vecteur3D rgb):
+Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda),couleur(rgb)
 {
     particules = vector<Particle*>();
     int N = nombre_particules/lambda;
     double pas = acc->getLongeur()/N;
-    double rest = 0.5;
+    double rest = offset;
     int i = 0;
     Element* ele = acc->getElements().front();
     while(i < N){
@@ -156,8 +156,8 @@ void Faisceau_P14::calcul_force_neighbour_p14(Particle* p){
     }
 }
 
-Faisceau_P13::Faisceau_P13(int nombre_particules, int lambda, double charge, double mass,double vitesse, SupportADessin* support,Accelerateur* acc)
-    :Faisceau (nombre_particules,lambda,charge,mass,vitesse,support,acc){};
+Faisceau_P13::Faisceau_P13(int nombre_particules, int lambda, double charge, double mass,double vitesse, SupportADessin* support,Accelerateur* acc,double offset,Vecteur3D rgb)
+    :Faisceau (nombre_particules,lambda,charge,mass,vitesse,support,acc,offset,rgb){};
 
 void Faisceau_P13::bouger(double dt){
     vector<Particle*> next_particles = particules;
@@ -189,8 +189,8 @@ void Faisceau_P13::bouger(double dt){
     Update_somme_attributs();
 }
 
-Faisceau_P14::Faisceau_P14(int nombre_particules, int lambda, double charge, double mass,double vitesse, SupportADessin* support,Accelerateur* acc)
-    :Faisceau (nombre_particules,lambda,charge,mass,vitesse,support,acc){};
+Faisceau_P14::Faisceau_P14(int nombre_particules, int lambda, double charge, double mass,double vitesse, SupportADessin* support,Accelerateur* acc,double offset,Vecteur3D rgb)
+    :Faisceau (nombre_particules,lambda,charge,mass,vitesse,support,acc,offset,rgb){};
 
 void Faisceau_P14::bouger(double dt){
     for(auto p:particules){
