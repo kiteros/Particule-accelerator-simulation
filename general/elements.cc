@@ -282,3 +282,54 @@ double Dipole::convertir_a_Abscisse_curviligne(Vecteur3D v){
 double Quadrupoles::convertir_a_Abscisse_curviligne(Vecteur3D v){
     return Element_droit::convertir_a_Abscisse_curviligne(v);
 }
+
+FODO::FODO(Vecteur3D in_pos, Vecteur3D out_pos, double rayon,SupportADessin* support ,double L , double intensite ,Element* s )
+:Element(in_pos, out_pos, rayon,support,s),L(L),intensite(intensite)
+{
+    double Longeur = (out_pos - in_pos).norme();
+    Vecteur3D u = ~(out_pos - in_pos);
+    l = Longeur/2 - L;
+    Q1 = new Quadrupoles (in_pos,
+                          in_pos + l*u,
+                          rayon, intensite,
+                          support,
+                          s);
+    ED1 = new Element_droit(in_pos + l*u,in_pos + l*u + L*u,rayon,support,s);
+    Q2 =  new Quadrupoles(in_pos + l*u + L*u , in_pos + l*u + L*u + l*u,rayon,-intensite,support,s);
+    ED2 = new Element_droit (in_pos + l*u + L*u + l*u,in_pos + l*u + L*u + l*u + L*u,rayon,support,s);
+}
+
+double FODO::convertir_a_Abscisse_curviligne(Vecteur3D v){
+    Vecteur3D u = ~(this->out_pos - this->in_pos);
+    return (v-this->in_pos)*u;
+}
+
+void FODO::update_force(Particle *p, double dt){
+    double m = this->convertir_a_Abscisse_curviligne(p->getPosition());
+    if(m>=0 && m<l) { Q1->update_force(p,dt);}
+    else if (m>=l && m < l+L) {ED1->update_force(p,dt);}
+    else if (m>= l+L && m<l+L+l) {Q2->update_force(p,dt);}
+    else {ED2->update_force(p,dt);}
+}
+
+double FODO::getLongeur()
+{
+    return (this->get_in()-this->get_out()).norme();
+}
+
+Vecteur3D FODO::convertir_depuis_Abscisse_curviligne(double s){
+    Vecteur3D u = ~(this->get_out()-this->get_in());
+    return in_pos + s *u;
+}
+
+bool FODO::touch_border(const Particle & p){
+    double m = this->convertir_a_Abscisse_curviligne(p.getPosition());
+    if(m>=0 && m<l) { Q1->touch_border(p);}
+    else if (m>=l && m < l+L) {ED1->touch_border(p);}
+    else if (m>= l+L && m<l+L+l) {Q2->touch_border(p);}
+    else {ED2->touch_border(p);}
+}
+
+Vecteur3D FODO::get_vecteur_r(Vecteur3D posotion){
+    return constantes::e3 ^ ~(this->get_out()-this->get_in());
+}

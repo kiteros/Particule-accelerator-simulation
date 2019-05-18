@@ -28,6 +28,7 @@ int main(int argc, char* argv[])
     Particle proton = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(2.8,0,0));
     Particle electron = Particle(0.938272, 1.60217653e-19, Vecteur3D(0,-2.64754e+08,0), Vecteur3D(3.01,0,0));
 
+    FODO F1(Vecteur3D(0,0,0),Vecteur3D(0,4,0),0.5,nullptr,1,1.2);
     Quadrupoles Q1(Vecteur3D(3,2,0),Vecteur3D(3,1,0),rayon,1.2,nullptr);
     Quadrupoles Q2(Vecteur3D(3,0,0),Vecteur3D(3,-1,0),rayon,-1.2,nullptr);
     Quadrupoles Q3(Vecteur3D(2,-3,0),Vecteur3D(1,-3,0),rayon,1.2,nullptr);

@@ -130,6 +130,26 @@ class Quadrupoles: public Element_droit
 
 };
 
+class FODO: public Element{
+private:
+    double L ;//longeur des elements droits
+    double l;//longeur des Quadrupoles
+    double intensite;
+    Element_droit* ED1;
+    Element_droit* ED2;
+
+    Quadrupoles* Q1;
+    Quadrupoles* Q2;
+public:
+    FODO(Vecteur3D, Vecteur3D, double,SupportADessin*,double L , double intensite ,Element* = nullptr );
+    virtual void update_force(Particle* p ,double dt) override;
+    virtual double convertir_a_Abscisse_curviligne(Vecteur3D v) override;
+    double getLongeur() override;
+    virtual Vecteur3D convertir_depuis_Abscisse_curviligne(double s);
+    virtual bool touch_border(Particle const&) override;
+    virtual Vecteur3D get_vecteur_r(Vecteur3D position) override;
+};
+
 ostream& operator<<(ostream&, Element&);
 ostream& operator<<(ostream&, Element_droit&);
 ostream& operator<<(ostream&, Element_courbe&);
