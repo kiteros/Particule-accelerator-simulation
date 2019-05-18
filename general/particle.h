@@ -18,7 +18,6 @@ class Particle
 
         double mass;
         double electric_charge;
-        double momentum;
 
         Element* element_inside;
 
