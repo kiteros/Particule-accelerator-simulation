@@ -34,7 +34,6 @@ class Element : public Dessinable
         Element* get_element_suivant() {return element_suivant;}
         void set_element_suivant(Element* e) {element_suivant = e;}
 
-        int get_index();
         double get_rayon() {return rayon;}
         double get_courbure(){return rayon_courbure;}
         virtual double getLongeur() = 0;
