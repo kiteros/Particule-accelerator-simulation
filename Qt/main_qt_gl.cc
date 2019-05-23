@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
     gl.get_acc()->set_name("LHC");
     //Faisceau()
     Faisceau* f1 = new Faisceau_P13(40, 1, 1.60217653e-19, 0.938272, 2.64745e+8,nullptr,gl.get_acc(),0.5,Vecteur3D(0.0,0.2,1));
-    Faisceau* f2 = new Faisceau_P13(40, 1, -1.60217653e-19, 0.938272, -2.64745e+8,nullptr,gl.get_acc(),0.7);
+    Faisceau* f2 = new Faisceau(40, 1, -1.60217653e-19, 0.938272, -2.64745e+8,nullptr,gl.get_acc(),0.7);
     //Faisceau* f = new Faisceau(1000,50,1.60217653e-19,0.938272,2.64745e+8, nullptr,gl.get_acc());
 
     //type Faisceau est le Faisceau normal qui n'a pas des interactions entre les particules
