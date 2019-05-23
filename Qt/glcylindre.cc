@@ -35,21 +35,20 @@ void Glcylindre::initialize(GLuint slices, GLuint stacks)
 
     GLuint size(slices * stacks +2 );
     positions.reserve(3 * size);
-
     if(element->get_courbure() != 0){
-
+        // dessine Element_courbe
         Vecteur3D Cc = static_cast<Element_courbe*>(element)->get_centre_circle();
 
-        double angle = abs(element->getLongeur()*element->get_courbure());
-        const double alpha(angle / ( double(stacks-1)));
-        const double beta(2.0*M_PI / double(slices));
+        double angle = abs(element->getLongeur()*element->get_courbure());// angle de cette element courbe
+        const double alpha(angle / ( double(stacks-1)));// angle entre deux stacks(un stack est un circle)
+        const double beta(2.0*M_PI / double(slices)); //angle(angle des semi-droits AO et BO où O est centre de circle) entre deux points A,B consecutifs dans un meme stack
         double rayon_ele = element->get_rayon();
 
         Vecteur3D X_in = element->get_in() - Cc;
         Vecteur3D X_out = element->get_out() - Cc;
         Vecteur3D start = Vecteur3D();
 
-        bool start_with_in = false;
+        bool start_with_in = false; //commenrce a dessiner les stacke(circle) par la position entree
 
         if((X_in^X_out).get_z()>0) {
             start = X_in;
@@ -59,20 +58,21 @@ void Glcylindre::initialize(GLuint slices, GLuint stacks)
             start_with_in = false;
         }
 
+        // si on commence par entree, on met les coordonnees de point d'entree dans positions, sinon on met les coordonnee de point de sortie
         if(start_with_in){
             positions << element->get_in().get_x() << element->get_in().get_y() << element->get_in().get_z();
         }else{
             positions << element->get_out().get_x() << element->get_out().get_y() << element->get_out().get_z();
         }
 
-        double angle_start = get_angle_with_y(~start);
+        double angle_start = get_angle_with_y(~start); // retourne l'angle de vectuer ~start et e2
         double x_s = start.get_x();
         double y_s = start.get_y();
         double z_s = 0.0;
 
         for(GLuint i(0); i <stacks; ++i) {
+            // le boucle for ci-dessous est pour dessine un stack et l'appliquer une rotation et translation propre et puis enregistrer les informations des points dans positions
             for(GLuint j(0); j < slices; ++j) {
-
                 double theta = angle_start + i*alpha;
 
                 float x_0 = x_s*cos(i*alpha) - y_s*sin(i*alpha);
@@ -106,7 +106,7 @@ void Glcylindre::initialize(GLuint slices, GLuint stacks)
             positions << element->get_out().get_x() << element->get_out().get_y() << element->get_out().get_z();
         }
     }else{
-
+        // dessine element droite
         positions << element->get_in().get_x() << element->get_in().get_y() << element->get_in().get_z();
 
         const double beta(2.0*M_PI / double(slices));
@@ -120,7 +120,6 @@ void Glcylindre::initialize(GLuint slices, GLuint stacks)
 
         for(GLuint i(0); i <stacks; ++i){
             for(GLuint j(0); j < slices; ++j){
-
                 Vecteur3D p = element->get_in() + i*direction*d_s;
                 float z = rayon_ele*sin(j*beta) ;
                 float y = rayon_ele*cos(j*beta) ;

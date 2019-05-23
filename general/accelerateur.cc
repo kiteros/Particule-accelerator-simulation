@@ -81,6 +81,7 @@ void Accelerateur::evolue(double dt){
 }
 
 void Accelerateur::evolue_sans_faisceaux(std::ostream& f, double dt){
+    // dans cette fonction on fait que bouger les particules
     for(auto p:particules){
         Element* current_element = p->get_element_inside();
         current_element->update_force(p,dt);
@@ -189,4 +190,15 @@ double Accelerateur::getLongeur(){
 //Faisceau
 void Accelerateur::add_faisceau(Faisceau * f){
     faisceaux.push_back(f);
+}
+
+double Accelerateur::convertir_a_abscisse_curviligne_d_entre_dun_element(Element *e)
+{
+    Element* p = elements.front();
+    double d = 0;
+    while(e != p){
+        d = d + p->getLongeur();
+        p = p->get_element_suivant();
+    }
+    return d;
 }
