@@ -15,11 +15,11 @@ class Accelerateur: public Dessinable
     private:
 
         //Dynamic arrays for all the objects inside
-        vector<Element*> elements;
-        vector<Particle*> particules;
-        vector<Faisceau*> faisceaux;
+        vector<Element*> elements; //les elements que contient l'accelerateur
+        vector<Particle*> particules; //les particules que contient l'accelerateur
+        vector<Faisceau*> faisceaux; //les faisceaux que contient l'accelerateur
 
-        string name;
+        string name; //le nom de l'accelerateur
 
     public:
 
@@ -43,11 +43,18 @@ class Accelerateur: public Dessinable
         void remove_all_element();
         void add_particles(Particle*);
         void remove_all_particle();
-        void evolue(double);
+        void evolue(double); // evolue avec les faisceaux, faire bouger les faisceaux
+
+        //evolue sans faisceaux càd faire bouger les particules dans element.
         void evolue_sans_faisceaux(std::ostream&, double dt = constantes::time_step);
+
+        //determiner chaque particule est dans quel element avant evolue_sans_faisceaux()
         void start(ostream&);
         void start();
+
+        //retourner la longeur de l'accelerateur
         double getLongeur();
+        double convertir_a_abscisse_curviligne_d_entre_dun_element(Element* e);
 
         virtual void affiche(ostream&) const;
         virtual void dessine() override

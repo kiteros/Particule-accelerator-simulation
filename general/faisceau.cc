@@ -15,6 +15,8 @@ Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda
     double rest = offset;
     int i = 0;
     Element* ele = acc->getElements().front();
+
+    //creer des particules le longe l'accelerateur equitablement
     while(i < N){
         double longeur = ele->getLongeur();
             double longeur_accu = rest;
@@ -23,7 +25,7 @@ Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda
                 Vecteur3D V_1 = ele->get_vecteur_r(position)* vitesse;
                 Vecteur3D V_2(V_1.get_y(),-V_1.get_x(),V_1.get_z());
                 Particle* p = new Particle(lambda*mass,lambda*charge,V_1.rotation(constantes::e3, -M_PI/2),position);
-                p->set_element_inside(ele);
+                p->set_element_inside(ele); //set les element_inside donc pas besion de Accelerateur::start pour initialiser
                 particules.push_back(p);
                 longeur_accu = longeur_accu + pas;
                 i = i + 1;
@@ -32,6 +34,7 @@ Dessinable (support),acc(acc),nombre_particules(nombre_particules),lambda(lambda
         ele = ele->get_element_suivant();
     }
 
+    //MàJ les attributs comme emittance A11 A12 A22
     Update_somme_attributs();
 }
 
@@ -126,22 +129,30 @@ void Faisceau::Update_somme_attributs(){
 void Faisceau_P14::calcul_force_neighbour_p14(Particle* p){
     vector<Particle*> particules_influantes = vector<Particle*>();
     double longeur = acc->getLongeur();
-    int N = ceil(longeur/1e-7) ;
-    double epsilon = longeur/N;
-    double abscisse = p->get_element_inside()->convertir_a_Abscisse_curviligne(p->getPosition());
+    int N = ceil(longeur/1e-7); // N est le nombre de case pour que la longeur de cellule < 1e-7
+    double epsilon = longeur/N; // epsilon est le longeur d'un case
+    //obtient l'abcisse de particule p
+    double abscisse = acc->convertir_a_abscisse_curviligne_d_entre_dun_element(p->get_element_inside())+ p->get_element_inside()->convertir_a_Abscisse_curviligne(p->getPosition());
+
+    //obtient le numero de case de particule p
     int nb_case = ceil(abscisse/epsilon);
+
+    //obtient les numeros des deux cases a cote du case de p
     int nb_case_next = (nb_case + 1) > N ? 1:nb_case + 1;
     int nb_case_pre = (nb_case - 1) < 1 ? N:nb_case - 1;
+
     vector<Particle*> next_particles = remove_particle_from_vector(this->getParticules(), p);
 
+    // trouver les particules se situent dans les trois cases et les met dans particules_influantes
     for(auto pp :next_particles){
-       double abscisse = pp->get_element_inside()->convertir_a_Abscisse_curviligne(pp->getPosition());
+       double abscisse = acc->convertir_a_abscisse_curviligne_d_entre_dun_element(pp->get_element_inside()) +  pp->get_element_inside()->convertir_a_Abscisse_curviligne(pp->getPosition());
        int nb_case_pp = ceil(abscisse/epsilon);
        if(nb_case_pp == nb_case || nb_case_pp == nb_case_pre || nb_case_pp == nb_case_next){
             particules_influantes.push_back(pp);
        }
     }
 
+    //calculer les interaction
     for(auto q:particules_influantes){
         //Calcul force between p and q
         Vecteur3D distance = p->getPosition() - q->getPosition();
@@ -152,7 +163,6 @@ void Faisceau_P14::calcul_force_neighbour_p14(Particle* p){
                  pow(distance.norme(),3) * pow(p->gamma_factor(), 2)) * distance;
         std::cout<<"ForceMagnetique: "<<force_inter_particle << *q <<endl;
         p->ajouteForceMagnetique(force_inter_particle);
-        //q->ajouteForceMagnetique(-force_inter_particle);
     }
 }
 

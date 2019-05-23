@@ -12,14 +12,14 @@ class Particle
 {
     private:
 
-        Vecteur3D pos = Vecteur3D();
-        Vecteur3D force = Vecteur3D();
-        Vecteur3D speed = Vecteur3D();
+        Vecteur3D pos = Vecteur3D(); //positoin de particule
+        Vecteur3D force = Vecteur3D(); //force subie par la particule
+        Vecteur3D speed = Vecteur3D(); // la vitesse de la particule
 
         double mass;
         double electric_charge;
 
-        Element* element_inside;
+        Element* element_inside; // pour sauvegarder l'information dans quel element se trouve cette particule
 
     public:
 
@@ -32,7 +32,7 @@ class Particle
         double getElectricCharge();
         double energy();
         double gamma_factor();
-        double get_abscisse_curviligne(Accelerateur *);
+        double get_abscisse_curviligne(Accelerateur *); //obtenir l'abscisse_curviligne de cette particule. le point d'abscisse_curviligne 0 est le point entree de premier element(premier element dans l'attribut vector<Element*> elements) de l'accelerateur
 
         Vecteur3D getPosition() const;
         Vecteur3D getSpeed();
