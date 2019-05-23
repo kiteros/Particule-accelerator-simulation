@@ -14,7 +14,7 @@ Vecteur3D constantes::e3 = Vecteur3D(0.0,0.0,1.0);
 double constantes::time_step = 1e-11;
 double constantes::void_permitivity = 8.85e-12;
 int constantes::turn_before_update = 1;
-double constantes::time_division = 5e12;
+double constantes::time_division = 1e12;
 double constantes::rayon = 0.1;
 
 void constantes::load(){
