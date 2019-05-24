@@ -67,8 +67,8 @@ void Faisceau::bouger(double dt){
         }
     }
 
-    std::cout << particules.size() << endl;
-    std::cout << *particules[0] << endl;
+    //std::cout << particules.size() << endl;
+    //std::cout << *particules[0] << endl;
 
     Update_somme_attributs();
 
@@ -129,7 +129,8 @@ void Faisceau::Update_somme_attributs(){
 void Faisceau_P14::calcul_force_neighbour_p14(Particle* p){
     vector<Particle*> particules_influantes = vector<Particle*>();
     double longeur = acc->getLongeur();
-    int N = ceil(longeur/1e-7); // N est le nombre de case pour que la longeur de cellule < 1e-7
+    int N = ceil(longeur/1e-7);
+    // N est le nombre de case pour que la longeur de cellule < 1e-7
     double epsilon = longeur/N; // epsilon est le longeur d'un case
     //obtient l'abcisse de particule p
     double abscisse = acc->convertir_a_abscisse_curviligne_d_entre_dun_element(p->get_element_inside())+ p->get_element_inside()->convertir_a_Abscisse_curviligne(p->getPosition());
@@ -141,7 +142,14 @@ void Faisceau_P14::calcul_force_neighbour_p14(Particle* p){
     int nb_case_next = (nb_case + 1) > N ? 1:nb_case + 1;
     int nb_case_pre = (nb_case - 1) < 1 ? N:nb_case - 1;
 
-    vector<Particle*> next_particles = remove_particle_from_vector(this->getParticules(), p);
+    //tout_particules contient toutes le particules dans tous les faisceaux
+    vector<Particle*> tout_particules = vector<Particle*> ();
+    for(auto f:acc->getFaisceaux()){
+        for(auto p:f->getParticules()){
+            tout_particules.push_back(p);
+        }
+    }
+    vector<Particle*> next_particles = remove_particle_from_vector(tout_particules, p);
 
     // trouver les particules se situent dans les trois cases et les met dans particules_influantes
     for(auto pp :next_particles){
@@ -193,9 +201,6 @@ void Faisceau_P13::bouger(double dt){
         }
     }
 
-    std::cout << particules.size() << endl;
-    std::cout << *particules[0] << endl;
-
     Update_somme_attributs();
 }
 
@@ -222,8 +227,6 @@ void Faisceau_P14::bouger(double dt){
         }
     }
 
-    std::cout << particules.size() << endl;
-    std::cout << *particules[0] << endl;
 
     Update_somme_attributs();
 }

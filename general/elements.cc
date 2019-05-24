@@ -218,7 +218,7 @@ void Quadrupoles::update_force(Particle *p, double dt) {
     Vecteur3D y = X - (X*d)*d;
     Vecteur3D u = constantes::e3^d;
     Vecteur3D champ_magnetique = this->get_intensite()*((y*u)*constantes::e3+X.get_z()*u);
-    std::cout<<"champ_magnetique Quadrupoles: "<<champ_magnetique<<endl;
+    //std::cout<<"champ_magnetique Quadrupoles: "<<champ_magnetique<<endl;
     p->ajouteForceMagnetique(champ_magnetique, dt);
     return;
 
