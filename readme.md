@@ -1,4 +1,4 @@
-###Particule accelerator###
+###Particule accelerator
 
 ##English description##
 This is a simulation of a particule accelerator in C++, using straight and curved magnets, and charged particules. Everything was programmed using the library Qt
